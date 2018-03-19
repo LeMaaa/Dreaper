@@ -9,7 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "collections": "^5.1.2",
     "express": "^4.16.2",
+    "immutable": "^3.8.2",
+    "moment": "^2.20.1",
     "mongodb": "^3.0.2",
     "mongoose": "^5.0.5"
   }
