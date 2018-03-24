@@ -3,16 +3,28 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import App from './App';
-// import ModWrapper from './components/ModWrapper'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import createMuiTheme from 'material-ui/styles/createMuiTheme'
 
+import {white, red, grey, amber} from 'material-ui/colors'
+
+import createPalette from 'material-ui/styles/createPalette'
+
+const muiTheme = createMuiTheme({
+  palette: createPalette({
+    primary: white,
+    accent: amber,
+    error: red
+  })
+})
 
 
 class Main extends React.Component {
     render() {
         return (
-            <div>
+            <MuiThemeProvider theme={muiTheme}>
               <App />
-            </div>
+            </MuiThemeProvider>
         );
     }
 }
