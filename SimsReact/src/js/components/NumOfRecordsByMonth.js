@@ -23,6 +23,7 @@ class NumOfRecordsByMonth extends React.Component{
             .then(res => {
                 console.log("call to get per month data");
                 // this.setState({items:[...this.state.items, res.data]});
+                console.log(res.data);
                 this.setState({ 'itemsPerMonth' : this.state.itemsPerMonth.concat(res.data.reverse())})
             });
     }

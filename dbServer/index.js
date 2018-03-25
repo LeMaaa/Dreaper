@@ -2,33 +2,25 @@
  * Created by lema on 2018/2/13.
  */
 require("./mongoose_db.js");
-
-var Map = require("collections/map");
-var sortedMap = require("collections/sorted-map")
-var moment = require('moment');
+const moment = require('moment');
 
 
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+const mongoose = require("mongoose");
+const Item = require('./mongoose_db').Item;
 
 
-var mongoose = require("mongoose");
-
-var Item = require('./mongoose_db').Item;
-
-var time_map = new sortedMap({"Jan": 1, "Feb": 2, "Mar":3, "Apr": 4, "May":5, "Jun" : 6,
-    "July":7, "Aug" : 8, "Sep" : 9, "Oct":10, "Nov":11, "Dec":12});
-
-
-
-
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
 
-app.get('/all', function (req, res, next) {
-    Item.find({}, function (err, docs) {
+// TEST API, return all of the records
+app.get('/all', (req, res, next) => {
+    // get all records
+
+    Item.find({}, (err, docs) => {
         if (err) {
             res.status(504);
             res.end(err);
@@ -36,7 +28,7 @@ app.get('/all', function (req, res, next) {
             console.log(docs.length);
             var resArr = [];
             for (var i = 0; i < docs.length; i++) {
-                console.log('user:', docs[i].title);
+                console.log('title:', docs[i].title);
 
                 var item_res = {
                     title: docs[i].title,
@@ -63,20 +55,22 @@ app.get('/all', function (req, res, next) {
 
                 resArr.push(item_res);
             }
-            res.end(JSON.stringify(resArr));
+            res.json(resArr);
         }
     });
 });
 
 
-app.get('/traits', function (req, res, next) {
+app.get('/traits', (req, res, next) => {
     console.log("called");
-    Item.find({category : 'Overrides - Tuning Mods'}).limit(30).exec(function (err, docs) {
+
+    // filter for tags that appear more than 30 times
+    Item.find({category : 'Overrides - Tuning Mods'}).limit(30).exec((err, docs) => {
         if(err) {
             console.log("called2");
             res.status(504);
             res.end(err);
-        }else {
+        } else {
             console.log("called3");
             console.log(docs);
             var resArr = [];
@@ -111,69 +105,77 @@ app.get('/traits', function (req, res, next) {
     });
 });
 
+// return number of created records per month
 
-app.get('/numberOfRecordsByMonth', function (req, res, next) {
+app.get('/numberOfRecordsByMonth', (req, res, next) => {
     console.log("numberOfRecordsByMonth _ called");
-    var map = new Map();
-    Item.find({}).sort({'publish_date' : -1}).exec(function (err, docs) {
+    const data = {};
+
+    Item.find({}).sort({'publish_date' : -1}).exec((err, docs) => {
         if(err) {
             res.status(504);
             res.end(err);
-        }else {
-            for(var i = 0; i < docs.length; i++) {
-                var key = moment(docs[i].publish_date).format("MMM YY");
-                if(map.has(key)) {
-                    map.add(map.get(key) + 1, key);
-                }else {
-                    map.set(key, 1);
-                }
-            }
-            var r = [];
-            map.forEach(function (value, key2, iter) {
-                var item = {
-                    "time" : key2,
-                    "num" : value
-                }
-                r.push(item);
+        } else {
 
+            docs.forEach((doc) => {
+                const key = moment(doc.publish_date).format("MMM YY");
+                data[key] = data[key] === undefined ? 1 : data[key]+1;
+            })
+
+            const r = [];
+
+            Object.keys(data).forEach(key => {
+                // console.log(key);          // the name of the current key.
+                // console.log(myObj[key]);   // the value of the current key.
+                const item = {
+                    "time": key,
+                    "num": data[key]
+                };
+
+                r.push(item);
             });
-            console.log(r);
-            res.end(JSON.stringify(r));
+
+            res.json(r);
         }
     });
 });
 
 
-app.get('/downloadsOfKey', function (req, res, next) {
-    console.log("numberOfRecordsByMonth _ called");
-    var map = new Map();
-    Item.find({}).exec(function (err, docs) {
+// return downloads per tag
+// in certain time (TODO)
+app.get('/downloadsOfKey', (req, res, next) => {
+
+    const data = {};
+
+    // probably can just query for tags
+    Item.find({}).exec((err, docs) => {
         if(err) {
             res.status(504);
             res.end(err);
-        }else {
-            for(var i = 0; i < docs.length; i++) {
-                if(docs[i].tags === null || docs[i].tags.length === 0) continue;
-                for(var j = 0; j < docs[i].tags.length; j++) {
-                    var key = docs[i].tags[j].toLowerCase();
-                    if(map.has(key)) {
-                        map.add(map.get(key) + 1, key);
-                    }else {
-                        map.set(key, 1);
-                    }
+        } else {
+            docs.forEach(doc => {
+                if (doc.tags !== null && doc.tags.length !== 0) {
+                    doc.tags.forEach(tag => {
+                        const key = tag.toLowerCase();
+                        data[key] = data[key] === undefined ? 1 : data[key]+1;
+                    })
                 }
-            }
-            var r = [];
-            map.forEach(function (value, key2, iter) {
-                if(value > 10) {
-                    var item = {
-                        "x" : key2,
-                        "y" : value
-                    }
-                    r.push(item);
-                }
+            })
+
+            const r = [];
+            Object.keys(data).forEach(key => {
+                if (data[key] < 10)
+                    return;
+
+                const item = {
+                    "x": key,
+                    "y": data[key]
+                };
+
+                r.push(item);
             });
-            res.end(JSON.stringify(r));
+
+            res.json(r);
         }
     });
 });
