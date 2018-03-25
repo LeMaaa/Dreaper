@@ -28,7 +28,7 @@ export default class HomePage extends React.Component {
 
         return (
             <div className='root'>
-                <AppBar position="absolute" className='appBar'>
+                <AppBar position="fixed" className='appBar'>
                     <Toolbar>
                         <Typography variant="title" color="inherit" noWrap>
                             DREAPER Mods Site Visualization Tool
