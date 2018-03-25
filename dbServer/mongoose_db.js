@@ -1,22 +1,18 @@
 /**
  * Created by lema on 2018/2/13.
  */
-var mongoose = require('mongoose');
-
-
+const mongoose = require('mongoose');
+const user_info = require('user_credential');
 
 const local_rul = 'mongodb://localhost:27017/sims_test_db';
-const local_collection = 'sims_item_col';
+const local_collection = 'sims_new';
 
 const uri = 'mongodb://35.230.97.158:27017/sims_test_db';
-const options = {
-    user: 'sims_dev',
-    pass: 'dreaperdatavisualization'
-}
+const options = user_info.options;
 
 // mongoose.connect(uri, options);
 
-mongoose.connect(local_rul);
+mongoose.connect(uri);
 
 var db = mongoose.connection;
 var Schema = mongoose.Schema;
