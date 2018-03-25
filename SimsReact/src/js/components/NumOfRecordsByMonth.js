@@ -19,9 +19,11 @@ class NumOfRecordsByMonth extends React.Component{
     }
 
     componentDidMount() {
+        console.log("calling to get per month data");
+
         axios.get('http://localhost:3000/numberOfRecordsByMonth')
             .then(res => {
-                console.log("call to get per month data");
+                console.log("received data");
                 // this.setState({items:[...this.state.items, res.data]});
                 console.log(res.data);
                 this.setState({ 'itemsPerMonth' : this.state.itemsPerMonth.concat(res.data.reverse())})

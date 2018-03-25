@@ -14,11 +14,11 @@ export default class LineChartWithTimeRange extends React.Component {
             itemsWithRange:[]
         }
     }
-    
+
     componentDidMount() {
         axios.get('http://localhost:3000/numberOfRecordsByMonth')
             .then(res => {
-                console.log("call to get per month data");
+                console.log("received data");
                 // this.setState({items:[...this.state.items, res.data]});
                 this.setState({ 'itemWithRange' : this.state.itemsWithRange.concat(res.data.reverse())});
             });

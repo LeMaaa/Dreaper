@@ -19,7 +19,7 @@ export default class PieChart extends React.Component {
     componentDidMount() {
         axios.get('http://localhost:3000/downloadsOfKey')
             .then(res => {
-                console.log("call to get downloads of per key ");
+                console.log("received data");
                 // console.log(res.data);
                 this.setState({ 'itemsByKey' : this.state.itemsByKey.concat(res.data)})
             });

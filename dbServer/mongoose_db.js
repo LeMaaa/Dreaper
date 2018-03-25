@@ -10,7 +10,6 @@ const local_collection = 'sims_records_test';
 const uri = 'mongodb://35.230.97.158:27017/sims_test_db';
 const options = user_info.options;
 
-console.log(options);
 // mongoose.connect(uri, options);
 
 mongoose.connect(uri, options);

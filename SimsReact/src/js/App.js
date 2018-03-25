@@ -5,20 +5,23 @@ import CssBaseline from 'material-ui/CssBaseline';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Switch,
+  Redirect
 } from 'react-router-dom'
 
 class App extends Component {
   render() {
     return (
-        <div>
-          <CssBaseline />
-          <HomePage />
-{/*          <Router>
-
-            <Route path="/" component={ModWrapper}/>
-          </Router>*/}
-        </div>
+        <Router>
+          <div>
+            <CssBaseline />
+            <Switch>
+              <Route path="/" exact component={HomePage} />
+              <Redirect from="*" to="/" />
+              <Route component={HomePage} />
+            </Switch>
+          </div>
+        </Router>
         );
   }
 }
