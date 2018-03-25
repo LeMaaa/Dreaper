@@ -2,7 +2,7 @@
  * Created by lema on 2018/2/13.
  */
 const mongoose = require('mongoose');
-const user_info = require('user_credential');
+const user_info = require('./user_credential.js');
 
 const local_rul = 'mongodb://localhost:27017/sims_test_db';
 const local_collection = 'sims_new';
