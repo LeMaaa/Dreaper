@@ -5,14 +5,15 @@ const mongoose = require('mongoose');
 const user_info = require('./user_credential.js');
 
 const local_rul = 'mongodb://localhost:27017/sims_test_db';
-const local_collection = 'sims_new';
+const local_collection = 'sims_records_test';
 
 const uri = 'mongodb://35.230.97.158:27017/sims_test_db';
 const options = user_info.options;
 
+console.log(options);
 // mongoose.connect(uri, options);
 
-mongoose.connect(uri);
+mongoose.connect(uri, options);
 
 var db = mongoose.connection;
 var Schema = mongoose.Schema;

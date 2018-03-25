@@ -22,8 +22,8 @@ app.get('/all', (req, res, next) => {
 
     Item.find({}, (err, docs) => {
         if (err) {
-            res.status(504);
-            res.end(err);
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong");
         } else {
             console.log(docs.length);
             var resArr = [];
@@ -67,9 +67,8 @@ app.get('/traits', (req, res, next) => {
     // filter for tags that appear more than 30 times
     Item.find({category : 'Overrides - Tuning Mods'}).limit(30).exec((err, docs) => {
         if(err) {
-            console.log("called2");
-            res.status(504);
-            res.end(err);
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong");
         } else {
             console.log("called3");
             console.log(docs);
@@ -113,8 +112,9 @@ app.get('/numberOfRecordsByMonth', (req, res, next) => {
 
     Item.find({}).sort({'publish_date' : -1}).exec((err, docs) => {
         if(err) {
-            res.status(504);
-            res.end(err);
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong");
+            // res.end(err);
         } else {
 
             docs.forEach((doc) => {
@@ -150,8 +150,8 @@ app.get('/downloadsOfKey', (req, res, next) => {
     // probably can just query for tags
     Item.find({}).exec((err, docs) => {
         if(err) {
-            res.status(504);
-            res.end(err);
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong");
         } else {
             docs.forEach(doc => {
                 if (doc.tags !== null && doc.tags.length !== 0) {
