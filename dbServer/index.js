@@ -202,7 +202,7 @@ app.get('/topmodswithtag', (req, res, next) => {
                 $gte: startDate,
                 $lte: endDate
             } 
-        }).sort({'downloads': 1}).exec((err, docs) => {
+        }).sort({'downloads': -1}).exec((err, docs) => {
         if(err) {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");
