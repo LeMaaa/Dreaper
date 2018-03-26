@@ -141,7 +141,7 @@ app.get('/numberOfRecordsByMonth', (req, res, next) => {
 });
 
 
-// return downloads per tag
+// return apperance time per tag
 // in certain time (TODO)
 app.get('/downloadsOfKey', (req, res, next) => {
 
@@ -180,6 +180,37 @@ app.get('/downloadsOfKey', (req, res, next) => {
     });
 });
 
+// returns top mods with certain tag between certain time
+app.get('/topmodswithtag', (req, res, next) => {
+
+    const startTime = req.query.startTime;
+    const endTime = req.query.endTime;
+    const keywords = req.query.keywords
+
+    const startDate = new Date(startTime*1000);
+    const endDate = new Date(endTime*1000);
+    // console.log(startTime);
+    // console.log(endTime);
+    // console.log(keywords);
+
+    const data = {};
+
+    // probably can just query for tags
+    Item.find({ 
+            tags: keywords,
+            publish_date: {
+                $gte: startDate,
+                $lte: endDate
+            } 
+        }).sort({'downloads': 1}).exec((err, docs) => {
+        if(err) {
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong");
+        } else {
+            res.json(docs);
+        }
+    });
+});
 
 
 
