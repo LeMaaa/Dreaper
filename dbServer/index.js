@@ -3,12 +3,17 @@
  */
 require("./mongoose_db.js");
 const moment = require('moment');
+const bodyParser = require('body-parser');
 
 
 const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
 const Item = require('./mongoose_db').Item;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 
 app.get('/', (req, res) => {
@@ -118,7 +123,7 @@ app.get('/numberOfRecordsByMonth', (req, res, next) => {
         } else {
 
             docs.forEach((doc) => {
-                const key = moment(doc.publish_date).format("MMM YY");
+                const key = moment(doc.publish_date).format("MMM YYYY");
                 data[key] = data[key] === undefined ? 1 : data[key]+1;
             })
 
@@ -164,7 +169,7 @@ app.get('/downloadsOfKey', (req, res, next) => {
 
             const r = [];
             Object.keys(data).forEach(key => {
-                if (data[key] < 10)
+                if (data[key] < 15)
                     return;
 
                 const item = {
@@ -211,6 +216,82 @@ app.get('/topmodswithtag', (req, res, next) => {
         }
     });
 });
+
+app.get('/getTimeRangeThreshold', (req, res,next) => {
+    console.log("getTimeRangeThreshold _ called");
+    var data = [];
+
+    Item.find({}).sort({'publish_date' : -1}).exec((err, docs) => {
+        if(err) {
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong -- geTimeRangeThreshold");
+        }else {
+            docs.forEach((doc) => {
+                const key = moment(doc.publish_date).format("MMM YYYY");
+                if(!data.includes(key)) {
+                    data.push(key);
+                    console.log(key);
+                }
+            });
+        }
+        res.json(data);
+    });
+    console.log(" data for time range!");
+    console.log(JSON.stringify(data));
+});
+
+
+app.post('/getKeyWordWithThreshold', (req, res,next) => {
+    console.log("getKeyWordWithThreshold _ called");
+
+    console.log( req);
+
+    var startTime = new Date(req.body.startTime);
+    var endTime = new Date(req.body.endTime);
+
+    console.log("startTime :" + startTime);
+    console.log("endTime : " + endTime);
+
+    var data = {};
+
+    Item.find({'publish_date': {
+        "$gte": startTime,
+        "$lt": endTime,
+    }}).exec((err, docs) => {
+        if(err) {
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong -- geTimeRangeThreshold");
+        }else {
+            docs.forEach(doc => {
+                if (doc.tags !== null && doc.tags.length !== 0) {
+                    doc.tags.forEach(tag => {
+                        const key = tag.toLowerCase();
+                        data[key] = data[key] === undefined ? 1 : data[key]+1;
+                    })
+                }
+            })
+            var r = Object.entries(data).sort((a,b) => b[1]- a[1]).slice(0, 10);
+            var ret = [];
+            for(i in r) {
+                var cur = {
+                    'x' : r[i][0],
+                    'y' : r[i][1]
+                }
+                console.log(cur);
+                ret.push(cur);
+            }
+
+            console.log(" data for time range!");
+            console.log(r);
+            res.end(JSON.stringify(ret));
+        }
+
+    })
+});
+
+
+
+
 
 
 
