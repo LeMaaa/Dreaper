@@ -8,7 +8,7 @@ import eventProxy from 'eventproxy'
 import StatsInfo from './StatsInfo'
 import ModChart from './ModChart'
 import NumOfRecordsByMonth from "./NumOfRecordsByMonth"
-import PieChart from "./PieChart"
+import PieChart from "./KeywordPieChart"
 import LineChartWithTimeRange from "./LineChartWithTimeRange";
 
 

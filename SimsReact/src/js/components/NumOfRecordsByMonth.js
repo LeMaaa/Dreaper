@@ -18,6 +18,11 @@ class NumOfRecordsByMonth extends React.Component{
         }
     }
 
+    changeModDetail(entry){
+        console.log(entry);
+        eventProxy.trigger('displayModInfo', entry);
+    }
+
     componentDidMount() {
         console.log("calling to get per month data");
 
@@ -39,7 +44,7 @@ class NumOfRecordsByMonth extends React.Component{
                 <CartesianGrid strokeDasharray="3 3"/>
                 <Tooltip/>
                 <Legend />
-                <Line type="monotone" dataKey="num" stroke="#8884d8" activeDot={{r: 8}}/>
+                <Line type="monotone" dataKey="num" stroke="#8884d8" activeDot={{r: 8}} />
             </LineChart>
         );
     }

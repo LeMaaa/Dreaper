@@ -2,16 +2,18 @@ import React from 'react';
 
 import ModWrapper from '../components/ModWrapper';
 import LineChartWithTimeRange from '../components/LineChartWithTimeRange';
-import PieChart from '../components/PieChart';
+import PieChart from '../components/KeywordPieChart';
 import NumOfRecordsByMonth from '../components/NumOfRecordsByMonth';
 import BarChartPopularMods from '../components/BarChartPopularMods';
+import ModDetailsCard from '../components/ModDetailsCard'
+import StatsInfo from '../components/StatsInfo'
 
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 import Button from 'material-ui/Button';
 
 
-class TopModsPage extends React.Component{
+export default class TopModsPage extends React.Component{
 
     constructor(props) {
         super(props);
@@ -98,10 +100,13 @@ class TopModsPage extends React.Component{
                     endTimestamp={this.state.searchEndTime} 
                     keywords={this.state.searchKeyword}
                 />
+                <StatsInfo/>
             </div>
+
+
         );
     }
 };
 
-export default TopModsPage;
+
 

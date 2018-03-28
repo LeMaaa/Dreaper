@@ -169,17 +169,16 @@ app.get('/downloadsOfKey', (req, res, next) => {
 
             const r = [];
             Object.keys(data).forEach(key => {
-                if (data[key] < 15)
+                if (data[key] < 20)
                     return;
 
                 const item = {
-                    "x": key,
-                    "y": data[key]
+                    "name": key,
+                    "value": data[key]
                 };
 
                 r.push(item);
             });
-
             res.json(r);
         }
     });
@@ -274,8 +273,8 @@ app.post('/getKeyWordWithThreshold', (req, res,next) => {
             var ret = [];
             for(i in r) {
                 var cur = {
-                    'x' : r[i][0],
-                    'y' : r[i][1]
+                    'name' : r[i][0],
+                    'value' : r[i][1]
                 }
                 console.log(cur);
                 ret.push(cur);

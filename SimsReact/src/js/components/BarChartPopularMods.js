@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import eventProxy from 'react-eventproxy'
 
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
@@ -49,18 +50,23 @@ export default class BarChartPopularMods extends React.Component {
         startTimestamp + "&endTime=" + endTimestamp + "&keywords=" + keywords;
         this.fetchData(url);
 
-    } 
+    }
+
+    changeModDetail(entry){
+        console.log(entry);
+        eventProxy.trigger('displayModInfo', entry);
+    }
 
     render () {
         return (
-            <BarChart width={900} height={500} data={this.state.topMods}
+            <BarChart width={600} height={500} data={this.state.topMods}
                   margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                <XAxis dataKey="title"/>
                <YAxis/>
                <CartesianGrid strokeDasharray="3 3"/>
                <Tooltip/>
                <Legend />
-               <Bar dataKey="downloads" fill="#8884d8" />
+               <Bar dataKey="downloads" fill="#8884d8"  />
                <Bar dataKey="views" fill="#82ca9d" />
             </BarChart>
         );

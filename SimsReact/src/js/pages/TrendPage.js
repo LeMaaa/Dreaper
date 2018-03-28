@@ -1,8 +1,9 @@
 import React from 'react';
 
 import LineChartWithTimeRange from '../components/LineChartWithTimeRange';
-import PieChart from '../components/PieChart';
+import PieChart from '../components/KeywordPieChart';
 import NumOfRecordsByMonth from '../components/NumOfRecordsByMonth';
+import StatsInfo from '../components/StatsInfo'
 
 class TrendPage extends React.Component{
 
@@ -10,6 +11,8 @@ class TrendPage extends React.Component{
         return (
             <div>
                 <NumOfRecordsByMonth />
+                <StatsInfo/>
+
             </div>
         );
     }

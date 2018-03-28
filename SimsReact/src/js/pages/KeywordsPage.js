@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 
-import PieChart from '../components/PieChart';
+import KeywordPieChart from '../components/KeywordPieChart';
 import KeywordTimeRange from '../components/KeywordTimeRange';
 import eventProxy from 'react-eventproxy'
 
 
 class KeywordsPage extends React.Component{
+
+
     constructor(props) {
         super(props)
         this.state = {
@@ -42,7 +44,7 @@ class KeywordsPage extends React.Component{
         return (
             <div>
                     <KeywordTimeRange />
-                    <PieChart itemsByKey = {this.state.itemsByKey} />
+                    <KeywordPieChart itemsByKey = {this.state.itemsByKey} />
             </div>
         );
     }

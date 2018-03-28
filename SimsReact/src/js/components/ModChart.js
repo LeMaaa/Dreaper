@@ -6,7 +6,7 @@ import eventProxy from 'react-eventproxy'
 import {ScatterChart, Scatter, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'Recharts';
 
 import TwoLevelPieChart from './TwoLevelPieChart'
-import PieChart from './PieChart'
+import PieChart from './KeywordPieChart'
 
 class ModChart extends React.Component{
 
