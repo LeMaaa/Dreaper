@@ -10,7 +10,7 @@ class TrendPage extends React.Component{
     render () {
         return (
             <div>
-                <NumOfRecordsByMonth />
+                <LineChartWithTimeRange />
                 <StatsInfo/>
 
             </div>
