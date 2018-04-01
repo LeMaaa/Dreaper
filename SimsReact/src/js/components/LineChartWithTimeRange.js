@@ -5,13 +5,16 @@
 
 import React from 'react';
 import axios from 'axios';
-import { BarChart, Bar, Brush, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
+import eventProxy from 'react-eventproxy'
+import { BarChart, Bar, Brush, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+
+import TimeSeriesData from '../components/TimeSeriesData'
 
 export default class LineChartWithTimeRange extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            itemsWithRange:[]
+            itemsWithRange:[],
         }
     }
 
@@ -20,13 +23,17 @@ export default class LineChartWithTimeRange extends React.Component {
             .then(res => {
                 console.log("received data");
                 // this.setState({items:[...this.state.items, res.data]});
-                this.setState({ 'itemWithRange' : this.state.itemsWithRange.concat(res.data.reverse())});
+                this.setState({ 'itemsWithRange' : res.data.reverse()});
             });
+
+        // -- used for testing the functionality of TimeSeriesData Component --
+
     }
 
     render () {
         return (
-            <BarChart width={600} height={300} data={this.state.itemWithRange}
+            <div>
+            <BarChart width={600} height={300} data={this.state.itemsWithRange}
                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <XAxis dataKey="time"/>
                 <YAxis/>
@@ -37,6 +44,9 @@ export default class LineChartWithTimeRange extends React.Component {
                 <Brush dataKey='key' height={30} stroke="#8884d8"/>
                 <Bar dataKey= "num" fill="#8884d8" />
             </BarChart>
+            </div>
+
+
         );
     }
 }

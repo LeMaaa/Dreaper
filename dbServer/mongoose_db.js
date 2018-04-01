@@ -42,8 +42,8 @@ var Item_Schema = new Schema({
     url: String,
     tags: [String],
     types: [String],
-    files: [Object],
-    time_series_data: [Object]
+    files: [{}],
+    time_series_data: [{}]
 
 }, { collection : local_collection});
 

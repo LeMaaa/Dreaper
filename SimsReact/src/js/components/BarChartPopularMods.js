@@ -3,12 +3,14 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy'
 
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import TimeSeriesData from "../components/TimeSeriesData";
 
 export default class BarChartPopularMods extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            topMods:[]
+            topMods:[],
+            itemForTimeSeriesData :[]
         }
 
         this.fetchData = this.fetchData.bind(this);
@@ -22,6 +24,7 @@ export default class BarChartPopularMods extends React.Component {
                 // this.setState({items:[...this.state.items, res.data]});
                 console.log(res.data);
                 this.setState({ 'topMods' : res.data });
+                this.setState({'itemForTimeSeriesData' : res.data});
             });
     }
 
@@ -59,16 +62,23 @@ export default class BarChartPopularMods extends React.Component {
 
     render () {
         return (
-            <BarChart width={600} height={500} data={this.state.topMods}
-                  margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-               <XAxis dataKey="title"/>
-               <YAxis/>
-               <CartesianGrid strokeDasharray="3 3"/>
-               <Tooltip/>
-               <Legend />
-               <Bar dataKey="downloads" fill="#8884d8"  />
-               <Bar dataKey="views" fill="#82ca9d" />
-            </BarChart>
+            <div>
+                <BarChart width={600} height={500} data={this.state.topMods}
+                      margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                   <XAxis dataKey="title"/>
+                   <YAxis/>
+                   <CartesianGrid strokeDasharray="3 3"/>
+                   <Tooltip/>
+                   <Legend />
+                   <Bar dataKey="downloads" fill="#8884d8"  />
+                   <Bar dataKey="views" fill="#82ca9d" />
+                </BarChart>
+                {
+                    this.state.itemForTimeSeriesData.map((entry, index) =>
+                        <TimeSeriesData itemForTimeSeriesData = {entry.time_series_data} key = {index}/>)
+                }
+
+            </div>
         );
     }
 }

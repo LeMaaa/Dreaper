@@ -24,16 +24,17 @@ app.get('/', (req, res) => {
 // TEST API, return all of the records
 app.get('/all', (req, res, next) => {
     // get all records
-
+    console.log(Item.collection.name);
     Item.find({}, (err, docs) => {
         if (err) {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");
         } else {
+
             console.log(docs.length);
             var resArr = [];
             for (var i = 0; i < docs.length; i++) {
-                console.log('title:', docs[i].title);
+                console.log('title:', docs[i]);
 
                 var item_res = {
                     title: docs[i].title,
@@ -123,6 +124,7 @@ app.get('/numberOfRecordsByMonth', (req, res, next) => {
         } else {
 
             docs.forEach((doc) => {
+                console.log(doc.time_series_data);
                 const key = moment(doc.publish_date).format("MMM YYYY");
                 data[key] = data[key] === undefined ? 1 : data[key]+1;
             })
@@ -287,12 +289,6 @@ app.post('/getKeyWordWithThreshold', (req, res,next) => {
 
     })
 });
-
-
-
-
-
-
 
 app.listen(3000, () => console.log('dbserver listening on port 3000!'))
 
