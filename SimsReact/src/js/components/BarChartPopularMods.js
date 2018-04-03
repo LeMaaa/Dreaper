@@ -3,18 +3,26 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy'
 
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
-import TimeSeriesData from "../components/TimeSeriesData";
+import List from 'material-ui/List';
+import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import ModDialog from "./ModDialog";
+import TimeSeriesData from "./TimeSeriesData";
 
 export default class BarChartPopularMods extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             topMods:[],
-            itemForTimeSeriesData :[]
+            entry: null,
+            open: false
+            // itemForTimeSeriesData :[]
         }
 
         this.fetchData = this.fetchData.bind(this);
         this.renderTimeSeriesData = this.renderTimeSeriesData.bind(this);
+        this.renderModList = this.renderModList.bind(this);
+        this.handleDialogOpening = this.handleDialogOpening.bind(this);
+        this.handleDialogClosing = this.handleDialogClosing.bind(this);
 
     }
 
@@ -26,7 +34,7 @@ export default class BarChartPopularMods extends React.Component {
                 // this.setState({items:[...this.state.items, res.data]});
                 console.log(res.data);
                 this.setState({ 'topMods' : res.data });
-                this.setState({'itemForTimeSeriesData' : res.data});
+                // this.setState({'itemForTimeSeriesData' : res.data});
             });
     }
 
@@ -62,6 +70,21 @@ export default class BarChartPopularMods extends React.Component {
         eventProxy.trigger('displayModInfo', entry);
     }
 
+    handleDialogOpening(entry) {
+        this.setState({
+            open: true,
+            entry: entry
+        });
+    }
+
+
+    handleDialogClosing() {
+        this.setState({
+            open: false,
+            entry: null
+        })
+    }
+
     renderTimeSeriesData() {
         const sort_by_date = (a, b) => {
             const timestamp1 = Date.parse(a['date'])/1000;
@@ -77,12 +100,19 @@ export default class BarChartPopularMods extends React.Component {
         });
     }
 
+    renderModList() {
+
+        return this.state.topMods.map((entry, index) => {
+            const stats = "Downloads: " + entry.downloads + " Views: " + entry.views;
+            return  <ListItem button onClick={() => this.handleDialogOpening(entry)} key={index}> <ListItemText primary={entry.title} secondary={stats}/> </ListItem>;
+        });
+    }
+
+
     render () {
-
-
         return (
             <div>
-                <BarChart width={600} height={500} data={this.state.topMods}
+                <BarChart width={800} height={500} data={this.state.topMods}
                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                    <XAxis dataKey="title"/>
                    <YAxis/>
@@ -92,9 +122,21 @@ export default class BarChartPopularMods extends React.Component {
                    <Bar dataKey="downloads" fill="#8884d8"  />
                    <Bar dataKey="views" fill="#82ca9d" />
                 </BarChart>
+
+
+                <List>
                 {
-                    // this.renderTimeSeriesData()
+                    this.renderModList()
                 }
+                </List>
+
+                <ModDialog
+                    entry={this.state.entry}
+                    open={this.state.open}
+                    onClose={this.handleDialogClosing}
+                />
+
+
 
             </div>
         );
