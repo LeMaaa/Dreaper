@@ -6,6 +6,7 @@ a {
 .root {
     flex-grow: 1;
     height: 100%;
+    width: 100%;
     zIndex: 1;
     overflow: auto;
     position: relative;
@@ -35,5 +36,7 @@ a {
 .container {
     padding-left: 10%;
     padding-right: 10%;
+    overflow: hidden;
+
 }
 
