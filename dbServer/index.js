@@ -249,6 +249,24 @@ app.get('/getTimeRangeThreshold', (req, res,next) => {
 });
 
 
+app.post('/getModByName', (req, res, next) => {
+    console.log("getModByName _ called");
+    console.log(req);
+    console.log("ModName :" + req.body.modName);
+    var ModName = req.body.modName;
+
+    Item.findOne({'title': ModName}).exec((err, docs) => {
+        if(err) {
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong -- geTimeRangeThreshold");
+        }else {
+            res.json(docs);
+        }
+    }
+);
+});
+
+
 app.post('/getKeyWordWithThreshold', (req, res,next) => {
     console.log("getKeyWordWithThreshold _ called");
 

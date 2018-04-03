@@ -49,7 +49,8 @@ class KeywordsPage extends React.Component{
 
     render () {
         return (
-            <div>
+            <div className="container">
+                <h1> Keyword of Mods </h1>
                 <DateRangePicker
                     startDate={this.state.startDate}
                     startDateId="keyword_start_date_id"

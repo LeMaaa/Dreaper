@@ -20,6 +20,7 @@ import ReportIcon from 'material-ui-icons/Report';
 import TopModsPage from './TopModsPage';
 import TrendPage from './TrendPage';
 import KeywordsPage from './KeywordsPage';
+import CreatorsPage from './CreatorsPage'
 
 
 import '../../styles/HomePage.css';
@@ -94,6 +95,7 @@ export default class HomePage extends React.Component {
                       <Route exact path="/trend" component={TrendPage} />
                       <Route path="/keywords" component={KeywordsPage} />
                       <Route path="/topmods" component={TopModsPage} />
+                      <Route path="/creators" component={CreatorsPage} />
                     </div>
 {/*                    <ModWrapper />
 */}                
