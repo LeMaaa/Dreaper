@@ -247,11 +247,13 @@ app.post('/getKeyWordWithThreshold', (req, res,next) => {
 
     console.log( req);
 
-    var startTime = new Date(req.body.startTime);
-    var endTime = new Date(req.body.endTime);
 
     console.log("startTime :" + startTime);
     console.log("endTime : " + endTime);
+    var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
+    var endTime =  new Date(moment(req.body.endTime).format("MMM YYYY"));
+
+
 
     var data = {};
 

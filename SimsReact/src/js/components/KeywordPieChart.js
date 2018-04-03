@@ -14,45 +14,51 @@ const COLORS = ['#0088FE', '#00C49F', '#d7cce5', '#FFBB28', '#FF8042', '#ff47d1'
 export default class KeywordPieChart extends React.Component {
     constructor(props) {
         super(props)
-        // this.state = {
-        //     itemsByKey:[]
-        // }
+        this.state = {
+            itemsByKey:[]
+        }
     }
 
-    // componentDidMount() {
-    //     axios.get('http://localhost:3000/downloadsOfKey')
-    //         .then(res => {
-    //             console.log("received data");
-    //             // console.log(res.data);
-    //             this.setState({ 'itemsByKey' : this.state.itemsByKey.concat(res.data)})
-    //         });
-    // }
 
+    componentDidMount() {
+        axios.post('http://localhost:3000/getKeyWordWithThreshold', {
 
+                startTime: this.props.startTime === null ? "Mar 1994" : this.props.startTime,
+                endTime: this.props.endTime === null ? "Dec 2020" : this.props.endTime,
+        })
+            .then(res => {
+                console.log("received data");
+                // console.log(res.data);
+                this.setState({ 'itemsByKey' : res.data})
+            });
+    }
 
-    // @@@@ Piechart use VictoryChart
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.startTime=== this.props.startTime &&
+            nextProps.endTime === this.props.endTime)
+            return;
 
-    // render() {
-    //     return (
-    //         <div width={80}>
-    //             <VictoryPie
-    //                 data = {this.props.itemsByKey}
-    //                 labelRadius={20}
-    //                 colorScale = {["tomato", "orange", "gold", "cyan", "navy", "red", "grey","pink","yellow", "green" ]}
-    //                 width={130}
-    //                 style={{ labels: { fill: "black", fontSize: 2, } }}
-    //             />
-    //         </div>
-    //     );
-    // }
+        let nextStartTime = nextProps.startTime === null ? "Mar 1994" : nextProps.startTime;
+        let nextEndTime = nextProps.endTime === null ? "Dec 2020" : nextProps.endTime;
+
+        axios.post('http://localhost:3000/getKeyWordWithThreshold', {
+                startTime: nextStartTime ,
+                endTime: nextEndTime,
+        })
+            .then(res => {
+                console.log("received data next props");
+                // console.log(res.data);
+                this.setState({ 'itemsByKey' : res.data})
+            });
+    }
 
 
     render() {
         return (
             <PieChart width={1200} height={800}>
                 <Legend verticalAlign="bottom" height={50}/>
-                <Pie isAnimationActive={false} data={this.props.itemsByKey} dataKey="value" nameKey="name" cx={240} cy={240} outerRadius={160} fill="#8884d8" label>
-                    {this.props.itemsByKey.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
+                <Pie isAnimationActive={false} data={this.state.itemsByKey} dataKey="value" nameKey="name" cx={240} cy={240} outerRadius={160} fill="#8884d8" label>
+                    {this.state.itemsByKey.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
                 </Pie>
                 <Tooltip/>
             </PieChart>

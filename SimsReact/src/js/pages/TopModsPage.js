@@ -78,6 +78,7 @@ export default class TopModsPage extends React.Component{
 
                 <DateRangePicker
                   startDate={this.state.startDate}
+
                   endDate={this.state.endDate}
                   onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate })}}
                   focusedInput={this.state.focusedInput}
