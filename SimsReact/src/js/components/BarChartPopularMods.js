@@ -93,7 +93,7 @@ export default class BarChartPopularMods extends React.Component {
                    <Bar dataKey="views" fill="#82ca9d" />
                 </BarChart>
                 {
-                    this.renderTimeSeriesData()
+                    // this.renderTimeSeriesData()
                 }
 
             </div>

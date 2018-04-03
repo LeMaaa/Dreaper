@@ -6,7 +6,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import {VictoryPie} from 'victory';
 import {Legend, PieChart, Pie, Tooltip, Cell} from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#d7cce5', '#FFBB28', '#FF8042', '#ff47d1', '#6dbcb3','#ff6d70', '#3b41dd', '#06d0db', '#c85bff',

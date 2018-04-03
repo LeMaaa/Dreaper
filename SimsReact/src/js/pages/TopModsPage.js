@@ -8,6 +8,8 @@ import BarChartPopularMods from '../components/BarChartPopularMods';
 import ModDetailsCard from '../components/ModDetailsCard'
 import StatsInfo from '../components/StatsInfo'
 
+import { DateRangePicker } from 'react-dates';
+
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 import Button from 'material-ui/Button';
@@ -25,7 +27,10 @@ export default class TopModsPage extends React.Component{
             endTimestamp: "",
             searchKeyword: "",
             searchStartTime: "",
-            searchEndTime: ""
+            searchEndTime: "",
+            startDate: null,
+            endDate: null,
+            focusedInput: null
         };
 
         this.handleKeywordChange = this.handleKeywordChange.bind(this);
@@ -71,6 +76,13 @@ export default class TopModsPage extends React.Component{
             <div className="container">
                 <h1> The Most Popular Mods </h1>
 
+                <DateRangePicker
+                  startDate={this.state.startDate}
+                  endDate={this.state.endDate}
+                  onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate })}}
+                  focusedInput={this.state.focusedInput}
+                  onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
+                />                
                 <FormControl>
                   <InputLabel htmlFor="keyword">keyword</InputLabel>
                   <Input id="keyword" value={this.state.keyword} onChange={this.handleKeywordChange} />

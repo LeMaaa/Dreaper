@@ -9,6 +9,7 @@ import createMuiTheme from 'material-ui/styles/createMuiTheme'
 import {white, red, grey, amber} from 'material-ui/colors'
 
 import createPalette from 'material-ui/styles/createPalette'
+import 'react-dates/initialize';
 
 const muiTheme = createMuiTheme({
   palette: createPalette({

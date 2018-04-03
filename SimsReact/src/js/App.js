@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HomePage from './pages/HomePage'
 import CssBaseline from 'material-ui/CssBaseline';
+import 'react-dates/lib/css/_datepicker.css';
 
 import {
   BrowserRouter as Router,
