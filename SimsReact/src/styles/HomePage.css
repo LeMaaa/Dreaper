@@ -25,7 +25,8 @@ a {
 .content {
     flex-grow: 1;
     background-color: white;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     padding-top: 100px;
     padding-left: 240px;
     min-width: 0px; // So the Typography noWrap works

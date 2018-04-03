@@ -100,19 +100,6 @@ export default class TopModsPage extends React.Component{
                   <Input id="keyword" value={this.state.keyword} onChange={this.handleKeywordChange} />
                 </FormControl>
 
-{/*
-                <FormControl>
-                  <InputLabel htmlFor="startTime">Start Date</InputLabel>
-                  <Input id="startTime" value={this.state.startTime} onChange={this.handleStartTimeChange} />
-                </FormControl>
-
-                <br /> 
-
-                <FormControl>
-                  <InputLabel htmlFor="endTime">End Date</InputLabel>
-                  <Input id="endTime" value={this.state.endTime} onChange={this.handleEndTimeChange} />
-                </FormControl>*/}
-
                 <br />
 
                 <Button onClick={this.updateSearchTerms} variant="raised" color="primary">

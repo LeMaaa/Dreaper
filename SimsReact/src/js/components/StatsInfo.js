@@ -10,42 +10,37 @@ import eventProxy from 'react-eventproxy';
 class StatsInfo extends React.Component {
     constructor() {
         super();
-        this.state = {
-            entry : null,
-            image : "",
-        }
+
+        this.renderModEntries = this.renderModEntries.bind(this);
     }
 
-    componentDidMount() {
-        // 监听事件
-        eventProxy.on('displayModInfo', (entry) => {
-            this.setState({
-                entry,
-                image : "http:" + entry['preview_image']
-            });
-        });
-        console.log(this.state.entry)
-    }
-
-    render() {
-        let item_stats = [];
-        if(this.state.entry !== null && this.state.entry !== undefined) {
-            item_stats = Object.keys(this.state.entry).map((key, i) => {
-
-                if(key !== 'description') {
+    renderModEntries(mod) {
+        if (mod !== null && mod !== undefined) {
+            const entries = Object.keys(mod).map((key, i) => {
+                if (key !== 'description' && key !== "preview_image" 
+                    && !Array.isArray(mod[key]) && typeof mod[key] !== 'object') {
                     return (
                         <div className="item_stats" key={i}>
-                            <span>{key} : {this.state.entry[key]}</span>
+                            <span>{key} : {mod[key].toString()}</span>
                         </div>
                     );
+                } else if (key === "preview_image") {
+                    const image_url = "http:" + mod["preview_image"];
+                    return image_url !== "" ? <img src = {image_url} width={500} height={300} /> : null;
+                } else if (key === "description") {
+                    return null;
                 }
             });
+
+            return entries;
         }
+    }
+    render() {
+        const { entry } = this.props;
 
         return (
-            <div width={10}>
-                {this.state.image !== "" ? <img src = {this.state.image} width={500} height={300} /> : null }
-                {item_stats}
+            <div>
+                {this.renderModEntries(entry)}
             </div>
         );
     }
