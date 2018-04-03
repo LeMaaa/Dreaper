@@ -14,6 +14,8 @@ export default class BarChartPopularMods extends React.Component {
         }
 
         this.fetchData = this.fetchData.bind(this);
+        this.renderTimeSeriesData = this.renderTimeSeriesData.bind(this);
+
     }
 
     fetchData(url) {
@@ -55,12 +57,29 @@ export default class BarChartPopularMods extends React.Component {
 
     }
 
-    changeModDetail(entry){
+    changeModDetail(entry) {
         console.log(entry);
         eventProxy.trigger('displayModInfo', entry);
     }
 
+    renderTimeSeriesData() {
+        const sort_by_date = (a, b) => {
+            const timestamp1 = Date.parse(a['date'])/1000;
+            const timestamp2 = Date.parse(b['date'])/1000;
+
+            console.log(timestamp1);
+            console.log(timestamp2);
+            return timestamp1 - timestamp2;
+        }
+        return this.state.itemForTimeSeriesData.map((entry, index) => {
+            console.log(entry.time_series_data.sort(sort_by_date));
+            return <TimeSeriesData itemForTimeSeriesData = {entry.time_series_data.sort(sort_by_date)} key = {index}/>;
+        });
+    }
+
     render () {
+
+
         return (
             <div>
                 <BarChart width={600} height={500} data={this.state.topMods}
@@ -74,8 +93,7 @@ export default class BarChartPopularMods extends React.Component {
                    <Bar dataKey="views" fill="#82ca9d" />
                 </BarChart>
                 {
-                    this.state.itemForTimeSeriesData.map((entry, index) =>
-                        <TimeSeriesData itemForTimeSeriesData = {entry.time_series_data} key = {index}/>)
+                    this.renderTimeSeriesData()
                 }
 
             </div>
