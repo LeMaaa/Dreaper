@@ -130,6 +130,7 @@ app.get('/numberOfRecordsByMonth', (req, res, next) => {
             })
 
             const r = [];
+            var totalNum = 0;
 
             Object.keys(data).forEach(key => {
                 // console.log(key);          // the name of the current key.
@@ -138,11 +139,17 @@ app.get('/numberOfRecordsByMonth', (req, res, next) => {
                     "time": key,
                     "num": data[key]
                 };
+                totalNum += data[key];
 
                 r.push(item);
             });
 
-            res.json(r);
+            ret = {
+                items :r,
+                totalNum : totalNum
+            }
+
+            res.json(ret);
         }
     });
 });
