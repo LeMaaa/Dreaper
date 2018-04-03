@@ -6,7 +6,6 @@ import PieChart from '../components/KeywordPieChart';
 import NumOfRecordsByMonth from '../components/NumOfRecordsByMonth';
 import BarChartPopularMods from '../components/BarChartPopularMods';
 import ModDetailsCard from '../components/ModDetailsCard'
-import StatsInfo from '../components/StatsInfo'
 
 import { DateRangePicker } from 'react-dates';
 
@@ -110,7 +109,6 @@ export default class TopModsPage extends React.Component{
                     endTimestamp={this.state.searchEndTime} 
                     keywords={this.state.searchKeyword}
                 />
-                <StatsInfo/>
             </div>
 
 

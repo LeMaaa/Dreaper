@@ -59,25 +59,27 @@ class ModDetailPage extends React.Component{
                 <Row gutter={16}>
                     <Col span = {12}>
                         <h1> {this.state.modName} </h1>
-                        <Card
-                           style={{ width: 400 }}
-                            cover={<img alt="mod img" src = { "http:" + this.state.modEntry["preview_image"]} />}
-                            actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
-                        >
-                            <Meta
-                                title={this.state.modName}
-                                description = {Object.keys(this.state.modEntry).map((key, i) => {
-                                    if (key !== 'description' && key !== "preview_image"
-                                        && !Array.isArray(this.state.modEntry[key]) && typeof this.state.modEntry[key] !== 'object') {
-                                        return (
-                                            <div className="item_stats" key={i}>
-                                                <span>{key} : {this.state.modEntry[key].toString()}</span>
-                                            </div>
-                                        );
-                                    }
-                                })}
-                            />
-                        </Card>
+                        { this.state.modEntry === null ? null :
+                            (<Card
+                               style={{ width: 400 }}
+                                cover={<img alt="mod img" src = { "http:" + this.state.modEntry["preview_image"]} />}
+                                actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+                            >
+                                <Meta
+                                    title={this.state.modName}
+                                    description = {Object.keys(this.state.modEntry).map((key, i) => {
+                                        if (key !== 'description' && key !== "preview_image"
+                                            && !Array.isArray(this.state.modEntry[key]) && typeof this.state.modEntry[key] !== 'object') {
+                                            return (
+                                                <div className="item_stats" key={i}>
+                                                    <span>{key} : {this.state.modEntry[key].toString()}</span>
+                                                </div>
+                                            );
+                                        }
+                                    })}
+                                />
+                            </Card>)
+                        }
                     </Col>
                     <Col span = {12}>
                         <br/>
