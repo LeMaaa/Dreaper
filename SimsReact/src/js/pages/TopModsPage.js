@@ -37,6 +37,7 @@ export default class TopModsPage extends React.Component{
         this.handleStartTimeChange = this.handleStartTimeChange.bind(this);
         this.handleEndTimeChange = this.handleEndTimeChange.bind(this);
         this.updateSearchTerms = this.updateSearchTerms.bind(this);
+        this.isOutsideRange = this.isOutsideRange.bind(this);
 
     }
 
@@ -58,11 +59,16 @@ export default class TopModsPage extends React.Component{
         // this.setState({ endTimestamp: endDateTimestamp });
     }
 
+    isOutsideRange() {
+        return false;
+    }
+
     updateSearchTerms(event) {
         console.log("updating search terms");
+
         const keyword = this.state.keyword;
-        const startDateTimestamp = new Date(this.state.startTime).getTime() / 1000;
-        const endDateTimestamp = new Date(this.state.endTime).getTime() / 1000;
+        const startDateTimestamp = this.state.startDate.format('X');
+        const endDateTimestamp = this.state.endDate.format('X');
 
         this.setState({
             searchStartTime: startDateTimestamp,
@@ -78,19 +84,23 @@ export default class TopModsPage extends React.Component{
 
                 <DateRangePicker
                   startDate={this.state.startDate}
-
+                  startDateId="1"
                   endDate={this.state.endDate}
+                  endDateId="2"
+                  isOutsideRange={this.isOutsideRange}
                   onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate })}}
                   focusedInput={this.state.focusedInput}
                   onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
-                />                
+                />
+
+                <br />
+
                 <FormControl>
                   <InputLabel htmlFor="keyword">keyword</InputLabel>
                   <Input id="keyword" value={this.state.keyword} onChange={this.handleKeywordChange} />
                 </FormControl>
 
-                <br />
-
+{/*
                 <FormControl>
                   <InputLabel htmlFor="startTime">Start Date</InputLabel>
                   <Input id="startTime" value={this.state.startTime} onChange={this.handleStartTimeChange} />
@@ -101,7 +111,7 @@ export default class TopModsPage extends React.Component{
                 <FormControl>
                   <InputLabel htmlFor="endTime">End Date</InputLabel>
                   <Input id="endTime" value={this.state.endTime} onChange={this.handleEndTimeChange} />
-                </FormControl>
+                </FormControl>*/}
 
                 <br />
 
