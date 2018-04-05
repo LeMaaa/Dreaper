@@ -15,20 +15,6 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TopModsPage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/js/pages/TopModsPage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="81" column="48" lean-forward="false" selection-start-line="81" selection-start-column="48" selection-end-line="81" selection-end-column="48" />
-              <folding>
-                <marker date="1522899718743" expanded="true" signature="3837:3858" ph="&lt;div/&gt;" />
-                <marker date="1522899718743" expanded="true" signature="3837:3877" ph="{...}" />
-                <marker date="1522899718743" expanded="true" signature="3837:3879" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="KeywordsPage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/pages/KeywordsPage.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -119,13 +105,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActionTypes.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ActionTypes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/actions/ActionTypes.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
               <caret line="8" column="77" lean-forward="false" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
               <folding>
                 <element signature="e#0#39#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="actions.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/js/actions/actions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding>
+                <element signature="e#41#84#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -202,6 +200,7 @@
         <option value="$PROJECT_DIR$/src/js/pages/HomePage.js" />
         <option value="$PROJECT_DIR$/src/js/pages/CreatorsPage.js" />
         <option value="$PROJECT_DIR$/src/js/actions/ActionTypes.js" />
+        <option value="$PROJECT_DIR$/src/js/actions/actions.js" />
       </list>
     </option>
   </component>
@@ -487,12 +486,12 @@
       <workItem from="1522560813513" duration="3477000" />
       <workItem from="1522721713879" duration="14035000" />
       <workItem from="1522899757946" duration="501000" />
-      <workItem from="1522960211431" duration="1302000" />
+      <workItem from="1522960211431" duration="2146000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100941000" />
+    <option name="totallyTimeSpent" value="101785000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -528,7 +527,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/js/LineChart.js" />
     <entry file="file://$PROJECT_DIR$/src/js/StackedBar.js" />
     <entry file="file://$PROJECT_DIR$/dist/bundle.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -819,6 +817,16 @@
           <caret line="8" column="77" lean-forward="false" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
           <folding>
             <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/actions/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#41#84#0" expanded="true" />
           </folding>
         </state>
       </provider>
