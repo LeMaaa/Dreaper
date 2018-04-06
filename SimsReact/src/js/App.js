@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HomePage from './pages/HomePage'
 import CssBaseline from 'material-ui/CssBaseline';
+import 'antd/dist/antd.css';
 import 'react-dates/lib/css/_datepicker.css';
 
 import {

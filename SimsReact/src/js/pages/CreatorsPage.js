@@ -8,8 +8,6 @@ import eventProxy from 'react-eventproxy'
 import { DateRangePicker } from 'react-dates';
 import TimeSeriesData from '../components/TimeSeriesData'
 
-import 'antd/dist/antd.css';
-
 import { Card, Icon, Avatar } from 'antd';
 import { Row, Col, Slider } from 'antd';
 const { Meta } = Card;

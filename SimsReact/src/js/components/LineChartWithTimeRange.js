@@ -8,7 +8,7 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy'
 import { BarChart, Bar, Brush, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import { Badge } from 'antd';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 
 
 
