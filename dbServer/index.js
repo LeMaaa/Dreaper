@@ -235,14 +235,15 @@ app.get('/getTimeRangeThreshold', (req, res,next) => {
             res.status(504).send("Oh uh, something went wrong -- geTimeRangeThreshold");
         }else {
             docs.forEach((doc) => {
-                const key = moment(doc.publish_date).format("MMM YYYY");
+                var key = (1900 + doc.publish_date.getYear()) * 100  + doc.publish_date.getMonth() + 1;
+
                 if(!data.includes(key)) {
                     data.push(key);
                     console.log(key);
                 }
             });
         }
-        res.json(data);
+        res.json(data.reverse());
     });
     console.log(" data for time range!");
     console.log(JSON.stringify(data));

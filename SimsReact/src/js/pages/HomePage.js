@@ -21,7 +21,8 @@ import TopModsPage from './TopModsPage';
 import TrendPage from './TrendPage';
 import KeywordsPage from './KeywordsPage';
 import CreatorsPage from './CreatorsPage'
-import ModDetailPage from './ModDetailPage'
+import ModDetailPage from './ModDetailPage';
+import Dashboard from './Dashboard';
 
 
 
@@ -87,12 +88,12 @@ export default class HomePage extends React.Component {
                                   <ListItemText primary="Creators" />
                                 </ListItem>
                             </Link>
-                            <Link to="/mods_detail">
+                            <Link to="/dashboard">
                                 <ListItem button>
                                   <ListItemIcon>
                                     <DraftsIcon />
                                   </ListItemIcon>
-                                  <ListItemText primary="Mod Detail" />
+                                  <ListItemText primary="Dashboard" />
                                 </ListItem>
                             </Link>
                         </div>
@@ -106,7 +107,7 @@ export default class HomePage extends React.Component {
                       <Route path="/keywords" component={KeywordsPage} />
                       <Route path="/topmods" component={TopModsPage} />
                       <Route path="/creators" component={CreatorsPage} />
-                      <Route path="/mods_detail" component={ModDetailPage} />
+                      <Route path="/dashboard" component={Dashboard} />
 
                     </div>
                

@@ -44,7 +44,7 @@ export default class LineChartWithTimeRange extends React.Component {
                        style={{ backgroundColor: '#52c41a' }}
                        />
 
-            <BarChart width={600} height={300} data={this.state.itemsWithRange}
+            <BarChart width={600} height={200} data={this.state.itemsWithRange}
                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <XAxis dataKey="time"/>
                 <YAxis/>
