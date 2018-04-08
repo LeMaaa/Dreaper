@@ -3,38 +3,55 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
+import eventProxy from 'eventproxy';
 
 import { Row, Col } from 'antd';
 
-import ListCard from '../components/ListCard'
-import TimeSlider from '../components/TimeSlider'
+import KeywordCard from '../components/KeywordCard'
+import { DatePicker } from 'antd';
+const { MonthPicker, RangePicker } = DatePicker;
+
+const dateFormat = 'YYYY/MM/DD';
+const monthFormat = 'YYYY/MM';
 
 
 class Dashboard extends React.Component{
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            startTime : null,
+            endTime : null,
+            keywords : []
+        }
+        this.onChange = this.onChange.bind(this);
+    }
+
+
+    queryKeyWords() {
+        axios.post('http://localhost:3000/getKeyWordWithThreshold')
+            .then(res => {
+                console.log("received data");
+                // console.log(res.data);
+                this.setState({ 'keywords' : res.data})
+            });
+    }
+
 
 
     componentDidMount() {
-            // axios.get('http://localhost:3000/downloadsOfKey', {
-            //     params: {
-            //         startTime: this.state.startTime === null ? "Mar 1994" : this.state.startTime,
-            //         endTime: this.state.endTime === null ? "Dec 2020" : this.state.endTime,
-            //     }
-            // })
-            //     .then(res => {
-            //         console.log("received data");
-            //         // console.log(res.data);
-            //         this.setState({ 'itemsByKey' : this.state.itemsByKey.concat(res.data)})
-            //     });
-            //
-            //
-            //     // 监听事件
-            //     eventProxy.on('changeKeyWordMod', (entry) => {
-            //         this.setState({
-            //             'itemsByKey' : entry
-            //         });
-            //     });
-        }
+        this.queryKeyWords();
+                // 监听事件
+    }
+
+    onChange(date, dateString){
+        console.log("Trigger eventProxy to Change TimeRange")
+        this.setState({
+            'startTime' : dateString[0],
+            'endTime' : dateString[1],
+        });
+    }
 
 
     render () {
@@ -47,14 +64,37 @@ class Dashboard extends React.Component{
                         <Col span={6}></Col>
                         <Col span={6}></Col>
                         <Col span={6}>
-                            <TimeSlider/>
+                            <RangePicker
+                                size = "large"
+                                onChange = {this.onChange}
+                                format={dateFormat}
+                            />
                         </Col>
-
                     </Row>
-                    <Row>
-
-
+                <br/>
+                    <Row type="flex" justify="space-around" >
+                        {
+                            this.state.keywords.map((entry, index) => {
+                                // if(index < 3) {
+                                    return <Col span={8} key = {index} >
+                                        <KeywordCard keyword = {entry._id} startTime = {this.state.startTime}
+                                                     endTime = {this.state.endTime}
+                                                     index = {index + 1}
+                                                     value = {entry.value} />
+                                            </Col>
+                                // }
+                            })
+                        }
                     </Row>
+                    {/*<Row type="flex" justify="space-around" >*/}
+                        {/*{*/}
+                            {/*this.state.keywords.map((entry, index) => {*/}
+                                {/*if(index >= 3) {*/}
+                                    {/*return <Col span={8} key = {index} > <KeywordCard keyword = {entry._id} value = {entry.value} /> </Col>*/}
+                                {/*}*/}
+                            {/*})*/}
+                        {/*}*/}
+                    {/*</Row>*/}
                 </div>
 
         );

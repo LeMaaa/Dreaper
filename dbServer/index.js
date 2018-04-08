@@ -10,6 +10,10 @@ const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
 const Item = require('./mongoose_db').Item;
+const Keyword = require('./mongoose_db').Keyword;
+const async = require('async');
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get('/', (req, res) => {
+
     res.send('Hello World!');
 });
 
@@ -122,7 +127,6 @@ app.get('/numberOfRecordsByMonth', (req, res, next) => {
             res.status(504).send("Oh uh, something went wrong");
             // res.end(err);
         } else {
-
             docs.forEach((doc) => {
                 console.log(doc.time_series_data);
                 const key = moment(doc.publish_date).format("MMM YYYY");
@@ -159,7 +163,31 @@ app.get('/numberOfRecordsByMonth', (req, res, next) => {
 // in certain time (TODO)
 app.get('/downloadsOfKey', (req, res, next) => {
 
-    const data = {};
+    var data = [];
+
+    Keyword.find({}).sort({ 'value' : -1}).limit(10).exec((err, docs) => {
+        if(err) {
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong");
+        }else {
+            docs.forEach(doc => {
+                var cur = {
+                    keyword : doc._id,
+                    mods : []
+                }
+                Item.find({'doc.keywords' : doc._id}).exec((err, mod) => {
+                    if(err) {
+                        console.log("No matching mod for current keyword");
+                    }else if(mod) {
+                        cur.mods.push(mod);
+                    }
+                    data.push(cur);
+                });
+            });
+            res.json(data);
+        }
+
+    });
 
     // probably can just query for tags
     Item.find({}).exec((err, docs) => {
@@ -271,52 +299,47 @@ app.post('/getModByName', (req, res, next) => {
 app.post('/getKeyWordWithThreshold', (req, res,next) => {
     console.log("getKeyWordWithThreshold _ called");
 
-    console.log( req);
-
-
-    console.log("startTime :" + startTime);
-    console.log("endTime : " + endTime);
-    var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
-    var endTime =  new Date(moment(req.body.endTime).format("MMM YYYY"));
-
-
-
-    var data = {};
-
-    Item.find({'publish_date': {
-        "$gte": startTime,
-        "$lt": endTime,
-    }}).exec((err, docs) => {
-        if(err) {
+    Keyword.find({}).sort({ 'value' : -1}).limit(9).exec((err, docs) => {
+        if (err) {
             console.log(err);
-            res.status(504).send("Oh uh, something went wrong -- geTimeRangeThreshold");
-        }else {
-            docs.forEach(doc => {
-                if (doc.tags !== null && doc.tags.length !== 0) {
-                    doc.tags.forEach(tag => {
-                        const key = tag.toLowerCase();
-                        data[key] = data[key] === undefined ? 1 : data[key]+1;
-                    })
-                }
-            })
-            var r = Object.entries(data).sort((a,b) => b[1]- a[1]).slice(0, 10);
-            var ret = [];
-            for(i in r) {
-                var cur = {
-                    'name' : r[i][0],
-                    'value' : r[i][1]
-                }
-                console.log(cur);
-                ret.push(cur);
-            }
-
-            console.log(" data for time range!");
-            console.log(r);
-            res.end(JSON.stringify(ret));
+            res.status(504).send("Oh uh, something went wrong");
+        } else {
+            console.log(docs);
+            res.json(docs);
         }
-
-    })
+    });
 });
+
+app.post('/getModsWithKeyword', (req, res, next) => {
+    console.log("getModsWithKeyword _ called");
+    console.log(req)
+
+    var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
+    console.log(startTime)
+    var endTime =  new Date(moment(req.body.endTime).format("MMM YYYY"));
+    console.log(endTime);
+
+    // var query = "keywords." +req.body.keyword + '';
+
+    var val = req.body.keyword;
+    var query = {};
+    query["keywords." + val] = {$exists : true};
+    query["publish_date"] = {
+        $gte: startTime,
+        $lt: endTime,
+    };
+
+    Item.find(query).exec((err, mods) => {
+        if (err) {
+            console.log("No matching mod for current keyword");
+        } else {
+            console.log("checking current mods");
+            console.log(mods)
+            res.json(mods);
+        }
+    });
+});
+
 
 app.listen(3000, () => console.log('dbserver listening on port 3000!'))
 

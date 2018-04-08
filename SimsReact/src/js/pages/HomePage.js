@@ -110,7 +110,7 @@ export default class HomePage extends React.Component {
                       <Route path="/dashboard" component={Dashboard} />
 
                     </div>
-               
+
                 </main>
             </div>
             </Router>
