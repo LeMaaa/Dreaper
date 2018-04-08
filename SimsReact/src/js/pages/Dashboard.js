@@ -75,26 +75,15 @@ class Dashboard extends React.Component{
                     <Row type="flex" justify="space-around" >
                         {
                             this.state.keywords.map((entry, index) => {
-                                // if(index < 3) {
-                                    return <Col span={8} key = {index} >
-                                        <KeywordCard keyword = {entry._id} startTime = {this.state.startTime}
-                                                     endTime = {this.state.endTime}
-                                                     index = {index + 1}
-                                                     value = {entry.value} />
-                                            </Col>
-                                // }
+                                return <Col span={8} key = {index} >
+                                    <KeywordCard keyword = {entry._id} startTime = {this.state.startTime}
+                                                 endTime = {this.state.endTime}
+                                                 index = {index + 1}
+                                                 value = {entry.value} />
+                                        </Col>
                             })
                         }
                     </Row>
-                    {/*<Row type="flex" justify="space-around" >*/}
-                        {/*{*/}
-                            {/*this.state.keywords.map((entry, index) => {*/}
-                                {/*if(index >= 3) {*/}
-                                    {/*return <Col span={8} key = {index} > <KeywordCard keyword = {entry._id} value = {entry.value} /> </Col>*/}
-                                {/*}*/}
-                            {/*})*/}
-                        {/*}*/}
-                    {/*</Row>*/}
                 </div>
 
         );

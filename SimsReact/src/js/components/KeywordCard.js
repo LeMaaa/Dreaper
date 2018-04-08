@@ -5,8 +5,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import { Avatar, Card, Icon, Button, Modal } from 'antd';
+import { Avatar, Card, Icon, Button, Modal, Row, Col } from 'antd';
+
 const { Meta } = Card;
+
+const contentListNoTitle = {
+    article: <p>article content</p>,
+    app: <p>app content</p>,
+    project: <p>project content</p>,
+};
+
+const tabListNoTitle = [{
+    key: 'article',
+    tab: 'article',
+}, {
+    key: 'app',
+    tab: 'app',
+}, {
+    key: 'project',
+    tab: 'project',
+}];
+
 
 class KeywordCard extends React.Component{
     constructor(props) {
@@ -17,11 +36,13 @@ class KeywordCard extends React.Component{
             endTime : null,
             keyword : null,
             index : -1,
-            visible: false
+            visible: false,
+            noTitleKey: 'app',
         }
         this.showModal = this.showModal.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handleOk = this.handleOk.bind(this);
+        this.onTabChange = this.onTabChange.bind(this);
     }
 
     showModal(){
@@ -45,6 +66,8 @@ class KeywordCard extends React.Component{
     }
 
 
+
+
     queryModsWithinTimeRange(startTime, endTime, keyword) {
         axios.post('http://localhost:3000/getModsWithKeyword', {
 
@@ -59,6 +82,11 @@ class KeywordCard extends React.Component{
                 console.log(res.data)
                 this.setState({ 'mods' : res.data})
             });
+    }
+
+    onTabChange(key, type) {
+        console.log(key, type);
+        this.setState({ [type]: key });
     }
 
 
@@ -109,12 +137,27 @@ class KeywordCard extends React.Component{
                     />
                 </Card>
                 <Modal
-                    title="Basic Modal"
+                    title={this.props.keyword}
                     visible={this.state.visible}
+                    footer = {null}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
+                    width = {816}
                 >
-                    <p>ddd</p>
+                    <Row>
+                        <Col span={8}>
+                        </Col>
+                        <Col span = {16}>
+                            <Card
+                                style={{ width: '100%' }}
+                                tabList={tabListNoTitle}
+                                activeTabKey={this.state.noTitleKey}
+                                onTabChange={(key) => { this.onTabChange(key, 'noTitleKey'); }}
+                            >
+                                {contentListNoTitle[this.state.noTitleKey]}
+                            </Card>
+                        </Col>
+                    </Row>
 
                 </Modal>
             </div>
