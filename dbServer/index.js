@@ -329,7 +329,7 @@ app.post('/getModsWithKeyword', (req, res, next) => {
         $lt: endTime,
     };
 
-    Item.find(query).exec((err, mods) => {
+    Item.find(query).limit(30).exec((err, mods) => {
         if (err) {
             console.log("No matching mod for current keyword");
         } else {

@@ -4,27 +4,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import eventProxy from 'react-eventproxy';
 
-import { Avatar, Card, Icon, Button, Modal, Row, Col } from 'antd';
-
+import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge } from 'antd';
 const { Meta } = Card;
 
-const contentListNoTitle = {
-    article: <p>article content</p>,
-    app: <p>app content</p>,
-    project: <p>project content</p>,
-};
+import SingleModInfo from '../components/SingleModInfo' ;
+import DownloadModBar from "./DownloadModBar";
+import ViewsModBar from "./ViewsModBar";
 
-const tabListNoTitle = [{
-    key: 'article',
-    tab: 'article',
-}, {
-    key: 'app',
-    tab: 'app',
-}, {
-    key: 'project',
-    tab: 'project',
-}];
+
 
 
 class KeywordCard extends React.Component{
@@ -35,10 +24,26 @@ class KeywordCard extends React.Component{
             startTime : null,
             endTime : null,
             keyword : null,
+            totalNum : 0,
             index : -1,
             visible: false,
-            noTitleKey: 'app',
-        }
+            noTitleKey: 'Downloads',
+            currentMod : null,
+
+            contentListNoTitle : {
+                Downloads: <p>Downloads content</p>,
+                Views: <p>Views content</p>,
+            },
+
+            tabListNoTitle : [{
+                key: 'Downloads',
+                tab: 'Downloads',
+            }, {
+                key: 'Views',
+                tab: 'Views',
+            }],
+        };
+
         this.showModal = this.showModal.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handleOk = this.handleOk.bind(this);
@@ -66,8 +71,6 @@ class KeywordCard extends React.Component{
     }
 
 
-
-
     queryModsWithinTimeRange(startTime, endTime, keyword) {
         axios.post('http://localhost:3000/getModsWithKeyword', {
 
@@ -81,6 +84,13 @@ class KeywordCard extends React.Component{
                 // console.log(res.data);
                 console.log(res.data)
                 this.setState({ 'mods' : res.data})
+                this.setState({
+                    'startTime': startTime,
+                    'endTime': endTime,
+                    'keyword' : keyword
+                })
+                this.renderDownloadModList();
+                this.renderViewsModList();
             });
     }
 
@@ -93,38 +103,52 @@ class KeywordCard extends React.Component{
     componentWillReceiveProps(nextProps) {
         if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime
             && nextProps.keyword === this.state.keyword) return;
+        this.queryModsWithinTimeRange(nextProps.startTime, nextProps.endTime, nextProps.keyword )
 
-        axios.post('http://localhost:3000/getModByName', {
-            startTime: nextProps.startTime,
-            endTime:nextProps.endTime,
-            keyword : nextProps.keyword
+    }
+
+    renderDownloadModList() {
+        console.log("downlodas")
+        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {this.state.mods}/>
+    }
+
+
+    renderViewsModList() {
+        console.log("views");
+        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {this.state.mods}/>
+    }
+
+
+
+    componentDidMount() {
+        axios.post('http://localhost:3000/getModsWithKeyword', {
+
+            startTime: this.props.startTime === null ? "Mar 1994" : startTime,
+            endTime: this.props.endTime === null ? "Dec 2020" : endTime,
+            keyword : this.props.keyword
+
         })
             .then(res => {
-                console.log("received data next props keyword");
+                console.log("received data www");
                 // console.log(res.data);
-                this.setState({ 'mods' : res.data})
-                this.setState({
-                    'startTime': nextProps.startTime,
-                    'endTime':nextProps.endTime,
-                    'keyword' : nextProps.keyword
-                })
+                console.log(res.data)
+                this.setState({ 'mods' : res.data});
+
+                if(this.state.currentMod === null) {
+                    this.state.currentMod =  this.state.mods[0];
+                }
+
+                this.renderDownloadModList();
+                this.renderViewsModList();
             });
+
+            eventProxy.on('ChangeMod', (item) => {
+                this.setState({
+                    'currentMod' : item
+                });
+            });
+
     }
-
-
-    // componentDidMount() {
-    //     this.state.keyword = this.props.keyword;
-    //     this.state.startTime = this.props.startTime;
-    //     this.state.endTime = this.props.endTime;
-    //     this.state.index = this.props.index;
-    //     this.queryModsWithinTimeRange(this.props.startTime, this.props.endTime, this.props.keyword);
-    // }
-
-    pieChartButtonClicked(event) {
-        console.log("event");
-        console.log(event.target.value);
-    }
-
 
 
     render () {
@@ -137,25 +161,29 @@ class KeywordCard extends React.Component{
                     />
                 </Card>
                 <Modal
-                    title={this.props.keyword}
+
+                    title = {<Badge count =  {this.props.keyword + ':' + this.props.value} style={{ backgroundColor: '#52c41a' }}
+                    />}
                     visible={this.state.visible}
                     footer = {null}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    width = {816}
+                    width = {900}
                 >
-                    <Row>
-                        <Col span={8}>
-                        </Col>
-                        <Col span = {16}>
+                    <Row type="flex" justify="space-around">
+                        <Col span={11}>
                             <Card
                                 style={{ width: '100%' }}
-                                tabList={tabListNoTitle}
+                                tabList={this.state.tabListNoTitle}
                                 activeTabKey={this.state.noTitleKey}
                                 onTabChange={(key) => { this.onTabChange(key, 'noTitleKey'); }}
                             >
-                                {contentListNoTitle[this.state.noTitleKey]}
+                                {this.state.contentListNoTitle[this.state.noTitleKey]}
                             </Card>
+                        </Col>
+                        <Col span={1}/>
+                        <Col span = {11}>
+                            <SingleModInfo currentMod = {this.state.currentMod}/>
                         </Col>
                     </Row>
 

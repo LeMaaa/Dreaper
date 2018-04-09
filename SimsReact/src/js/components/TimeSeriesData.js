@@ -24,8 +24,8 @@ class TimeSeriesData extends React.Component{
     render () {
 
         return (
-            <BarChart width={600} height={300} data={this.props.itemForTimeSeriesData}
-                      margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+            <BarChart width={320} height={200} data={this.props.itemForTimeSeriesData}
+                    >
                 <XAxis dataKey="date"/>
                 <YAxis/>
                 <CartesianGrid strokeDasharray="3 3"/>

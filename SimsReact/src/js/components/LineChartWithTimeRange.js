@@ -40,19 +40,11 @@ export default class LineChartWithTimeRange extends React.Component {
     render () {
         return (
             <div className="container">
-                <Badge count =  {"Total Mods :" + this.state.totalNum}
-                       style={{ backgroundColor: '#52c41a' }}
-                       />
-
-            <BarChart width={600} height={200} data={this.state.itemsWithRange}
+            <BarChart width={800} height={200} data={this.state.itemsWithRange}
                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <XAxis dataKey="time"/>
-                <YAxis/>
-                <CartesianGrid strokeDasharray="3 3"/>
                 <Tooltip/>
-                <Legend verticalAlign="top" wrapperStyle={{lineHeight: '40px'}}/>
                 <ReferenceLine y={0} stroke='#000'/>
-                <Brush dataKey='key' height={30} stroke="#8884d8"/>
                 <Bar dataKey= "num" fill="#8884d8" />
             </BarChart>
             </div>

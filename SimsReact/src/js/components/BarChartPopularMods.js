@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy'
 
-import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from 'recharts';
 import List from 'material-ui/List';
 import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import ModDialog from "./ModDialog";
@@ -112,15 +112,16 @@ export default class BarChartPopularMods extends React.Component {
     render () {
         return (
             <div>
-                <BarChart width={800} height={500} data={this.state.topMods}
-                      margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                   <XAxis dataKey="title"/>
-                   <YAxis/>
-                   <CartesianGrid strokeDasharray="3 3"/>
+                <BarChart width={900} height={500} data={this.state.topMods}
+                      margin={{top: 5, right: 30, left: 20, bottom: 5}} layout = "vertical" >
+                   <XAxis type="number"/>
+                   <YAxis dataKey="title" type="category"/>
                    <Tooltip/>
                    <Legend />
-                   <Bar dataKey="downloads" fill="#8884d8"  />
-                   <Bar dataKey="views" fill="#82ca9d" />
+                    <Bar dataKey="downloads" fill="#8884d8" barSize={50}  >
+                        <LabelList dataKey="title" />
+
+                    </Bar>
                 </BarChart>
 
 

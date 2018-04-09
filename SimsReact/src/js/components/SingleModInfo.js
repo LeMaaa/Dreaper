@@ -5,41 +5,70 @@ import React from 'react';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 
+import TimeSeriesData from '../components/TimeSeriesData'
+
+import {Card, Row, Col, Collapse, Divider} from 'antd'
+const Panel = Collapse.Panel;
+
 
 
 class SingleModInfo extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            modEntry : null,
-            modName : "",
+
         }
-        this.renderModEntries = this.renderModEntries.bind(this);
     }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.modName === null || nextProps.modName.length === 0
-            || nextProps.modName === this.state.modName) return;
-
-        let modName = nextProps.modName;
-
-        axios.post('http://localhost:3000/getModByName', {
-           modName : modName
-        })
-            .then(res => {
-                console.log("received data next props");
-                // console.log(res.data);
-                this.setState({ 'itemsByKey' : res.data})
-            });
-    }
-
 
     render() {
-        const { entry } = this.props;
 
         return (
             <div>
-                {this.renderModEntries(entry)}
+                <Card  title= {this.props.currentMod.title} style={{ width: '100%' }}>
+                    <Row>
+                        <Col span={12}>
+                            Creator : {this.props.currentMod.artist}
+                            <br/>
+                            Publish Date : {this.props.currentMod.publish_date}
+                            <br/>
+                            Download : {this.props.currentMod.downloads}
+                            <br/>
+                            View : {this.props.currentMod.views}
+                            <br/>
+                            Favorite : {this.props.currentMod.favourited}
+                            <br/>
+                            Thanks : {this.props.currentMod.thanks}
+                        </Col>
+
+                        <Col span = {12}>
+                            Keywords : {this.props.currentMod.keywords === null ?
+                                        "None" : this.props.currentMod.keywords[0] + ", " + this.props.currentMod.keywords[1]}
+                            <br/>
+                            Type : {this.props.currentMod.types !== null && this.props.currentMod.types.length > 2
+                                    ? this.props.currentMod.types[0]  + "," + this.props.currentMod.types[1] : "None"}
+                            <br/>
+                            Game Version : {this.props.currentMod.game_version}
+                            <br/>
+                            Pack Required : {this.props.currentMod.pack_requirement}
+
+                        </Col>
+                    </Row>
+                    <Divider />
+                    <Row>
+                        <TimeSeriesData itemForTimeSeriesData = {this.props.currentMod.time_series_data}/>
+                    </Row>
+                    <Divider />
+                    <Row>
+                        <Collapse accordion>
+                            <Panel header = "Description" key="description">
+                                <div className="scroll-text"> {this.props.currentMod.description}</div>
+                            </Panel>
+                            <Panel header="Comments" key="comments">
+                            </Panel>
+                        </Collapse>
+                    </Row>
+
+                </Card>
             </div>
         );
     }

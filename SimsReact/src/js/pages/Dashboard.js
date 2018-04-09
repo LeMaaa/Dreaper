@@ -9,6 +9,7 @@ import eventProxy from 'eventproxy';
 import { Row, Col } from 'antd';
 
 import KeywordCard from '../components/KeywordCard'
+import LineChartWithTimeRange from '../components/LineChartWithTimeRange'
 import { DatePicker } from 'antd';
 const { MonthPicker, RangePicker } = DatePicker;
 
@@ -84,6 +85,9 @@ class Dashboard extends React.Component{
                             })
                         }
                     </Row>
+                <Row>
+                    <LineChartWithTimeRange />
+                </Row>
                 </div>
 
         );

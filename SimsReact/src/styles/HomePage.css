@@ -37,6 +37,15 @@ a {
     padding-left: 10%;
     padding-right: 10%;
     overflow: hidden;
+}
 
+.ant-spin-container {
+    overflow:scroll;
+    height:300px;
+}
+
+.scroll-text {
+    overflow:scroll;
+    height:200px;
 }
 
