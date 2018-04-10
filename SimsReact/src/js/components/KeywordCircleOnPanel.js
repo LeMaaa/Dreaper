@@ -8,10 +8,10 @@ import axios from 'axios';
 
 import {Legend, PieChart, Pie, Tooltip, Cell, LabelList} from 'recharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#d7cce5', '#FFBB28', '#FF8042', '#ff47d1', '#6dbcb3','#ff6d70', '#3b41dd', '#06d0db', '#c85bff',
-    '#e82573', '#2c6587', '#263163', '#97a5e5' ,'#ed9044', '#a86f72'];
+const COLORS = ['#a86f72','#263163', '#00C49F', '#d7cce5', '#97a5e5', '#FFBB28',  '#ff47d1', '#6dbcb3','#ff6d70', '#3b41dd',  '#c85bff',
+    '#e82573', '#ed9044' ,'#0088FE', '#FF8042', '#06d0db',];
 
-export default class KeywordPieChart extends React.Component {
+export default class KeywordCircleOnPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -58,7 +58,7 @@ export default class KeywordPieChart extends React.Component {
 
     render() {
         return (
-            <PieChart width={300} height={300}>
+            <PieChart width={280} height={280}>
                 {/*<Legend verticalAlign="bottom" height={50}/>*/}
                 <Pie isAnimationActive={false} data={this.props.items} dataKey="value" nameKey="name"
                      cx={140} cy={140} outerRadius={100} fill="#8884d8" labelLine={false}>
@@ -69,11 +69,5 @@ export default class KeywordPieChart extends React.Component {
             </PieChart>
         );
     }
-
-
-
-
-
 }
-
 

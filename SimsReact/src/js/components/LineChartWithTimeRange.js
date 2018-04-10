@@ -8,9 +8,6 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy'
 import { BarChart, Bar, Brush, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import { Badge } from 'antd';
-// import 'antd/dist/antd.css';
-
-
 
 import TimeSeriesData from '../components/TimeSeriesData'
 
@@ -39,8 +36,8 @@ export default class LineChartWithTimeRange extends React.Component {
 
     render () {
         return (
-            <div className="container">
-            <BarChart width={800} height={200} data={this.state.itemsWithRange}
+            <div>
+            <BarChart width={1000} height={200} data={this.state.itemsWithRange}
                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <XAxis dataKey="time"/>
                 <Tooltip/>

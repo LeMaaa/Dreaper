@@ -48,70 +48,73 @@ export default class HomePage extends React.Component {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <Drawer
-                    variant="permanent"
-                    classes={{
-                      paper: 'drawerPaper'
-                    }}
-                >
-                    <List>
-                        <div>
-                            <Link to="/trend">
-                                <ListItem button>
-                                  <ListItemIcon>
-                                    <InboxIcon />
-                                  </ListItemIcon>
-                                  <ListItemText primary="General Trend" />
-                                </ListItem>
-                            </Link>
-                            <Link to="/keywords">
-                                <ListItem button>
-                                  <ListItemIcon>
-                                    <StarIcon />
-                                  </ListItemIcon>
-                                  <ListItemText primary="Keywords" />
-                                </ListItem>
-                            </Link>
-                            <Link to="/topmods">
-                                <ListItem button>
-                                  <ListItemIcon>
-                                    <SendIcon />
-                                  </ListItemIcon>
-                                  <ListItemText primary="Top Mods" />
-                                </ListItem>
-                            </Link>
-                            <Link to="/creators">
-                                <ListItem button>
-                                  <ListItemIcon>
-                                    <DraftsIcon />
-                                  </ListItemIcon>
-                                  <ListItemText primary="Creators" />
-                                </ListItem>
-                            </Link>
-                            <Link to="/dashboard">
-                                <ListItem button>
-                                  <ListItemIcon>
-                                    <DraftsIcon />
-                                  </ListItemIcon>
-                                  <ListItemText primary="Dashboard" />
-                                </ListItem>
-                            </Link>
-                        </div>
-                    </List>
-                </Drawer>
+                <div className="content-container">
+                    <Dashboard/>
+                </div>
+                {/*<Drawer*/}
+                    {/*variant="permanent"*/}
+                    {/*classes={{*/}
+                      {/*paper: 'drawerPaper'*/}
+                    {/*}}*/}
+                {/*>*/}
+                    {/*<List>*/}
+                        {/*<div>*/}
+                            {/*<Link to="/trend">*/}
+                                {/*<ListItem button>*/}
+                                  {/*<ListItemIcon>*/}
+                                    {/*<InboxIcon />*/}
+                                  {/*</ListItemIcon>*/}
+                                  {/*<ListItemText primary="General Trend" />*/}
+                                {/*</ListItem>*/}
+                            {/*</Link>*/}
+                            {/*<Link to="/keywords">*/}
+                                {/*<ListItem button>*/}
+                                  {/*<ListItemIcon>*/}
+                                    {/*<StarIcon />*/}
+                                  {/*</ListItemIcon>*/}
+                                  {/*<ListItemText primary="Keywords" />*/}
+                                {/*</ListItem>*/}
+                            {/*</Link>*/}
+                            {/*<Link to="/topmods">*/}
+                                {/*<ListItem button>*/}
+                                  {/*<ListItemIcon>*/}
+                                    {/*<SendIcon />*/}
+                                  {/*</ListItemIcon>*/}
+                                  {/*<ListItemText primary="Top Mods" />*/}
+                                {/*</ListItem>*/}
+                            {/*</Link>*/}
+                            {/*<Link to="/creators">*/}
+                                {/*<ListItem button>*/}
+                                  {/*<ListItemIcon>*/}
+                                    {/*<DraftsIcon />*/}
+                                  {/*</ListItemIcon>*/}
+                                  {/*<ListItemText primary="Creators" />*/}
+                                {/*</ListItem>*/}
+                            {/*</Link>*/}
+                            {/*<Link to="/dashboard">*/}
+                                {/*<ListItem button>*/}
+                                  {/*<ListItemIcon>*/}
+                                    {/*<DraftsIcon />*/}
+                                  {/*</ListItemIcon>*/}
+                                  {/*<ListItemText primary="Dashboard" />*/}
+                                {/*</ListItem>*/}
+                            {/*</Link>*/}
+                        {/*</div>*/}
+                    {/*</List>*/}
+                {/*</Drawer>*/}
 
 
-                <main className='content'>
-                    <div>
-                      <Route exact path="/trend" component={TrendPage} />
-                      <Route path="/keywords" component={KeywordsPage} />
-                      <Route path="/topmods" component={TopModsPage} />
-                      <Route path="/creators" component={CreatorsPage} />
-                      <Route path="/dashboard" component={Dashboard} />
+                {/*<main className='content'>*/}
+                    {/*<div>*/}
+                      {/*<Route exact path="/trend" component={TrendPage} />*/}
+                      {/*<Route path="/keywords" component={KeywordsPage} />*/}
+                      {/*<Route path="/topmods" component={TopModsPage} />*/}
+                      {/*<Route path="/creators" component={CreatorsPage} />*/}
+                      {/*<Route path="/dashboard" component={Dashboard} />*/}
 
-                    </div>
+                    {/*</div>*/}
 
-                </main>
+                {/*</main>*/}
             </div>
             </Router>
         );

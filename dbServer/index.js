@@ -299,7 +299,7 @@ app.post('/getModByName', (req, res, next) => {
 app.post('/getKeyWordWithThreshold', (req, res,next) => {
     console.log("getKeyWordWithThreshold _ called");
 
-    Keyword.find({}).sort({ 'value' : -1}).limit(9).exec((err, docs) => {
+    Keyword.find({}).sort({ 'value' : -1}).limit(8).exec((err, docs) => {
         if (err) {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");
@@ -340,6 +340,35 @@ app.post('/getModsWithKeyword', (req, res, next) => {
     });
 });
 
+app.post('/getModsWithCreator', (req, res, next) => {
+    console.log("getModsWithCreator _ called");
+    console.log(req)
+
+    var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
+    console.log(startTime)
+    var endTime =  new Date(moment(req.body.endTime).format("MMM YYYY"));
+    console.log(endTime);
+
+    // var query = "keywords." +req.body.keyword + '';
+
+    var val = req.body.keyword;
+    var query = {};
+    query["keywords." + val] = {$exists : true};
+    query["publish_date"] = {
+        $gte: startTime,
+        $lt: endTime,
+    };
+
+    Item.find(query).limit(30).exec((err, mods) => {
+        if (err) {
+            console.log("No matching mod for current keyword");
+        } else {
+            console.log("checking current mods");
+            console.log(mods)
+            res.json(mods);
+        }
+    });
+});
 
 app.listen(3000, () => console.log('dbserver listening on port 3000!'))
 

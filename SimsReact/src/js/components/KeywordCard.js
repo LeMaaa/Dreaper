@@ -6,12 +6,14 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 
-import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge } from 'antd';
+import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider } from 'antd';
 const { Meta } = Card;
 
 import SingleModInfo from '../components/SingleModInfo' ;
 import DownloadModBar from "./DownloadModBar";
 import ViewsModBar from "./ViewsModBar";
+import KeywordPieChart from "./KeywordPieChart";
+import KeywordCircleOnPanel from "./KeywordCircleOnPanel";
 
 
 
@@ -72,6 +74,10 @@ class KeywordCard extends React.Component{
 
 
     queryModsWithinTimeRange(startTime, endTime, keyword) {
+        console.log("query mods with time range")
+        console.log(startTime);
+        console.log(endTime);
+        console.log(keyword);
         axios.post('http://localhost:3000/getModsWithKeyword', {
 
             startTime: startTime === null ? "Mar 1994" : startTime,
@@ -118,6 +124,14 @@ class KeywordCard extends React.Component{
         this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {this.state.mods}/>
     }
 
+    renderKeywordCircle() {
+        // let item = [{
+        //     name: this.props.keyword,
+        //     value: this.props.value,
+        // }];
+        return <KeywordPieChart items = {this.state.item}/>
+    }
+
 
 
     componentDidMount() {
@@ -133,6 +147,10 @@ class KeywordCard extends React.Component{
                 // console.log(res.data);
                 console.log(res.data)
                 this.setState({ 'mods' : res.data});
+                this.setState({ 'item' : [{
+                    name : this.props.keyword,
+                    value : this.props.value,
+                }]});
 
                 if(this.state.currentMod === null) {
                     this.state.currentMod =  this.state.mods[0];
@@ -153,25 +171,32 @@ class KeywordCard extends React.Component{
 
     render () {
         return (
-            <div>
+            <div className="keywordCircle">
                 <Card title= {"No." + this.props.index} extra={<Button icon = "pie-chart" onClick={this.showModal}/>} style={{ width: 300 }}>
 
-                    <Meta
-                        title= {this.props.keyword}
-                    />
+                    {/*{this.renderKeywordCircle}*/}
+                    {/*<div className="WrapperDefined" >*/}
+                   {/*{this.props.keyword}*/}
+                    {/*</div>*/}
+
+                    <KeywordCircleOnPanel items = {this.state.item}/>
+
                 </Card>
                 <Modal
+                    title = {"No." + this.props.index + "  -  " + this.props.keyword}
 
-                    title = {<Badge count =  {this.props.keyword + ':' + this.props.value} style={{ backgroundColor: '#52c41a' }}
-                    />}
                     visible={this.state.visible}
                     footer = {null}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    width = {900}
+                    width = {1100}
                 >
                     <Row type="flex" justify="space-around">
-                        <Col span={11}>
+                        <Col span = {8}>
+                            <KeywordPieChart items = {this.state.item}/>
+                        </Col>
+
+                        <Col span={8}>
                             <Card
                                 style={{ width: '100%' }}
                                 tabList={this.state.tabListNoTitle}
@@ -181,8 +206,8 @@ class KeywordCard extends React.Component{
                                 {this.state.contentListNoTitle[this.state.noTitleKey]}
                             </Card>
                         </Col>
-                        <Col span={1}/>
-                        <Col span = {11}>
+
+                        <Col span = {8}>
                             <SingleModInfo currentMod = {this.state.currentMod}/>
                         </Col>
                     </Row>

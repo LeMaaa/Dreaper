@@ -34,18 +34,59 @@ a {
 }
 
 .container {
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
     overflow: hidden;
 }
 
 .ant-spin-container {
     overflow:scroll;
-    height:300px;
+    height:540px;
 }
 
 .scroll-text {
     overflow:scroll;
     height:200px;
+}
+
+/*.PanelTitle {*/
+    /*width : 120px;*/
+/*}*/
+
+.circle {
+     width: 140px;
+     height: 140px;
+     background: #8fb8ff;
+     -moz-border-radius: 70px;
+     -webkit-border-radius: 70px;
+     border-radius: 70px;
+    text-align:center;
+    font-size: 45px;
+
+}
+
+/*.ant-card.ant-card-bordered {*/
+    /*width:200px !important;*/
+/*}*/
+
+
+/*.ant-avatar > * {*/
+    /*line-height : 140px !important;*/
+/*}*/
+
+.WrapperDefined {
+    font-size: 45px;
+}
+
+.ChartRow {
+    padding-left: 0 !important;
+}
+
+.content-container {
+    padding-top: 74px;
+}
+
+.keywordCircle.ant-card-body {
+    padding: inherit !important;
 }
 
