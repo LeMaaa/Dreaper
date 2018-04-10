@@ -31,7 +31,7 @@ class Dashboard extends React.Component{
         };
 
         this.onChange = this.onChange.bind(this);
-        this.handleChange = this.handleChange(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
 
