@@ -1,4 +1,7 @@
 /**
+ * Created by lema on 2018/4/11.
+ */
+/**
  * Created by lema on 2018/4/5.
  */
 import React from 'react';
@@ -6,34 +9,29 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 
-import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider} from 'antd';
+import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider } from 'antd';
 const { Meta } = Card;
 
 import SingleModInfo from '../components/SingleModInfo' ;
 import DownloadModBar from "./DownloadModBar";
 import ViewsModBar from "./ViewsModBar";
+import CircleOnPanel from './CircleOnPanel'
+
 import KeywordPieChart from "./KeywordPieChart";
-import CircleOnPanel from "./CircleOnPanel";
+import KeywordCircleOnPanel from "./CircleOnPanel";
 
 
 
 
-
-class KeywordCard extends React.Component{
+class CreatorCard extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
             mods : [],
-            startTime : null,
-            endTime : null,
-            keyword : null,
-            totalNumOfCurrentKeyword : 20,
-            index : -1,
+            creator : null,
             visible: false,
             noTitleKey: 'Downloads',
             currentMod : null,
-            totalDownloads : 0 ,
-            totalViews : 0,
 
             contentListNoTitle : {
                 Downloads: <p>Downloads content</p>,
@@ -72,39 +70,27 @@ class KeywordCard extends React.Component{
         console.log(e);
         this.setState({
             visible: false,
-            totalDownloads : 0,
-            totalViews:0
         });
     }
 
 
-    queryModsWithinTimeRange(startTime, endTime, keyword) {
+    queryModsForCreator(creatorEntry) {
         console.log("query mods with time range")
-        console.log(startTime);
-        console.log(endTime);
-        console.log(keyword);
-        axios.post('http://localhost:3000/getModsWithKeyword', {
+        console.log(creatorEntry);
 
-            startTime: startTime === null ? "Mar 1994" : startTime,
-            endTime: endTime === null ? "Dec 2020" : endTime,
-            keyword : keyword
-
+        axios.post('http://localhost:3000/getModByName', {
+            modName : creatorEntry.value.mods
         })
             .then(res => {
-                console.log("received data www");
+                console.log("received data for by name");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({ 'mods' : res.data.mods})
-                this.setState({'totalDownloads' : res.data.totalDownloads});
-                this.setState({'totalViews' : res.data.totalViews});
-                this.setState({
-                    'startTime': startTime,
-                    'endTime': endTime,
-                    'keyword' : keyword
-                })
+                this.setState({ 'mods' : res.data})
+                this.setState({'currentMod' : res.data[0]});
                 this.renderDownloadModList();
                 this.renderViewsModList();
             });
+
     }
 
     onTabChange(key, type) {
@@ -113,12 +99,11 @@ class KeywordCard extends React.Component{
     }
 
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime
-            && nextProps.keyword === this.state.keyword) return;
-        this.queryModsWithinTimeRange(nextProps.startTime, nextProps.endTime, nextProps.keyword )
-
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.creator === this.state.creator) return;
+    //     this.queryModsForCreator(nextProps.creatorEntry);
+    //
+    // }
 
     renderDownloadModList() {
         console.log("downlodas")
@@ -131,72 +116,37 @@ class KeywordCard extends React.Component{
         this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {this.state.mods} totalViews = {this.state.totalViews}/>
     }
 
-    renderKeywordCircle() {
-        // let item = [{
-        //     name: this.props.keyword,
-        //     value: this.props.value,
-        // }];
-        return <KeywordPieChart items = {this.state.item}/>
-    }
-
-
 
     componentDidMount() {
-        axios.post('http://localhost:3000/getModsWithKeyword', {
+        this.queryModsForCreator(this.props.creatorEntry);
 
-            startTime: this.props.startTime === null ? "Mar 1994" : this.props.startTime,
-            endTime: this.props.endTime === null ? "Dec 2020" : this.props.endTime,
-            keyword : this.props.keyword
-
-        })
-            .then(res => {
-                console.log("received data www");
-                // console.log(res.data);
-                console.log(res.data)
-                this.setState({ 'mods' : res.data.mods});
-                this.setState({"totalViews" : res.data.totalViews});
-                this.setState({"totalDownloads" : res.data.totalDownloads});
-                this.setState({'totalNumOfCurrentKeyword': res.data.totalNumOfCurrentKeyword })
-
-                this.setState({ 'item' : [{
-                    name : this.props.keyword,
-                    value : this.props.value,
-                }]});
-
-                if(this.state.currentMod === null ) {
-                    this.setState({"currentMod" : res.data.mods[0]});
-                }
-
-                this.renderDownloadModList();
-                this.renderViewsModList();
+        eventProxy.on('ChangeMod', (item) => {
+            this.setState({
+                'currentMod' : item
             });
-
-            eventProxy.on('ChangeMod', (item) => {
-                this.setState({
-                    'currentMod' : item
-                });
-            });
+        });
 
     }
 
 
     render () {
         return (
-            <div className="keywordCircle">
+            <div className="CreatorCircle">
                 <Card  onClick={this.showModal} style={{ width: 250 }}>
 
                     {/*{this.renderKeywordCircle}*/}
                     {/*<div className="WrapperDefined" >*/}
-                   {/*{this.props.keyword}*/}
+                    {/*{this.props.keyword}*/}
                     {/*</div>*/}
-
                     <Badge count = {this.props.index}/>
-                    <CircleOnPanel index = {this.props.index} name = {this.props.keyword}/>
-                    <span className="textUnderCircle"> {this.props.value} downloads </span>
+                    <CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id}/>
+                    <span className="textUnderCircle"> {this.props.creatorEntry.value.downloads} downloads </span>
+
+                    {/*<KeywordCircleOnPanel items = {this.state.item}/>*/}
 
                 </Card>
                 <Modal
-                    title = {"No." + this.props.index + "  -  " + this.props.keyword}
+                    title = {"No." + this.props.index + "  -  " + this.props.creatorEntry._id}
 
                     visible={this.state.visible}
                     footer = {null}
@@ -206,7 +156,7 @@ class KeywordCard extends React.Component{
                 >
                     <Row type="flex" justify="space-around">
                         <Col span = {8}>
-                            <CircleOnPanel index = {this.props.index} name = {this.props.keyword}/>
+                            {/*<KeywordPieChart items = {this.state.item}/>*/}
                         </Col>
 
                         <Col span={8}>
@@ -235,5 +185,6 @@ class KeywordCard extends React.Component{
     }
 };
 
-export default KeywordCard;
+export default CreatorCard;
+
 

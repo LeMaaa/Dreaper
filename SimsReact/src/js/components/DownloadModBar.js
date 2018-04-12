@@ -37,7 +37,7 @@ class DownloadModBar extends React.Component{
                         <List.Item.Meta
                             avatar={<Avatar> {index + 1} </Avatar>}
                             title={<a>{item.title}</a>}
-                            description = { <Progress percent={item.downloads / 2000} format={() =>item.downloads} />}
+                            description = { <Progress percent={item.downloads / this.props.totalDownloads * 100} format={() =>item.downloads} />}
                         />
                     </List.Item>
                 )}

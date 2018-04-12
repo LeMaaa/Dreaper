@@ -38,7 +38,7 @@ class ViewsModBar extends React.Component{
                         <List.Item.Meta
                             avatar={<Avatar> {index + 1}  </Avatar>}
                             title={<a>{item.title}</a>}
-                            description = {<Progress percent={item.views / 3000} format={() =>item.views} />}
+                            description = {<Progress percent={item.views / this.props.totalViews * 100} format={() =>item.views} />}
                         />
                     </List.Item>
                 )}

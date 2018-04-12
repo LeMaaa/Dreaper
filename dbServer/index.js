@@ -11,6 +11,7 @@ const app = express();
 const mongoose = require("mongoose");
 const Item = require('./mongoose_db').Item;
 const Keyword = require('./mongoose_db').Keyword;
+const Creator = require('./mongoose_db').Creator;
 const async = require('async');
 
 
@@ -280,26 +281,62 @@ app.get('/getTimeRangeThreshold', (req, res,next) => {
 
 app.post('/getModByName', (req, res, next) => {
     console.log("getModByName _ called");
-    console.log(req);
-    console.log("ModName :" + req.body.modName);
-    var ModName = req.body.modName;
 
-    Item.findOne({'title': ModName}).exec((err, docs) => {
-        if(err) {
-            console.log(err);
-            res.status(504).send("Oh uh, something went wrong -- geTimeRangeThreshold");
-        }else {
-            res.json(docs);
-        }
-    }
-);
+    console.log("ModName :" + req.body.modName.length);
+    var ModNames = req.body.modName;
+    var ret = [];
+
+
+    async.each(ModNames, function(name, callback) {
+        // if you really want the console.log( 'dropped' ),
+        // replace the 'callback' here with an anonymous function
+
+        Item.findOne({'title': name}).exec((err, docs) => {
+                if(err) {
+                    return callback(err);
+                }else {
+                    ret.push(docs);
+                    callback();
+                }
+            }
+        );
+    }, function(err) {
+        if( err ) { return console.log(err); }
+        console.log("res");
+        console.log(res);
+        res.json(ret);
+        console.log('all dropped');
+    });
+
 });
+
+
+
+
+
+
+
+
 
 
 app.post('/getKeyWordWithThreshold', (req, res,next) => {
     console.log("getKeyWordWithThreshold _ called");
 
     Keyword.find({}).sort({ 'value' : -1}).limit(8).exec((err, docs) => {
+        if (err) {
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong");
+        } else {
+            console.log(docs);
+            res.json(docs);
+        }
+    });
+});
+
+app.post('/getCreators', (req, res, next) => {
+    console.log("getCreators _ called");
+
+    Creator.find({}).sort({ 'value.downloads' : -1}).limit(8).exec((err, docs) => {
         if (err) {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");
@@ -329,13 +366,20 @@ app.post('/getModsWithKeyword', (req, res, next) => {
         $lt: endTime,
     };
 
+
     Item.find(query).limit(30).exec((err, mods) => {
         if (err) {
             console.log("No matching mod for current keyword");
         } else {
             console.log("checking current mods");
             console.log(mods)
-            res.json(mods);
+            var totalDownloads = 0;
+            var totalViews = 0;
+            mods.map((mod) => {
+                totalDownloads = totalDownloads + mod.downloads;
+                totalViews = totalViews + mod.views;
+            });
+            res.json({mods : mods, totalDownloads : totalDownloads, totalViews : totalViews});
         }
     });
 });
