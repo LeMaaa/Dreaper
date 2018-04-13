@@ -99,3 +99,26 @@ a {
     text-align: center;
 }
 
+.filter-list {
+    margin: auto;
+    width: 300px;
+    background: #3498db;
+    border-radius: 5px;
+    border: 1px;
+}
+
+.filter-list >  input {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    border-radius: 5px 5px 0px 0px;
+    border: 0;
+    font-size: 24px;
+
+}
+
+.scrollSearch {
+    overflow:scroll;
+    height: 440px;
+}
+

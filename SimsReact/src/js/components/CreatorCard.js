@@ -53,7 +53,7 @@ class CreatorCard extends React.Component{
         this.onTabChange = this.onTabChange.bind(this);
     }
 
-    showModal(){
+    showModal(e){
         this.setState({
             visible: true,
         });
@@ -132,14 +132,14 @@ class CreatorCard extends React.Component{
     render () {
         return (
             <div className="CreatorCircle">
-                <Card  onClick={this.showModal} style={{ width: 250 }}>
+                <Card  style={{ width: 250 }} onClick={this.showModal}>
 
                     {/*{this.renderKeywordCircle}*/}
                     {/*<div className="WrapperDefined" >*/}
                     {/*{this.props.keyword}*/}
                     {/*</div>*/}
                     <Badge count = {this.props.index}/>
-                    <CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id}/>
+                    <CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id} />
                     <span className="textUnderCircle"> {this.props.creatorEntry.value.downloads} downloads </span>
 
                     {/*<KeywordCircleOnPanel items = {this.state.item}/>*/}

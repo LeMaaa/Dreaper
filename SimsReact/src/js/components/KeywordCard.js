@@ -177,20 +177,28 @@ class KeywordCard extends React.Component{
                 });
             });
 
+            // eventProxy.on("showModal", (value) => {
+            //     this.setState({
+            //         visible: true,
+            //     });
+            // })
+
     }
 
 
     render () {
         return (
             <div className="keywordCircle">
-                <Card  onClick={this.showModal} style={{ width: 250 }}>
+                <Card  onClick={this.showModal} style={{ width: 250 }} >
 
                     {/*{this.renderKeywordCircle}*/}
                     {/*<div className="WrapperDefined" >*/}
                    {/*{this.props.keyword}*/}
                     {/*</div>*/}
 
+
                     <Badge count = {this.props.index}/>
+                    {/*<Button icon = "close-circle-o" />*/}
                     <CircleOnPanel index = {this.props.index} name = {this.props.keyword}/>
                     <span className="textUnderCircle"> {this.props.value} downloads </span>
 

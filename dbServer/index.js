@@ -310,19 +310,10 @@ app.post('/getModByName', (req, res, next) => {
 
 });
 
-
-
-
-
-
-
-
-
-
 app.post('/getKeyWordWithThreshold', (req, res,next) => {
     console.log("getKeyWordWithThreshold _ called");
 
-    Keyword.find({}).sort({ 'value' : -1}).limit(8).exec((err, docs) => {
+    Keyword.find({}).sort({ 'value' : -1}).limit(50).exec((err, docs) => {
         if (err) {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");
@@ -336,7 +327,7 @@ app.post('/getKeyWordWithThreshold', (req, res,next) => {
 app.post('/getCreators', (req, res, next) => {
     console.log("getCreators _ called");
 
-    Creator.find({}).sort({ 'value.downloads' : -1}).limit(8).exec((err, docs) => {
+    Creator.find({}).sort({ 'value.downloads' : -1}).limit(50).exec((err, docs) => {
         if (err) {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");
@@ -409,6 +400,34 @@ app.post('/getModsWithCreator', (req, res, next) => {
         } else {
             console.log("checking current mods");
             console.log(mods)
+            res.json(mods);
+        }
+    });
+});
+
+app.post('/topModsWithDownloads', (req, res, next) => {
+    console.log("getModsWithKeyword _ called");
+    console.log(req)
+
+    var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
+    console.log(startTime)
+    var endTime =  new Date(moment(req.body.endTime).format("MMM YYYY"));
+    console.log(endTime);
+
+    // var query = "keywords." +req.body.keyword + '';
+
+    var val = req.body.keyword;
+    var query = {};
+    query["publish_date"] = {
+        $gte: startTime,
+        $lt: endTime,
+    };
+
+    Item.find(query).sort({'downloads': -1}).limit(50).exec((err, mods) => {
+        if (err) {
+            console.log("No top mods found");
+        } else {
+            console.log("finding top mods");
             res.json(mods);
         }
     });
