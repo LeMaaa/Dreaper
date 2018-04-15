@@ -213,15 +213,13 @@ class Dashboard extends React.Component{
                         </Col>
                         <Col span = {1}></Col>
                         <Col span = {5}>
-                            <Card className={"search-card"}  >
+                            <Card className="search-card"  >
                                 {this.state.currentView === "Keywords" ?
                                     <Search
                                     placeholder="Search Keyword"
                                     onSearch={this.searchKeyword}
                                 /> : null}
-                                <div className="scrollSearch">
-                                    {currentSearchBox}
-                                </div>
+                                {currentSearchBox}
                             </Card>
                         </Col>
 

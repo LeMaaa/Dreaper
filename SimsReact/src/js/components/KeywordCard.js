@@ -197,7 +197,7 @@ class KeywordCard extends React.Component{
                     {/*</div>*/}
 
 
-                    <Badge count = {this.props.index}/>
+                    <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                     {/*<Button icon = "close-circle-o" />*/}
                     <CircleOnPanel index = {this.props.index} name = {this.props.keyword}/>
                     <span className="textUnderCircle"> {this.props.value} mods </span>

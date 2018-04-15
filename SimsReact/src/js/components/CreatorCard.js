@@ -138,7 +138,7 @@ class CreatorCard extends React.Component{
                     {/*<div className="WrapperDefined" >*/}
                     {/*{this.props.keyword}*/}
                     {/*</div>*/}
-                    <Badge count = {this.props.index}/>
+                    <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                     <CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id} />
                     <span className="textUnderCircle"> {this.props.creatorEntry.value.downloads} downloads </span>
 

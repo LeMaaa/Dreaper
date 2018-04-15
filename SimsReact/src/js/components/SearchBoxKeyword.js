@@ -9,7 +9,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import {Badge, Button,Tag, Row} from "antd";
+import {Badge, Button, Tag, Row, List} from "antd";
 
 import SearchBarRowKeyword from './SearchBarRowKeyword';
 
@@ -48,11 +48,20 @@ export default class SearchBoxKeyword extends React.Component {
     }
 
     renderKeywordList(entries) {
-        return entries.map((entry, index) => {
-                        return <Row  key = {index} >
-                            <SearchBarRowKeyword entry = {entry} index = {entry.rank}/>
-                        </Row>
-                    });
+
+        return (<List
+            itemLayout="horizontal"
+            dataSource={entries}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={item.rank}/>}
+                  title={item['_id']}
+                  description={"Mods: " + item['value']}
+                />
+              </List.Item>
+            )}
+          />)
     }
 
 

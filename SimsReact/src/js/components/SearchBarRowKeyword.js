@@ -38,7 +38,7 @@ export default class SearchBarRowKeyword extends React.Component {
     render() {
         return (
             <div>
-                <Badge count = {this.props.index}/>
+                <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                 {
                     this.props.searched ?
                         <Tag  color="geekblue" closable = {this.props.searched} onClose={closeKeyword} onClick = {this.addKeyword}> {this.props.entry._id} </Tag>

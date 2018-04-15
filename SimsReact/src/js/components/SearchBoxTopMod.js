@@ -7,7 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import {Badge, Button,Tag, Row} from "antd";
+import {Badge, Button, Tag, Row, List} from "antd";
 
 import SearchBarRowTopMod from './SearchBarRowTopMod';
 
@@ -25,11 +25,20 @@ export default class SearchBoxTopMod extends React.Component {
     }
 
     renderTopModsList(entries) {
-        return entries.map((entry, index) => {
-                        return <Row  key = {index} >
-                            <SearchBarRowTopMod entry = {entry} index = {entry.rank}/>
-                        </Row>
-                    });
+
+        return (<List
+            itemLayout="horizontal"
+            dataSource={entries}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={item.rank}/>}
+                  title={item['title']}
+                  description={"Downloads: " + item['downloads']}
+                />
+              </List.Item>
+            )}
+          />)
     }
 
     render() {

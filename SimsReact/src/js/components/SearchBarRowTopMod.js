@@ -37,7 +37,7 @@ export default class SearchBarRowTopMod extends React.Component {
     render() {
         return (
             <div>
-                <Badge count = {this.props.index}/>
+                <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                 {/*<Button type="dashed" onClick = {this.addCreator}>{this.props.entry._id}</Button>*/}
                 <Tag  color="geekblue" onClick = {this.addTopMod}> {this.props.entry.title} </Tag>
             </div>

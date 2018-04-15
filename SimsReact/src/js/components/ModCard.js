@@ -83,7 +83,7 @@ class ModCard extends React.Component{
             <div className="CreatorCircle">
                 <Card>
 
-                    <Badge count = {this.props.index}/>
+                    <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                     <CircleOnPanel index = {this.props.index} name = {this.props.mod.title} onClick={this.showModal}/>
                     <span className="textUnderCircle"> {this.props.mod.downloads} downloads </span>
 
