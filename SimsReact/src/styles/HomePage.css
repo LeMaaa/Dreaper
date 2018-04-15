@@ -66,8 +66,8 @@ a {
     for the size of your initial circle*/
     width: 12.5vw;
 
-    min-width: 160px;
-    min-height: 160px;
+    min-width: 150px;
+    min-height: 150px;
 
     text-align: center;
     border-radius: 50%;
@@ -76,8 +76,8 @@ a {
     justify-content: center;
     align-content: center;
     flex-direction: column;
-    padding: 20%;
-
+/*    padding: 20%;
+*/
     text-overflow: ellipsis ellipsis;
     overflow: hidden;
     overflow-wrap: break-word;
