@@ -30,7 +30,7 @@ a {
     height: 100%;
     padding-top: 100px;
     padding-left: 240px;
-    min-width: 0px; // So the Typography noWrap works
+    min-width: 0px;
 }
 
 .container {
@@ -62,17 +62,20 @@ a {
 .panel-circle {
     background: #8fb8ff;
 
-    height: 160px; /*change this and the width
+    height: 12.5vw; /*change this and the width
     for the size of your initial circle*/
-    width: 160px;
+    width: 12.5vw;
+
+    min-width: 160px;
+    min-height: 160px;
 
     text-align: center;
     border-radius: 50%;
 
     display: flex;
-    justify-content:center;
-    align-content:center;
-    flex-direction:column;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
     padding: 20%;
 
     text-overflow: ellipsis ellipsis;
@@ -120,7 +123,7 @@ a {
     border: 1px;
 }
 
-.filter-list >  input {
+.filter-list > input {
     width: 100%;
     display: block;
     padding: 10px;
