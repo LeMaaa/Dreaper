@@ -7,7 +7,7 @@ const user_info = require('./user_credential.js');
 const local_rul = 'mongodb://localhost:27017/sims_test_db';
 
 const local_collection = 'sims_records_test';
-const keyword_collection = 'keyword_mapred';
+const keyword_collection = 'keyword_mapred_date';
 const artists_collection = "artists";
 
 const uri = 'mongodb://35.230.97.158:27017/sims_test_db';

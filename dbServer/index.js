@@ -312,8 +312,18 @@ app.post('/getModByName', (req, res, next) => {
 
 app.post('/getKeyWordWithThreshold', (req, res, next) => {
     console.log("getKeyWordWithThreshold _ called");
+    var startTime = Date.parse(req.body.startTime)/1000;
+    console.log(startTime);
+    var endTime =  Date.parse(req.body.endTime)/1000;
+    console.log(endTime);
 
-    Keyword.find({}).sort({ 'value' : -1}).limit(50).exec((err, docs) => {
+    var query = { '$or': [{
+        "value.startDate": { $gte: startTime, $lt: endTime },
+        "value.endDate": { $gte: startTime, $lt: endTime }
+        }] 
+    };
+
+    Keyword.find(query).sort({ 'value.count' : -1}).limit(50).exec((err, docs) => {
         if (err) {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");

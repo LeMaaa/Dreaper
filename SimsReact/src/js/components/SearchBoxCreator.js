@@ -57,11 +57,6 @@ export default class SearchBoxCreator extends React.Component {
               </List.Item>
             )}
           />)
-        // return entries.map((entry, index) => {
-        //                 return <Row  key = {index} >
-        //                     <SearchBarRowCreator entry = {entry} index = {entry.rank}/>
-        //                 </Row>
-        //             });
     }
 
 
