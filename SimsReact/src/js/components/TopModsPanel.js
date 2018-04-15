@@ -32,7 +32,7 @@ export default class TopModsPanel extends React.Component{
 
     render() {
         return(
-            <Row type="flex" justify="space-around" >
+            <Row type="flex" justify="start" >
 
                 {
                     this.props.topMods.map((entry, index) => {

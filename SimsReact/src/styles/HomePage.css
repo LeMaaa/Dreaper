@@ -49,26 +49,38 @@ a {
     height:200px;
 }
 
-/*.PanelTitle {*/
-    /*width : 120px;*/
-/*}*/
+.stats-card {
+    max-width: 230px;
+    width: 20%;
+}
 
-.circle {
-     width: 140px;
-     height: 140px;
-     background: #8fb8ff;
-     -moz-border-radius: 50%;
-     -webkit-border-radius: 50%;
-     border-radius: 50%;
-    line-height: 140px;
+.search-card {
+    width: 100%;
+}
+
+
+.panel-circle {
+    background: #8fb8ff;
+
+    height: 160px; /*change this and the width
+    for the size of your initial circle*/
+    width: 160px;
+
     text-align: center;
+    border-radius: 50%;
 
-    font-size: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    vertical-align:middle;
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+
+    font-size: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    overflow-wrap: break-word;
 
 }
+
 
 /*.ant-card.ant-card-bordered {*/
     /*width:200px !important;*/
@@ -91,11 +103,12 @@ a {
     padding-top: 74px;
 }
 
-.keywordCircle.ant-card-body {
+/*.keywordCircle.ant-card-body {
     padding: inherit !important;
-}
+}*/
 
 .textUnderCircle {
+    font-size: 20px;
     text-align: center;
 }
 
@@ -118,7 +131,7 @@ a {
 }
 
 .scrollSearch {
-    overflow:scroll;
-    height: 440px;
+    overflow: auto;
+    max-height: 520px;
 }
 

@@ -25,14 +25,10 @@ export default class CircleOnPanel extends React.Component {
     render() {
         return (
             <div>
-
-                <div className="circle "  >
+                <div className="panel-circle" >
                     {this.props.name}
                 </div>
             </div>
-
-
-
         );
     }
 }

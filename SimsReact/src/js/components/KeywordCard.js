@@ -153,7 +153,7 @@ class KeywordCard extends React.Component{
                 console.log("received data www");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({ 'mods' : res.data.mods});
+                this.setState({"mods" : res.data.mods});
                 this.setState({"totalViews" : res.data.totalViews});
                 this.setState({"totalDownloads" : res.data.totalDownloads});
                 this.setState({'totalNumOfCurrentKeyword': res.data.totalNumOfCurrentKeyword })
@@ -188,8 +188,8 @@ class KeywordCard extends React.Component{
 
     render () {
         return (
-            <div className="keywordCircle">
-                <Card  onClick={this.showModal} style={{ width: 250 }} >
+            <div>
+                <Card onClick={this.showModal}>
 
                     {/*{this.renderKeywordCircle}*/}
                     {/*<div className="WrapperDefined" >*/}
@@ -200,7 +200,7 @@ class KeywordCard extends React.Component{
                     <Badge count = {this.props.index}/>
                     {/*<Button icon = "close-circle-o" />*/}
                     <CircleOnPanel index = {this.props.index} name = {this.props.keyword}/>
-                    <span className="textUnderCircle"> {this.props.value} downloads </span>
+                    <span className="textUnderCircle"> {this.props.value} mods </span>
 
                 </Card>
                 <Modal

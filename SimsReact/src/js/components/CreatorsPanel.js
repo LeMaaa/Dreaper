@@ -19,7 +19,7 @@ export default class CreatorsPanel extends React.Component{
 
     render() {
         return(
-            <Row type="flex" justify="space-around" >
+            <Row type="flex" justify="start" >
 
                 {
                     this.props.creators.map((entry, index) => {

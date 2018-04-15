@@ -55,7 +55,7 @@ export default class KeywordDatePicker extends React.Component {
         eventProxy.trigger('changeKeyWordMod', entry);
     }
 
-    updateModForInputTimeRange (e)  {
+    updateModForInputTimeRange(e)  {
         e.preventDefault();
 
         axios.post('http://localhost:3000/getKeyWordWithThreshold', {
@@ -71,8 +71,8 @@ export default class KeywordDatePicker extends React.Component {
     }
 
     isOutsideRange() {
-               return false;
-            }
+        return false;
+    }
 
     render() {
         return (

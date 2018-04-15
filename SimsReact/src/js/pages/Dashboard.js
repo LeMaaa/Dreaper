@@ -114,10 +114,10 @@ class Dashboard extends React.Component{
         if(value === "Creators") {
             console.log(value);
             this.setState( { "currentView": "Creators"});
-        }else if(value === "Keywords") {
+        } else if(value === "Keywords") {
             console.log(value);
             this.setState({"currentView" : "Keywords" });
-        }else if(value === "topMods") {
+        } else if(value === "topMods") {
             console.log(value);
             this.setState( { "currentView": "topMods"});
         }
@@ -149,7 +149,7 @@ class Dashboard extends React.Component{
         console.log("search keyword");
         console.log(value);
         var initialKeywords = this.state.keywordsForSearchBox;
-        initialKeywords = initialKeywords.filter(function(keyword){
+        initialKeywords = initialKeywords.filter((keyword) => {
             return keyword._id.search(value) !== -1;
         });
         console.log("initialKeywords");
@@ -170,11 +170,11 @@ class Dashboard extends React.Component{
                                               startTime = {this.state.startTime} endTime = {this.state.endTime} />;
             currentTitle = "Ranked By Number of Mods";
             currentSearchBox = <SearchBoxKeyword entries = {this.state.keywordsForSearchBox_Search} searched = {this.state.searched}/>
-        }else if(this.state.currentView === "Creators") {
+        } else if(this.state.currentView === "Creators") {
             currentPanel = <CreatorsPanel creators = {this.state.creators}/>;
             currentTitle = "Ranked By Accumulative Downloads";
             currentSearchBox = <SearchBoxCreator entries = {this.state.creatorsForSearchBox}/>
-        }else if(this.state.currentView === "topMods") {
+        } else if(this.state.currentView === "topMods") {
             currentPanel = <TopModsPanel topMods = {this.state.topMods}/>
             currentSearchBox = <SearchBoxTopMod entries = {this.state.topModsSearchBox}/>
             currentTitle = "Created";
@@ -209,18 +209,15 @@ class Dashboard extends React.Component{
                 <br/>
                     <Row>
                         <Col span={18}>
-                            {
-                                currentPanel
-                            }
+                            {currentPanel}
                         </Col>
                         <Col span = {1}></Col>
                         <Col span = {5}>
-                            <Card style={{ width: 230 }}  >
+                            <Card className={"search-card"}  >
                                 {this.state.currentView === "Keywords" ?
                                     <Search
                                     placeholder="Search Keyword"
                                     onSearch={this.searchKeyword}
-                                    style={{ width: 180 }}
                                 /> : null}
                                 <div className="scrollSearch">
                                     {currentSearchBox}

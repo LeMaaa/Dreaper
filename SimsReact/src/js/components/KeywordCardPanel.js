@@ -28,7 +28,7 @@ export default class KeywordCardPanel extends React.Component {
 
     render() {
         return (
-            <Row type="flex" justify="space-around" >
+            <Row type="flex" justify="start" >
                 {
                     this.props.keywords.map((entry, index) => {
                         return <Col span={6} key = {index} >

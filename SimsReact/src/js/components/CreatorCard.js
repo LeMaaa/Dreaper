@@ -132,7 +132,7 @@ class CreatorCard extends React.Component{
     render () {
         return (
             <div className="CreatorCircle">
-                <Card  style={{ width: 250 }} onClick={this.showModal}>
+                <Card onClick={this.showModal}>
 
                     {/*{this.renderKeywordCircle}*/}
                     {/*<div className="WrapperDefined" >*/}
