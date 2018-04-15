@@ -25,12 +25,14 @@ export default class SearchBoxKeyword extends React.Component {
         }
 
         this.filterList = this.filterList.bind(this);
+        this.renderKeywordList = this.renderKeywordList.bind(this)
     }
 
     componentWillRe() {
         console.log("logs")
         console.log(this.props.entries)
     }
+
     componentWillReceiveProps() {
 
     }
@@ -45,18 +47,20 @@ export default class SearchBoxKeyword extends React.Component {
         this.setState({"items": updatedList});
     }
 
+    renderKeywordList(entries) {
+        return entries.map((entry, index) => {
+                        return <Row  key = {index} >
+                            <SearchBarRowKeyword entry = {entry} index = {entry.rank}/>
+                        </Row>
+                    });
+    }
+
 
     render() {
+        const { entries } = this.props;
         return (
             <div>
-                {
-                    this.props.entries.map((entry, index) => {
-                        return <Row  key = {index} >
-                            <SearchBarRowKeyword entry = {entry} index = {index + 1}/>
-                        </Row>
-                    })
-                }
-
+                {this.renderKeywordList(entries)}
             </div>
         );
     }

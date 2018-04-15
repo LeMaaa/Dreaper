@@ -36,8 +36,8 @@ export default class TopModsPanel extends React.Component{
 
                 {
                     this.props.topMods.map((entry, index) => {
-                        return <Col span={6} key = {index} >
-                            <ModCard mod = {entry} index = {index + 1}/>
+                        return <Col span={6} key={index} >
+                            <ModCard mod={entry} index={entry.rank} />
                         </Col>
                     })
                 }

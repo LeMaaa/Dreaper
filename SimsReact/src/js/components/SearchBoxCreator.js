@@ -12,7 +12,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import {Badge, Button,Tag, Row} from "antd";
+import {Badge, Button, Tag, Row} from "antd";
 
 import SearchBarRowCreator from './SearchBarRowCreator';
 
@@ -28,6 +28,7 @@ export default class SearchBoxCreator extends React.Component {
         }
 
         this.filterList = this.filterList.bind(this);
+        this.renderCreatorList = this.renderCreatorList.bind(this);
     }
 
 
@@ -41,18 +42,21 @@ export default class SearchBoxCreator extends React.Component {
         this.setState({"items": updatedList});
     }
 
+    renderCreatorList(entries) {
+        return entries.map((entry, index) => {
+                        return <Row  key = {index} >
+                            <SearchBarRowCreator entry = {entry} index = {entry.rank}/>
+                        </Row>
+                    });
+    }
+
+
 
     render() {
+        const { entries } = this.props;
         return (
             <div>
-                {
-                    this.props.entries.map((entry, index) => {
-                        return <Row  key = {index} >
-                            <SearchBarRowCreator entry = {entry} index = {index + 1}/>
-                        </Row>
-                    })
-                }
-
+                {this.renderCreatorList(entries)}
             </div>
         );
     }

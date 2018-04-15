@@ -24,7 +24,7 @@ export default class CreatorsPanel extends React.Component{
                 {
                     this.props.creators.map((entry, index) => {
                         return <Col span={6} key = {index} >
-                            <CreatorCard creatorEntry = {entry} index = {index + 1}/>
+                            <CreatorCard creatorEntry = {entry} index = {entry.rank}/>
                         </Col>
                     })
                 }

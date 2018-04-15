@@ -22,8 +22,6 @@ const COLORS = ['#a86f72','#263163', '#00C49F', '#d7cce5', '#97a5e5', '#FFBB28',
 export default class KeywordCardPanel extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-        }
     }
 
     render() {
@@ -34,7 +32,7 @@ export default class KeywordCardPanel extends React.Component {
                         return <Col span={6} key = {index} >
                             <KeywordCard keyword = {entry._id} startTime = {this.props.startTime}
                                          endTime = {this.props.endTime}
-                                         index = {index + 1}
+                                         index = {entry.rank}
                                          value = {entry.value} />
                         </Col>
                     })

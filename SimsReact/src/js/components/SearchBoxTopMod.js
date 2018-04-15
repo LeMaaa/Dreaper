@@ -20,20 +20,23 @@ export default class SearchBoxTopMod extends React.Component {
         this.state = {
             items : [],
         }
+
+        this.renderTopModsList = this.renderTopModsList.bind(this);
     }
 
+    renderTopModsList(entries) {
+        return entries.map((entry, index) => {
+                        return <Row  key = {index} >
+                            <SearchBarRowTopMod entry = {entry} index = {entry.rank}/>
+                        </Row>
+                    });
+    }
 
     render() {
+        const { entries } = this.props;
         return (
             <div>
-                {
-                    this.props.entries.map((entry, index) => {
-                        return <Row  key = {index} >
-                            <SearchBarRowTopMod entry = {entry} index = {index + 1}/>
-                        </Row>
-                    })
-                }
-
+                {this.renderTopModsList(entries)}
             </div>
         );
     }

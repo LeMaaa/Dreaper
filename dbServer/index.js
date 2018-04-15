@@ -254,7 +254,7 @@ app.get('/topmodswithtag', (req, res, next) => {
     });
 });
 
-app.get('/getTimeRangeThreshold', (req, res,next) => {
+app.get('/getTimeRangeThreshold', (req, res, next) => {
     console.log("getTimeRangeThreshold _ called");
     var data = [];
 
@@ -310,7 +310,7 @@ app.post('/getModByName', (req, res, next) => {
 
 });
 
-app.post('/getKeyWordWithThreshold', (req, res,next) => {
+app.post('/getKeyWordWithThreshold', (req, res, next) => {
     console.log("getKeyWordWithThreshold _ called");
 
     Keyword.find({}).sort({ 'value' : -1}).limit(50).exec((err, docs) => {
@@ -318,8 +318,11 @@ app.post('/getKeyWordWithThreshold', (req, res,next) => {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");
         } else {
-            console.log(docs);
-            res.json(docs);
+            res_docs = docs.map((doc, index) => {
+                doc.set('rank', index+1, {strict: false});
+                return doc;
+            });
+            res.json(res_docs);
         }
     });
 });
@@ -332,8 +335,11 @@ app.post('/getCreators', (req, res, next) => {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");
         } else {
-            console.log(docs);
-            res.json(docs);
+            res_docs = docs.map((doc, index) => {
+                doc.set('rank', index+1, {strict: false});
+                return doc;
+            });
+            res.json(res_docs);
         }
     });
 });
@@ -361,6 +367,7 @@ app.post('/getModsWithKeyword', (req, res, next) => {
     Item.find(query).limit(30).exec((err, mods) => {
         if (err) {
             console.log("No matching mod for current keyword");
+            res.status(500).send("Oh uh, something went wrong");
         } else {
             console.log("checking current mods");
             console.log(mods)
@@ -397,6 +404,7 @@ app.post('/getModsWithCreator', (req, res, next) => {
     Item.find(query).limit(30).exec((err, mods) => {
         if (err) {
             console.log("No matching mod for current keyword");
+            res.status(500).send("Oh uh, something went wrong");
         } else {
             console.log("checking current mods");
             console.log(mods)
@@ -407,7 +415,6 @@ app.post('/getModsWithCreator', (req, res, next) => {
 
 app.post('/topModsWithDownloads', (req, res, next) => {
     console.log("getModsWithKeyword _ called");
-    console.log(req)
 
     var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
     console.log(startTime)
@@ -426,9 +433,14 @@ app.post('/topModsWithDownloads', (req, res, next) => {
     Item.find(query).sort({'downloads': -1}).limit(50).exec((err, mods) => {
         if (err) {
             console.log("No top mods found");
+            res.status(500).send("Oh uh, something went wrong");
         } else {
             console.log("finding top mods");
-            res.json(mods);
+            res_mods = mods.map((doc, index) => {
+                doc.set('rank', index+1, {strict: false});
+                return doc;
+            });
+            res.json(res_mods);
         }
     });
 });
