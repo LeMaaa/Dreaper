@@ -52,7 +52,7 @@ var Item_Schema = new Schema({
 
 var Keyword_Schema = new Schema({
     _id : String,
-    value : Number,
+    value : {},
 }, {collection : keyword_collection});
 
 var Creator_Schema = new Schema({

@@ -329,6 +329,7 @@ app.post('/getKeyWordWithThreshold', (req, res, next) => {
             res.status(504).send("Oh uh, something went wrong");
         } else {
             res_docs = docs.map((doc, index) => {
+                doc.set('value', doc.value.count, {strict: false});
                 doc.set('rank', index+1, {strict: false});
                 return doc;
             });

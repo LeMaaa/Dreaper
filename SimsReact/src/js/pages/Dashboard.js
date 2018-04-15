@@ -35,8 +35,8 @@ class Dashboard extends React.Component{
         super(props);
 
         this.state = {
-            startTime : "Mar 1994",
-            endTime : "Dec 2050",
+            startTime : "Mar 2000",
+            endTime : "Dec 2020",
             keywords : [],
             topMods : [],
             topModsSearchBox : [],
@@ -70,7 +70,10 @@ class Dashboard extends React.Component{
 
 
     queryKeyWords() {
-        axios.post('http://localhost:3000/getKeyWordWithThreshold')
+        axios.post('http://localhost:3000/getKeyWordWithThreshold', {
+            startTime: this.state.startTime,
+            endTime: this.state.endTime
+        })
             .then(res => {
                 console.log("received data");
                 console.log(res.data);
@@ -136,7 +139,11 @@ class Dashboard extends React.Component{
             'startTime' : dateString[0],
             'endTime' : dateString[1],
         });
-        this.queryTopMods();
+
+        if (this.state.currentView === "topMods")
+            this.queryTopMods();
+        else if (this.state.currentView === "Keywords")
+            this.queryKeyWords();
     }
 
     // handleChange(value) {
