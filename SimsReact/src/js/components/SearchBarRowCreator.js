@@ -11,7 +11,8 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 
 
-import {Badge, Button,Tag} from "antd";
+import {Badge, Button,Tag, List} from "antd";
+const Item = List.Item;
 
 
 export default class SearchBarRowCreator extends React.Component {
@@ -26,9 +27,9 @@ export default class SearchBarRowCreator extends React.Component {
         this.addCreator = this.addCreator.bind(this);
     }
 
-    addCreator() {
+    show(index) {
         console.log("add creator")
-        eventProxy.trigger("addCreator", this.props.entry);
+        console.log(index)
     }
 
     render() {
@@ -36,7 +37,8 @@ export default class SearchBarRowCreator extends React.Component {
             <div>
                 <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                 {/*<Button type="dashed" onClick = {this.addCreator}>{this.props.entry._id}</Button>*/}
-                <Tag  color="geekblue" onClick = {this.addCreator}> {this.props.entry._id} </Tag>
+                {/*<Tag  color="geekblue" onClick = {this.addCreator}> {this.props.entry._id} </Tag>*/}
+                <List.Item onClick = {(e) => this.show(this.props.index)}> {this.props.index} </List.Item>
             </div>
         );
     }

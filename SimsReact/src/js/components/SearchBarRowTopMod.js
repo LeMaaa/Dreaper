@@ -14,7 +14,8 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 
 
-import {Badge, Button,Tag} from "antd";
+import {Badge, Button,Tag, List, Modal} from "antd";
+const Item = List.Item;
 
 
 export default class SearchBarRowTopMod extends React.Component {
@@ -25,21 +26,54 @@ export default class SearchBarRowTopMod extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            visible : false,
         }
-        this.addTopMod = this.addTopMod.bind(this);
+        this.show = this.show.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+        this.handleOk = this.handleOk.bind(this);
     }
 
-    addTopMod() {
+
+    handleOk(e) {
+        console.log(e);
+        this.setState({
+            'visible': false,
+        });
+    }
+
+    handleCancel(e) {
+        console.log(e);
+        this.setState({
+            'visible': false,
+        });
+    }
+
+    show(e,val) {
         console.log("add creator")
-        eventProxy.trigger("addTopMod", this.props.entry);
+        console.log(val);
+        e.preventDefault();
+        this.setState({
+            'visible': true,
+        });
     }
 
     render() {
         return (
             <div>
-                <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                 {/*<Button type="dashed" onClick = {this.addCreator}>{this.props.entry._id}</Button>*/}
-                <Tag  color="geekblue" onClick = {this.addTopMod}> {this.props.entry.title} </Tag>
+                <List.Item onClick = {(e) => this.show(e,this.props.index)}>
+                             <List.Item.Meta
+                           avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={this.props.entry.rank}/>}
+                           title={this.props.entry['title']}
+                           description= {"Downloads: " + this.props.entry['downloads']}
+                         />
+                </List.Item>
+                <Modal
+                    visible={this.state.visible}
+                    footer = {null}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >  {this.props.entry['title']} </Modal>
             </div>
         );
     }

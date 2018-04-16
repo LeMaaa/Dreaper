@@ -184,7 +184,7 @@ class Dashboard extends React.Component{
         } else if(this.state.currentView === "topMods") {
             currentPanel = <TopModsPanel topMods = {this.state.topMods}/>
             currentSearchBox = <SearchBoxTopMod entries = {this.state.topModsSearchBox}/>
-            currentTitle = "Created";
+            currentTitle = "Created Ranked By Accumulative Downloads";
         }
 
 
@@ -244,7 +244,7 @@ class Dashboard extends React.Component{
                             {/*}*/}
                         {/*</Row>*/}
                     <Row >
-                        <LineChartWithTimeRange />
+                        {this.state.currentView === "Creators" ? null : <LineChartWithTimeRange />  }
                     </Row>
             </div>
         );

@@ -44,7 +44,7 @@ class NumOfRecordsByMonth extends React.Component{
                 <CartesianGrid strokeDasharray="3 3"/>
                 <Tooltip/>
                 <Legend />
-                <Line type="monotone" dataKey="num" stroke="#8884d8" activeDot={{r: 8}} />
+                <Line type="monotone" dataKey="number of mods" stroke="#8884d8" activeDot={{r: 8}} />
             </LineChart>
         );
     }

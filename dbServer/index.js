@@ -1,7 +1,7 @@
 /**
  * Created by lema on 2018/2/13.
  */
-require("./mongoose_db.js");
+
 const moment = require('moment');
 const bodyParser = require('body-parser');
 
@@ -142,7 +142,7 @@ app.get('/numberOfRecordsByMonth', (req, res, next) => {
                 // console.log(myObj[key]);   // the value of the current key.
                 const item = {
                     "time": key,
-                    "num": data[key]
+                    "number of mods": data[key]
                 };
                 totalNum += data[key];
 
@@ -456,5 +456,5 @@ app.post('/topModsWithDownloads', (req, res, next) => {
     });
 });
 
-app.listen(3000, () => console.log('dbserver listening on port 3000!'))
+app.listen(3000, () => console.log('dbserver listening on port 8000!'));
 

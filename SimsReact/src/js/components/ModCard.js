@@ -16,6 +16,7 @@ import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider } from 'ant
 const { Meta } = Card;
 
 import SingleModInfo from '../components/SingleModInfo' ;
+import SingleModPopUp from '../components/SingleModPopUp';
 import DownloadModBar from "./DownloadModBar";
 import ViewsModBar from "./ViewsModBar";
 import CircleOnPanel from './CircleOnPanel'
@@ -81,42 +82,25 @@ class ModCard extends React.Component{
     render () {
         return (
             <div className="CreatorCircle">
-                <Card>
+                <Card onClick={this.showModal} >
 
                     <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
-                    <CircleOnPanel index = {this.props.index} name = {this.props.mod.title} onClick={this.showModal}/>
+                    <CircleOnPanel index = {this.props.index} name = {this.props.mod.title} />
                     <span className="textUnderCircle"> {this.props.mod.downloads} downloads </span>
 
                 </Card>
                 <Modal
-                    title = {"No." + this.props.index + "  -  " + this.props.mod.title}
-
+                    title = {null}
                     visible={this.state.visible}
                     footer = {null}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    width = {1100}
+                    width = {720}
                 >
-                    <Row type="flex" justify="space-around">
-                        <Col span = {8}>
-                            {/*<KeywordPieChart items = {this.state.item}/>*/}
-                        </Col>
 
-                        {/*<Col span={8}>*/}
-                            {/*<Card*/}
-                                {/*style={{ width: '100%' }}*/}
-                                {/*tabList={this.state.tabListNoTitle}*/}
-                                {/*activeTabKey={this.state.noTitleKey}*/}
-                                {/*onTabChange={(key) => { this.onTabChange(key, 'noTitleKey'); }}*/}
-                            {/*>*/}
-                                {/*{this.state.contentListNoTitle[this.state.noTitleKey]}*/}
-                            {/*</Card>*/}
-                        {/*</Col>*/}
+                            <SingleModPopUp currentMod = {this.props.mod}/>
 
-                        <Col span = {8}>
-                            <SingleModInfo currentMod = {this.props.mod}/>
-                        </Col>
-                    </Row>
+
                 </Modal>
             </div>
         );
