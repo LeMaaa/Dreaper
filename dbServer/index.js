@@ -121,6 +121,7 @@ app.get('/traits', (req, res, next) => {
 app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
     console.log("numberOfRecordsByMonth _ called");
     const data = {};
+    var dataDay = {};
     console.log("startTime : "  + req.body.startTime);
     console.log("endTime : " + req.body.endTime );
 
@@ -144,33 +145,49 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
             res.status(504).send("Oh uh, something went wrong");
             // res.end(err);
         } else {
-            docs.forEach((doc) => {
-                console.log(doc.time_series_data);
-                const key = moment(doc.publish_date).format("MMM YYYY");
-                data[key] = data[key] === undefined ? 1 : data[key]+1;
-            })
+                docs.forEach((doc) => {
+                    console.log(doc.time_series_data);
+                    const key = moment(doc.publish_date).format("MMM YYYY");
+                    const keyDay = moment(doc.publish_date).format("MMM Do YYYY");
+                    data[key] = data[key] === undefined ? 1 : data[key]+1;
+                    dataDay[keyDay] = dataDay[keyDay] === undefined ? 1 : dataDay[keyDay]+1;
+                });
 
-            const r = [];
-            var totalNum = 0;
+                const r = [];
+                var totalNum = 0;
 
-            Object.keys(data).forEach(key => {
-                // console.log(key);          // the name of the current key.
-                // console.log(myObj[key]);   // the value of the current key.
-                const item = {
-                    "time": key,
-                    "number of mods": data[key]
-                };
-                totalNum += data[key];
+                if(Object.keys(data).length > 10) {
+                    Object.keys(data).forEach(key => {
+                        // console.log(key);          // the name of the current key.
+                        // console.log(myObj[key]);   // the value of the current key.
+                        const item = {
+                            "time": key,
+                            "number of mods": data[key]
+                        };
+                        totalNum += data[key];
 
-                r.push(item);
-            });
+                        r.push(item);
+                    });
+                }else {
+                    Object.keys(dataDay).forEach(key => {
+                        // console.log(key);          // the name of the current key.
+                        // console.log(myObj[key]);   // the value of the current key.
+                        const item = {
+                            "time": key,
+                            "number of mods": dataDay[key]
+                        };
+                        totalNum += dataDay[key];
+                        r.push(item);
+                    });
 
-            ret = {
-                items :r,
-                totalNum : totalNum
-            }
+                }
 
-            res.json(ret);
+                var ret = {
+                    items :r,
+                    totalNum : totalNum
+                }
+
+                res.json(ret);
         }
     });
 });

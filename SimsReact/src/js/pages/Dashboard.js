@@ -35,8 +35,8 @@ class Dashboard extends React.Component{
         super(props);
 
         this.state = {
-            startTime : "Mar 2000",
-            endTime : "Dec 2020",
+            startTime : "1994/03/01",
+            endTime : "2020/12/30",
             keywords : [],
             topMods : [],
             topModsSearchBox : [],
@@ -69,10 +69,10 @@ class Dashboard extends React.Component{
     }
 
 
-    queryKeyWords() {
+    queryKeyWords(startTime ,endTime) {
         axios.post('http://localhost:3000/getKeyWordWithThreshold', {
-            startTime: this.state.startTime,
-            endTime: this.state.endTime
+            startTime: startTime === null ? "1994/03/01" : startTime,
+            endTime: endTime === null ? "2020/12/30" : endTime,
         })
             .then(res => {
                 console.log("received data");
@@ -128,7 +128,7 @@ class Dashboard extends React.Component{
     }
 
     componentWillMount() {
-        this.queryKeyWords();
+        this.queryKeyWords(this.state.startTime, this.state.endTime);
         this.queryCreators();
         this.queryTopMods(this.state.startTime, this.state.endTime);
     }
@@ -145,7 +145,7 @@ class Dashboard extends React.Component{
             this.queryTopMods(dateString[0], dateString[1]);
         } else if (this.state.currentView === "Keywords") {
             console.log()
-            this.queryKeyWords();
+            this.queryKeyWords(dateString[0], dateString[1]);
         }
     }
 
