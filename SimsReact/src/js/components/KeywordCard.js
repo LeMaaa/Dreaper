@@ -117,7 +117,6 @@ class KeywordCard extends React.Component{
         if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime
             && nextProps.keyword === this.state.keyword) return;
         this.queryModsWithinTimeRange(nextProps.startTime, nextProps.endTime, nextProps.keyword )
-
     }
 
     renderDownloadModList() {

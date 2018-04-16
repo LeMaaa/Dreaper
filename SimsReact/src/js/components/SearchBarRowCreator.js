@@ -158,7 +158,6 @@ export default class SearchBarRowCreator extends React.Component {
                         <SingleModInfo currentMod = {this.state.currentMod}/>
                         </Col>
                     </Row>
-
                 </Modal>
 
             </div>

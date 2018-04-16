@@ -116,6 +116,65 @@ app.get('/traits', (req, res, next) => {
     });
 });
 
+
+
+app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
+    console.log("numberOfRecordsByMonth _ called");
+    const data = {};
+    console.log("startTime : "  + req.body.startTime);
+    console.log("endTime : " + req.body.endTime );
+
+
+    var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
+    console.log(startTime)
+    var endTime =  new Date(moment(req.body.endTime).format("MMM YYYY"));
+    console.log(endTime);
+
+    // var query = "keywords." +req.body.keyword + '';
+
+    var query = {};
+    query["publish_date"] = {
+        $gte: startTime,
+        $lt: endTime,
+    };
+
+    Item.find(query).sort({'publish_date' : -1}).exec((err, docs) => {
+        if(err) {
+            console.log(err);
+            res.status(504).send("Oh uh, something went wrong");
+            // res.end(err);
+        } else {
+            docs.forEach((doc) => {
+                console.log(doc.time_series_data);
+                const key = moment(doc.publish_date).format("MMM YYYY");
+                data[key] = data[key] === undefined ? 1 : data[key]+1;
+            })
+
+            const r = [];
+            var totalNum = 0;
+
+            Object.keys(data).forEach(key => {
+                // console.log(key);          // the name of the current key.
+                // console.log(myObj[key]);   // the value of the current key.
+                const item = {
+                    "time": key,
+                    "number of mods": data[key]
+                };
+                totalNum += data[key];
+
+                r.push(item);
+            });
+
+            ret = {
+                items :r,
+                totalNum : totalNum
+            }
+
+            res.json(ret);
+        }
+    });
+});
+
 // return number of created records per month
 
 app.get('/numberOfRecordsByMonth', (req, res, next) => {

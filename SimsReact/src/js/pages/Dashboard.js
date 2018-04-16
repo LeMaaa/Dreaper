@@ -246,7 +246,8 @@ class Dashboard extends React.Component{
                             {/*}*/}
                         {/*</Row>*/}
                     <Row >
-                        {this.state.currentView === "Creators" ? null : <LineChartWithTimeRange />  }
+                        {this.state.currentView === "Creators" ? null
+                            : <LineChartWithTimeRange startTime = {this.state.startTime} endTime = {this.state.endTime} />  }
                     </Row>
             </div>
         );

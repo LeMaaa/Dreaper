@@ -18,20 +18,44 @@ export default class LineChartWithTimeRange extends React.Component {
         this.state = {
             itemsWithRange:[],
             totalNum : 0,
+            startTime : null,
+            endTime : null,
         }
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/numberOfRecordsByMonth')
+        axios.post('http://localhost:3000/numberOfRecordsByMonthWithTimeRange', {
+            startTime : this.props.startTime === null ? "Mar 1994" : this.props.startTime,
+            endTime : this.props.endTime === null ? "Dec 2020" : this.props.endTime,
+        })
             .then(res => {
                 console.log("received data");
                 // this.setState({items:[...this.state.items, res.data]});
                 this.setState({ 'itemsWithRange' : res.data.items.reverse()});
                 this.setState({'totalNum' : res.data.totalNum})
+                this.setState({'startTime' : this.props.startTime});
+                this.setState({'endTime' : this.props.endTime})
             });
+    }
 
-        // -- used for testing the functionality of TimeSeriesData Component --
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime) return;
+        this.queryTotalModsWithinTimeRange(nextProps.startTime, nextProps.endTime)
+    }
 
+    queryTotalModsWithinTimeRange(startTime , endTime) {
+        axios.post('http://localhost:3000/numberOfRecordsByMonthWithTimeRange', {
+            startTime :startTime === null ? "Mar 1994" :startTime,
+            endTime : endTime === null ? "Dec 2020" : endTime,
+        })
+            .then(res => {
+                console.log("received data");
+                // this.setState({items:[...this.state.items, res.data]});
+                this.setState({ 'itemsWithRange' : res.data.items.reverse()});
+                this.setState({'totalNum' : res.data.totalNum})
+                this.setState({'startTime' : startTime});
+                this.setState({'endTime' : endTime});
+            });
     }
 
     render () {
