@@ -57,7 +57,6 @@ export default class SearchBarRowCreator extends React.Component {
 
 
     componentDidMount() {
-
         axios.post('http://localhost:3000/getModByName', {
             modName : this.props.entry.value.mods
         })
@@ -65,8 +64,8 @@ export default class SearchBarRowCreator extends React.Component {
                 console.log("received data for by name");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({ 'mods' : res.data})
                 this.setState({'currentMod' : res.data[0]});
+                this.setState({ 'mods' : res.data})
                 this.renderDownloadModList();
                 this.renderViewsModList();
             });

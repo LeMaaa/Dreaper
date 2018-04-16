@@ -125,9 +125,9 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
     console.log("endTime : " + req.body.endTime );
 
 
-    var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
+    var startTime = new Date(req.body.startTime);
     console.log(startTime)
-    var endTime =  new Date(moment(req.body.endTime).format("MMM YYYY"));
+    var endTime =  new Date(req.body.endTime);
     console.log(endTime);
 
     // var query = "keywords." +req.body.keyword + '';
@@ -418,9 +418,10 @@ app.post('/getModsWithKeyword', (req, res, next) => {
     console.log("getModsWithKeyword _ called");
     console.log(req)
 
-    var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
+    var startTime = new Date(req.body.startTime);
+    console.log("getModsWithKeyWord - startTime")
     console.log(startTime)
-    var endTime =  new Date(moment(req.body.endTime).format("MMM YYYY"));
+    var endTime =  new Date(req.body.endTime);
     console.log(endTime);
 
     // var query = "keywords." +req.body.keyword + '';
@@ -486,9 +487,9 @@ app.post('/getModsWithCreator', (req, res, next) => {
 app.post('/topModsWithDownloads', (req, res, next) => {
     console.log("getModsWithKeyword _ called");
 
-    var startTime = new Date(moment(req.body.startTime).format("MMM YYYY"));
+    var startTime = new Date(req.body.startTime);
     console.log(startTime)
-    var endTime =  new Date(moment(req.body.endTime).format("MMM YYYY"));
+    var endTime =  new Date(req.body.endTime);
     console.log(endTime);
 
     // var query = "keywords." +req.body.keyword + '';

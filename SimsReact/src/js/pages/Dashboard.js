@@ -97,12 +97,12 @@ class Dashboard extends React.Component{
             });
     }
 
-    queryTopMods() {
+    queryTopMods(startTime, endTime) {
         console.log("Top mods panel");
         console.log(this.props.topMods);
         axios.post('http://localhost:3000/topModsWithDownloads', {
-            startTime : this.state.startTime,
-            endTime : this.state.endTime,
+            startTime : startTime === null ?  "1994/03/01" : startTime,
+            endTime : endTime === null ? "2020/12/30" : endTime,
         })
             .then(res => {
                 console.log("received top mods");
@@ -130,7 +130,7 @@ class Dashboard extends React.Component{
     componentWillMount() {
         this.queryKeyWords();
         this.queryCreators();
-        this.queryTopMods();
+        this.queryTopMods(this.state.startTime, this.state.endTime);
     }
 
     onChange(date, dateString){
@@ -140,10 +140,13 @@ class Dashboard extends React.Component{
             'endTime' : dateString[1],
         });
 
-        if (this.state.currentView === "topMods")
-            this.queryTopMods();
-        else if (this.state.currentView === "Keywords")
+        if (this.state.currentView === "topMods") {
+            console.log("change time range for top mods");
+            this.queryTopMods(dateString[0], dateString[1]);
+        } else if (this.state.currentView === "Keywords") {
+            console.log()
             this.queryKeyWords();
+        }
     }
 
     // handleChange(value) {
@@ -184,7 +187,8 @@ class Dashboard extends React.Component{
             currentTitle = "Ranked By Accumulative Downloads";
             currentSearchBox = <SearchBoxCreator entries = {this.state.creatorsForSearchBox}/>
         } else if(this.state.currentView === "topMods") {
-            currentPanel = <TopModsPanel topMods = {this.state.topMods}/>
+            currentPanel = <TopModsPanel topMods = {this.state.topMods}
+                                         startTime = {this.state.startTime} endTime = {this.state.endTime}/>
             currentSearchBox = <SearchBoxTopMod entries = {this.state.topModsSearchBox}/>
             currentTitle = "Created Ranked By Accumulative Downloads";
         }
