@@ -11,6 +11,7 @@ import axios from 'axios';
 
 import {Badge, Button, Tag, Row, List} from "antd";
 
+
 import SearchBarRowKeyword from './SearchBarRowKeyword';
 
 
@@ -49,27 +50,33 @@ export default class SearchBoxKeyword extends React.Component {
 
     renderKeywordList(entries) {
 
-        return (<List
-            itemLayout="horizontal"
-            dataSource={entries}
-            renderItem={item => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={item.rank}/>}
-                  title={item['_id']}
-                  description={"Mods: " + item['value']}
-                />
-              </List.Item>
-            )}
-          />)
+        return entries.map( entry =>
+            <SearchBarRowKeyword key = {entry._id} index = {entry.rank} entry = {entry}
+                                 startTime = {this.props.startTime} endTime = {this.props.endTime}/> )
+        //
+        // return (<List
+        //     itemLayout="horizontal"
+        //     dataSource={entries}
+        //     renderItem={item => (
+        //       <List.Item>
+        //         <List.Item.Meta
+        //           avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={item.rank}/>}
+        //           title={item['_id']}
+        //           description={"Mods: " + item['value']}
+        //         />
+        //       </List.Item>
+        //     )}
+        //   />)
     }
 
 
     render() {
         const { entries } = this.props;
         return (
-            <div>
+            <div className="scrollSearch">
+                <List>
                 {this.renderKeywordList(entries)}
+                </List>
             </div>
         );
     }

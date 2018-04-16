@@ -14,8 +14,10 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 
 
-import {Badge, Button,Tag, List, Modal} from "antd";
+import {Badge, Button,Tag, List, Modal, Row, Col, Card} from "antd";
 const Item = List.Item;
+
+import SingleModPopUp from '../components/SingleModPopUp';
 
 
 export default class SearchBarRowTopMod extends React.Component {
@@ -57,6 +59,7 @@ export default class SearchBarRowTopMod extends React.Component {
         });
     }
 
+
     render() {
         return (
             <div>
@@ -69,11 +72,17 @@ export default class SearchBarRowTopMod extends React.Component {
                          />
                 </List.Item>
                 <Modal
+                    width = {720}
                     visible={this.state.visible}
                     footer = {null}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                >  {this.props.entry['title']} </Modal>
+                >
+                    <Row>
+                        <SingleModPopUp currentMod = {this.props.entry}/>
+                    </Row>
+
+                </Modal>
             </div>
         );
     }

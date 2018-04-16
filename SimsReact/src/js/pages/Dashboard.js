@@ -176,7 +176,9 @@ class Dashboard extends React.Component{
             currentPanel =  <KeywordCardPanel keywords = {this.state.keywords}
                                               startTime = {this.state.startTime} endTime = {this.state.endTime} />;
             currentTitle = "Ranked By Number of Mods";
-            currentSearchBox = <SearchBoxKeyword entries = {this.state.keywordsForSearchBox_Search} searched = {this.state.searched}/>
+            currentSearchBox = <SearchBoxKeyword
+                entries = {this.state.keywordsForSearchBox_Search}
+                searched = {this.state.searched} startTime = {this.state.startTime} endTime = {this.state.endTime}/>
         } else if(this.state.currentView === "Creators") {
             currentPanel = <CreatorsPanel creators = {this.state.creators}/>;
             currentTitle = "Ranked By Accumulative Downloads";

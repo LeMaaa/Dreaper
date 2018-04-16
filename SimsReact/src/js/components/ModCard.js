@@ -98,7 +98,7 @@ class ModCard extends React.Component{
                     width = {720}
                 >
 
-                            <SingleModPopUp currentMod = {this.props.mod}/>
+                    <SingleModPopUp currentMod = {this.props.mod}/>
 
 
                 </Modal>

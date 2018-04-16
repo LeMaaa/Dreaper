@@ -39,7 +39,7 @@ class SingleModInfo extends React.Component {
         const { currentMod } = this.props;
         return (
             <div>
-                <Card title= {currentMod.title} style={{ width: '100%' }} bordered={false}>
+                <Card title= {currentMod.title} style={{ width: '100%' }} >
                     <Row>
                         <Col span={12}>
                             Creator : {currentMod.artist}
