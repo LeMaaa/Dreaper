@@ -44,19 +44,24 @@ export default class SearchBoxCreator extends React.Component {
 
     renderCreatorList(entries) {
 
-        return (<List
-            itemLayout="horizontal"
-            dataSource={entries}
-            renderItem={item => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={item.rank}/>}
-                  title={item['_id']}
-                  description={"Downloads: " + item.value.downloads}
-                />
-              </List.Item>
-            )}
-          />)
+
+        return entries.map( entry =>
+            <SearchBarRowCreator key = {entry._id} index = {entry.rank} entry = {entry}
+                                 startTime = {this.props.startTime} endTime = {this.props.endTime}/> )
+
+        // return (<List
+        //     itemLayout="horizontal"
+        //     dataSource={entries}
+        //     renderItem={item => (
+        //       <List.Item>
+        //         <List.Item.Meta
+        //           avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={item.rank}/>}
+        //           title={item['_id']}
+        //           description={"Downloads: " + item.value.downloads}
+        //         />
+        //       </List.Item>
+        //     )}
+        //   />)
     }
 
 
@@ -64,8 +69,10 @@ export default class SearchBoxCreator extends React.Component {
     render() {
         const { entries } = this.props;
         return (
-            <div>
-                {this.renderCreatorList(entries)}
+            <div className="scrollSearch">
+                <List>
+                    {this.renderCreatorList(entries)}
+                </List>
             </div>
         );
     }
