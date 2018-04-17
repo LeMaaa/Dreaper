@@ -17,14 +17,12 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SingleModPopUp.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SingleModPopUp.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/components/SingleModPopUp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-550">
-              <caret line="49" column="68" lean-forward="true" selection-start-line="49" selection-start-column="68" selection-end-line="49" selection-end-column="68" />
-              <folding>
-                <element signature="e#81#107#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="9" column="42" lean-forward="true" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -109,11 +107,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModCard.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ModCard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/components/ModCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="94" column="48" lean-forward="true" selection-start-line="94" selection-start-column="48" selection-end-line="94" selection-end-column="48" />
+            <state relative-caret-position="-10">
+              <caret line="66" column="17" lean-forward="true" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -143,7 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>s</find>
       <find>\</find>
       <find>props</find>
       <find>prop</find>
@@ -173,6 +170,7 @@
       <find>doe</find>
       <find>downloa</find>
       <find>downloads</find>
+      <find>link</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -227,7 +225,6 @@
         <option value="$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js" />
         <option value="$PROJECT_DIR$/src/js/pages/Dashboard.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBarRowCreator.js" />
-        <option value="$PROJECT_DIR$/src/js/components/SingleModPopUp.js" />
         <option value="$PROJECT_DIR$/src/js/components/ModCard.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBarRowKeyword.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBarRowTopMod.js" />
@@ -236,6 +233,7 @@
         <option value="$PROJECT_DIR$/src/js/components/ViewsModBar.js" />
         <option value="$PROJECT_DIR$/src/js/components/CreatorCard.js" />
         <option value="$PROJECT_DIR$/src/js/components/KeywordCard.js" />
+        <option value="$PROJECT_DIR$/src/js/components/SingleModPopUp.js" />
       </list>
     </option>
   </component>
@@ -566,12 +564,12 @@
       <workItem from="1523904476012" duration="40000" />
       <workItem from="1523910851687" duration="3128000" />
       <workItem from="1523935100574" duration="1000" />
-      <workItem from="1523995907986" duration="3249000" />
+      <workItem from="1523995907986" duration="3469000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="219196000" />
+    <option name="totallyTimeSpent" value="219416000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -859,7 +857,7 @@
           <caret line="148" column="57" lean-forward="true" selection-start-line="148" selection-start-column="57" selection-end-line="148" selection-end-column="57" />
           <folding>
             <element signature="e#41#81#0" expanded="false" />
-            <element signature="e#83#109#0" expanded="true" />
+            <element signature="e#83#109#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -869,7 +867,7 @@
         <state relative-caret-position="-40">
           <caret line="145" column="22" lean-forward="true" selection-start-line="145" selection-start-column="22" selection-end-line="145" selection-end-column="22" />
           <folding>
-            <element signature="e#42#68#0" expanded="true" />
+            <element signature="e#42#68#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -917,16 +915,6 @@
           <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding>
             <element signature="e#40#66#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/components/SingleModPopUp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-550">
-          <caret line="49" column="68" lean-forward="true" selection-start-line="49" selection-start-column="68" selection-end-line="49" selection-end-column="68" />
-          <folding>
-            <element signature="e#81#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -999,8 +987,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/components/ModCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="94" column="48" lean-forward="true" selection-start-line="94" selection-start-column="48" selection-end-line="94" selection-end-column="48" />
+        <state relative-caret-position="-10">
+          <caret line="66" column="17" lean-forward="true" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/components/SingleModPopUp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="42" lean-forward="true" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
           <folding />
         </state>
       </provider>

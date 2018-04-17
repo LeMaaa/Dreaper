@@ -47,7 +47,7 @@ class SingleModPopUp extends React.Component {
         return (
             <div>
                 <Card title= {currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"} style={{ width: '100%' }} bordered={false}>
-                    <Row> Link  :  <a href={currentMod.url}/> </Row>
+                    <Row> Link  :  <a href={currentMod.url}> {currentMod.url} </a></Row>
                     <Row>
                         <Col span={6} style={{ background: '#bec3c6'}}> Download : {numeral(currentMod.downloads).format('0,0')}
                             <Divider type="vertical" />
