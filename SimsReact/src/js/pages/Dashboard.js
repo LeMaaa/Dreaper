@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
+import moment from 'moment';
 
 import { Row, Col, Card } from 'antd';
 
@@ -168,6 +169,11 @@ class Dashboard extends React.Component{
         this.setState({"keywordsForSearchBox_Search": initialKeywords});
     }
 
+    disabledDate(current) {
+    // Can not select days before today and today
+        return current && current > moment().endOf('day');
+    }
+
 
 
 
@@ -175,6 +181,7 @@ class Dashboard extends React.Component{
         var currentPanel;
         var currentTitle;
         var currentSearchBox;
+        var today = moment().format(dateFormat);
         if(this.state.currentView === "Keywords") {
             currentPanel =  <KeywordCardPanel keywords = {this.state.keywords}
                                               startTime = {this.state.startTime} endTime = {this.state.endTime} />;
@@ -210,11 +217,14 @@ class Dashboard extends React.Component{
                         <Col span={6}></Col>
                         <Col span={6}>
                             {
-                                this.state.currentView !== "Creators" ? <RangePicker
-                                    size = "large"
-                                    onChange = {this.onChange}
-                                    format={dateFormat}
-                                /> : null
+                                this.state.currentView !== "Creators" ?
+                                    <RangePicker
+                                        defaultValue={[moment('2014-01-01', dateFormat), moment(today)]}
+                                        disabledDate={this.disabledDate}
+                                        size = "large"
+                                        onChange = {this.onChange}
+                                        format={dateFormat}/>
+                                    : null
                             }
 
                         </Col>
