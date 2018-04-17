@@ -8,6 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
+import numeral from 'numeral'
 
 import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider } from 'antd';
 const { Meta } = Card;
@@ -140,7 +141,7 @@ class CreatorCard extends React.Component{
                     {/*</div>*/}
                     <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                     <CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id} />
-                    <span className="textUnderCircle"> {this.props.creatorEntry.value.downloads} downloads </span>
+                    <span className="textUnderCircle"> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} downloads </span>
 
                     {/*<KeywordCircleOnPanel items = {this.state.item}/>*/}
 

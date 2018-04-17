@@ -11,6 +11,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
+import numeral from 'numeral'
 
 import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider } from 'antd';
 const { Meta } = Card;
@@ -86,7 +87,7 @@ class ModCard extends React.Component{
 
                     <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                     <CircleOnPanel index = {this.props.index} name = {this.props.mod.title} />
-                    <span className="textUnderCircle"> {this.props.mod.downloads} downloads </span>
+                    <span className="textUnderCircle"> {numeral(this.props.mod.downloads).format('0,0')} downloads </span>
 
                 </Card>
                 <Modal

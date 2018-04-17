@@ -9,6 +9,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
+import numeral from 'numeral';
 
 
 import {Badge, Button,Tag, List, Modal, Row, Col, Card} from "antd";
@@ -128,7 +129,7 @@ export default class SearchBarRowCreator extends React.Component {
                     <List.Item.Meta
                         avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={this.props.entry.rank}/>}
                         title={this.props.entry['_id']}
-                        description= {"Downloads: " + this.props.entry.value.downloads}
+                        description= {"Downloads: " + numeral(this.props.entry.value.downloads).format('0,0')}
                     />
                 </List.Item>
                 <Modal

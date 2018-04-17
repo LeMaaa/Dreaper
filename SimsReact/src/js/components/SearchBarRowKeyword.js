@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy'
+import numeral from 'numeral'
 
 import {Badge, Button,Tag, Modal, Row, Col, Card, List} from "antd";
 const CheckableTag = Tag.CheckableTag;
@@ -138,7 +139,7 @@ export default class SearchBarRowKeyword extends React.Component {
                     <List.Item.Meta
                         avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={this.props.entry.rank}/>}
                         title={this.props.entry['_id']}
-                        description= {"Mods " + this.props.entry['value']}
+                        description= {"Mods " + numeral(this.props.entry['value']).format('0,0')}
                     />
                 </List.Item>
 

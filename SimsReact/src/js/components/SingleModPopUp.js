@@ -8,6 +8,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import eventProxy from 'react-eventproxy';
+import numeral from 'numeral';
 
 import TimeSeriesData from '../components/TimeSeriesData'
 
@@ -46,20 +47,20 @@ class SingleModPopUp extends React.Component {
         return (
             <div>
                 <Card title= {currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"} style={{ width: '100%' }} bordered={false}>
-                    <Row> Link  :  {currentMod.url} </Row>
+                    <Row> Link  :  <a href={currentMod.url}/> </Row>
                     <Row>
-                        <Col span={6} style={{ background: '#bec3c6'}}> Download : {currentMod.downloads}
+                        <Col span={6} style={{ background: '#bec3c6'}}> Download : {numeral(currentMod.downloads).format('0,0')}
                             <Divider type="vertical" />
                         </Col>
 
-                        <Col span = {6} style={{ background: '#bec3c6'}}>View : {currentMod.views}
+                        <Col span = {6} style={{ background: '#bec3c6'}}>View : {numeral(currentMod.views).format('0,0')}
                             <Divider type="vertical" />
                         </Col>
 
-                        <Col span = {6} style={{ background: '#bec3c6'}} > Favorite : {currentMod.favourited}
+                        <Col span = {6} style={{ background: '#bec3c6'}} > Favorite : {numeral(currentMod.favourited).format('0,0')}
                             <Divider type="vertical" />
                         </Col>
-                        <Col span={6} style={{ background: '#bec3c6'}}> Thanks : {currentMod.thanks} </Col>
+                        <Col span={6} style={{ background: '#bec3c6'}}> Thanks : {numeral(currentMod.thanks).format('0,0')} </Col>
                     </Row>
                     <Row>
                         <Col span={12}>

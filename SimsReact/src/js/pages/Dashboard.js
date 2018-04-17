@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 import moment from 'moment';
+import numeral from 'numeral';
 
 import { Row, Col, Card } from 'antd';
 
@@ -136,6 +137,8 @@ class Dashboard extends React.Component{
 
     onChange(date, dateString){
         console.log("Trigger eventProxy to Change TimeRange");
+        console.log(dateString[0]);
+        console.log(dateString[1]);
         this.setState({
             'startTime' : dateString[0],
             'endTime' : dateString[1],

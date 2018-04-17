@@ -4,6 +4,7 @@
 
 import React from 'react';
 import eventProxy from 'react-eventproxy'
+import numeral from 'numeral'
 
 import { List, Avatar, Progress, Button  } from 'antd';
 
@@ -38,7 +39,7 @@ class ViewsModBar extends React.Component{
                         <List.Item.Meta
                             avatar={<Avatar> {index + 1}  </Avatar>}
                             title={<a>{item.title}</a>}
-                            description = {<Progress percent={item.views / this.props.totalViews * 100} format={() =>item.views} />}
+                            description = {<Progress percent={item.views / this.props.totalViews * 100} format={() => numeral(item.views).format('0,0')} />}
                         />
                     </List.Item>
                 )}

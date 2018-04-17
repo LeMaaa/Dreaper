@@ -4,6 +4,7 @@
 import React from 'react';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
+import numeral from 'numeral'
 
 import TimeSeriesData from '../components/TimeSeriesData'
 
@@ -42,17 +43,17 @@ class SingleModInfo extends React.Component {
                 <Card title= {currentMod.title} style={{ width: '100%' }} >
                     <Row>
                         <Col span={12}>
-                            Creator : {currentMod.artist}
+                            Creator : {numeral(currentMod.artist).format('0,0')}
                             <br/>
-                            Publish Date : {currentMod.publish_date}
+                            Publish Date : {numeral(currentMod.publish_date).format('0,0')}
                             <br/>
-                            Download : {currentMod.downloads}
+                            Download : {numeral(currentMod.downloads).format('0,0')}
                             <br/>
-                            View : {currentMod.views}
+                            View : {numeral(currentMod.views).format('0,0')}
                             <br/>
-                            Favorite : {currentMod.favourited}
+                            Favorite : {numeral(currentMod.favourited).format('0,0')}
                             <br/>
-                            Thanks : {currentMod.thanks}
+                            Thanks : {numeral(currentMod.thanks).format('0,0')}
                         </Col>
 
                         <Col span = {12}>

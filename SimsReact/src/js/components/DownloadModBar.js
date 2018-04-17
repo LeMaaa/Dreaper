@@ -4,6 +4,7 @@
 
 import React from 'react';
 import eventProxy from 'react-eventproxy'
+import numeral from 'numeral'
 
 import { List, Avatar, Progress, Button} from 'antd';
 
@@ -37,7 +38,7 @@ class DownloadModBar extends React.Component{
                         <List.Item.Meta
                             avatar={<Avatar> {index + 1} </Avatar>}
                             title={<a>{item.title}</a>}
-                            description = { <Progress percent={item.downloads / this.props.totalDownloads * 100} format={() =>item.downloads} />}
+                            description = { <Progress percent={item.downloads / this.props.totalDownloads * 100} format={() => numeral(item.downloads).format('0,0')} />}
                         />
                     </List.Item>
                 )}

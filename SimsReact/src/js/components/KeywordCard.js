@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
+import numeral from 'numeral'
 
 import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider} from 'antd';
 const { Meta } = Card;
@@ -199,7 +200,7 @@ class KeywordCard extends React.Component{
                     <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                     {/*<Button icon = "close-circle-o" />*/}
                     <CircleOnPanel index = {this.props.index} name = {this.props.keyword}/>
-                    <span className="textUnderCircle"> {this.props.value} mods </span>
+                    <span className="textUnderCircle"> {numeral(this.props.value).format('0,0')} mods </span>
 
                 </Card>
                 <Modal
