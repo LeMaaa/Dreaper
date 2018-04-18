@@ -59,7 +59,6 @@ class KeywordCard extends React.Component{
     showModal(){
 
         let res = this.queryModsWithinTimeRange(this.props.startTime, this.props.endTime, this.props.keyword);
-
             return res.then(() => {
                 this.setState({
                     visible: true,
@@ -103,7 +102,7 @@ class KeywordCard extends React.Component{
                 console.log("received data www");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({ 'mods' : res.data.mods, "currentMod" : res.data.mods[0],
+                this.setState({ 'mods' : res.data.mods, "currentMod" : res.data.mods.sort(function(a, b){return b.downloads - a.downloads})[0],
                     'totalDownloads' : res.data.totalDownloads,
                     'totalViews' : res.data.totalViews,
                     'startTime': startTime,

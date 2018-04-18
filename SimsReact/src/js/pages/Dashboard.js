@@ -79,10 +79,10 @@ class Dashboard extends React.Component{
     queryKeyWords(startTime ,endTime) {
         axios.post('http://localhost:3000/getKeyWordWithThreshold', {
             startTime: (startTime === null || startTime.length === 0) ? "1994/03/01" : startTime,
-            endTime: (endTime === null || endTime) ? "2020/12/30" : endTime,
+            endTime: (endTime === null || endTime.length === 0) ? "2020/12/30" : endTime,
         })
             .then(res => {
-                console.log("received data");
+                console.log("received data for query keywords");
                 console.log(res.data);
                 this.setState({ 'keywords' : res.data.slice(0,8)});
                 this.setState({'keywordsForSearchBox' : res.data.slice(8,50)});
@@ -153,7 +153,7 @@ class Dashboard extends React.Component{
             console.log("change time range for top mods");
             this.queryTopMods(dateString[0], dateString[1]);
         } else if (this.state.currentView === "Keywords") {
-            console.log()
+            console.log("change time range for keywords");
             this.queryKeyWords(dateString[0], dateString[1]);
         }
     }
@@ -189,24 +189,36 @@ class Dashboard extends React.Component{
         var currentSearchBox;
         var today = moment().format(dateFormat);
         if(this.state.currentView === "Keywords") {
-            currentPanel =  <KeywordCardPanel keywords = {this.state.keywords}
-                                              startTime = {this.state.startTime} endTime = {this.state.endTime} />;
+            if(this.state.keywords === null || this.state.length === 0) {
+                currentPanel = <div>Sorry :( No Data Available.</div>
+            }else {
+                currentPanel =  <KeywordCardPanel keywords = {this.state.keywords}
+                                                  startTime = {this.state.startTime} endTime = {this.state.endTime} />;
+            }
             currentTitle = "Ranked By Number of Mods";
             currentSearchBox = <SearchBoxKeyword
                 entries = {this.state.keywordsForSearchBox_Search}
                 searched = {this.state.searched} startTime = {this.state.startTime} endTime = {this.state.endTime}/>
         } else if(this.state.currentView === "Creators") {
-            currentPanel = <CreatorsPanel creators = {this.state.creators}/>;
-            currentTitle = "Ranked By Accumulated Downloads";
+            if(this.state.creators === null || this.state.creators.length === 0) {
+                currentPanel = <div>Sorry :( No Data Available.</div>
+            }else {
+                currentPanel = <CreatorsPanel creators = {this.state.creators}/>;
+            }
+
+            currentTitle = "Ranked By Total Downloads";
             currentSearchBox = <SearchBoxCreator entries = {this.state.creatorsForSearchBox}/>
         } else if(this.state.currentView === "topMods") {
-            currentPanel = <TopModsPanel topMods = {this.state.topMods}
-                                         startTime = {this.state.startTime} endTime = {this.state.endTime}/>
+            if(this.state.topMods === null || this.state.topMods.length === 0) {
+                currentPanel = <div>Sorry :( No Data Available</div>
+            }else {
+                currentPanel = <TopModsPanel topMods = {this.state.topMods}
+                                             startTime = {this.state.startTime} endTime = {this.state.endTime}/>
+            }
+
             currentSearchBox = <SearchBoxTopMod entries = {this.state.topModsSearchBox}/>
-            currentTitle = "Created Ranked By Accumulated Downloads";
+            currentTitle = "Created Ranked By Total Downloads";
         }
-
-
 
         return (
             <div className="container">

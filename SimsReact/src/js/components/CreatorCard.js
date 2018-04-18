@@ -89,8 +89,7 @@ class CreatorCard extends React.Component{
                 console.log("received data for by name");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({ 'mods' : res.data})
-                this.setState({'currentMod' : res.data[0]});
+                this.setState({ 'mods' : res.data, 'currentMod' :  res.data.sort(function(a, b){return b.downloads - a.downloads})[0]})
                 this.renderDownloadModList();
                 this.renderViewsModList();
             });

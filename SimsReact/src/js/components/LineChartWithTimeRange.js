@@ -58,22 +58,31 @@ export default class LineChartWithTimeRange extends React.Component {
                 // this.setState({items:[...this.state.items, res.data]});
                 this.setState({ 'itemsWithRange' : res.data.items.reverse(),
                     'totalNum' : res.data.totalNum, 'startTime' : startTime, 'endTime' : endTime});
+                eventProxy.trigger("totalModsNum", res.data.totalNum);
             });
+    }
+
+    renderLineChartView() {
+        if(this.state.itemsWithRange.length === 0 || this.state.itemsWithRange === null) {
+            return <div>  No Data Available! :(</div>
+        }else {
+           return  <div>
+                <BarChart width={1000} height={200} data={this.state.itemsWithRange}
+                          margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                    <XAxis dataKey="time"/>
+                    <Tooltip cursor={false}/>
+                    <ReferenceLine y={0} stroke='#000'/>
+                    <Bar dataKey= "number of mods" fill="#8884d8" />
+                </BarChart>
+            </div>
+        }
+
     }
 
     render () {
         return (
-            <div>
-            <BarChart width={1000} height={200} data={this.state.itemsWithRange}
-                      margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                <XAxis dataKey="time"/>
-                <Tooltip cursor={false}/>
-                <ReferenceLine y={0} stroke='#000'/>
-                <Bar dataKey= "number of mods" fill="#8884d8" />
-            </BarChart>
-            </div>
-
-
+            this.renderLineChartView()
         );
+
     }
 }
