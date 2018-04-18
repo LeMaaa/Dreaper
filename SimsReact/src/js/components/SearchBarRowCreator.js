@@ -58,7 +58,13 @@ export default class SearchBarRowCreator extends React.Component {
 
 
     componentDidMount() {
-        axios.post('http://localhost:3000/getModByName', {
+        eventProxy.on("ChangeMod", item => {
+            this.setState({"currentMod" : item});
+        });
+    }
+
+    getModByName() {
+        return axios.post('http://localhost:3000/getModByName', {
             modName : this.props.entry.value.mods
         })
             .then(res => {
@@ -70,11 +76,6 @@ export default class SearchBarRowCreator extends React.Component {
                 this.renderDownloadModList();
                 this.renderViewsModList();
             });
-
-        eventProxy.on("ChangeMod", item => {
-            this.setState({"currentMod" : item});
-        });
-
     }
 
 
@@ -90,8 +91,11 @@ export default class SearchBarRowCreator extends React.Component {
     }
 
     showModal(){
-        this.setState({
-            visible: true,
+        let res = this.getModByName();
+        res.then(() => {
+            this.setState({
+                visible: true,
+            });
         });
     }
 

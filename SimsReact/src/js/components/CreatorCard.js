@@ -55,8 +55,11 @@ class CreatorCard extends React.Component{
     }
 
     showModal(e){
-        this.setState({
-            visible: true,
+        let res = this.queryModsForCreator(this.props.creatorEntry);
+        res.then(() => {
+            this.setState({
+                visible: true,
+            });
         });
     }
 
@@ -79,7 +82,7 @@ class CreatorCard extends React.Component{
         console.log("query mods with time range")
         console.log(creatorEntry);
 
-        axios.post('http://localhost:3000/getModByName', {
+        return axios.post('http://localhost:3000/getModByName', {
             modName : creatorEntry.value.mods
         })
             .then(res => {
@@ -119,7 +122,7 @@ class CreatorCard extends React.Component{
 
 
     componentDidMount() {
-        this.queryModsForCreator(this.props.creatorEntry);
+        // this.queryModsForCreator(this.props.creatorEntry);
 
         eventProxy.on('ChangeMod', (item) => {
             this.setState({

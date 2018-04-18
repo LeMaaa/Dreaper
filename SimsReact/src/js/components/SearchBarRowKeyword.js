@@ -58,7 +58,14 @@ export default class SearchBarRowKeyword extends React.Component {
 
     componentDidMount() {
 
-        axios.post('http://localhost:3000/getModsWithKeyword', {
+            eventProxy.on("ChangeMod", item => {
+                this.setState({"currentMod" : item});
+            });
+
+    }
+
+    queryModsforKeyword() {
+        return axios.post('http://localhost:3000/getModsWithKeyword', {
 
             startTime: this.props.startTime === null ? "Mar 1994" : this.props.startTime,
             endTime: this.props.endTime === null ? "Dec 2020" : this.props.endTime,
@@ -72,25 +79,15 @@ export default class SearchBarRowKeyword extends React.Component {
                     this.setState({"currentMod" : res.data.mods[0]});
                 }
 
-                this.setState({"mods" : res.data.mods});
-                this.setState({"totalViews" : res.data.totalViews});
-                this.setState({"totalDownloads" : res.data.totalDownloads});
-                this.setState({'totalNumOfCurrentKeyword': res.data.totalNumOfCurrentKeyword })
-
-                this.setState({ 'item' : [{
-                    name : this.props.keyword,
-                    value : this.props.value,
-                }]});
-
+                this.setState({"mods" : res.data.mods, "totalViews" : res.data.totalViews,
+                    "totalDownloads" : res.data.totalDownloads, 'totalNumOfCurrentKeyword': res.data.totalNumOfCurrentKeyword,
+                    'item' : [{
+                        name : this.props.keyword,
+                        value : this.props.value,
+                    }]});
                 this.renderDownloadModList();
                 this.renderViewsModList();
             });
-
-
-            eventProxy.on("ChangeMod", item => {
-                this.setState({"currentMod" : item});
-            });
-
     }
 
     renderDownloadModList() {
@@ -105,9 +102,15 @@ export default class SearchBarRowKeyword extends React.Component {
     }
 
     showModal(){
-        this.setState({
-            visible: true,
+        let res = this.queryModsforKeyword();
+        res.then(() => {
+            this.setState({
+                visible: true,
+            });
+        }).catch((err) => {
+            console.log("err for show modal at search bar row for keyword");
         });
+
     }
 
     handleOk(e) {

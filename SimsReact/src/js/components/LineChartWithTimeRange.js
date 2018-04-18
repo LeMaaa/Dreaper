@@ -24,23 +24,27 @@ export default class LineChartWithTimeRange extends React.Component {
     }
 
     componentDidMount() {
-        axios.post('http://localhost:3000/numberOfRecordsByMonthWithTimeRange', {
-            startTime : this.props.startTime === null ? "Mar 1994" : this.props.startTime,
-            endTime : this.props.endTime === null ? "Dec 2020" : this.props.endTime,
-        })
-            .then(res => {
-                console.log("received data");
-                // this.setState({items:[...this.state.items, res.data]});
-                this.setState({ 'itemsWithRange' : res.data.items.reverse()});
-                this.setState({'totalNum' : res.data.totalNum})
-                this.setState({'startTime' : this.props.startTime});
-                this.setState({'endTime' : this.props.endTime})
-                eventProxy.trigger("totalModsNum", res.data.totalNum);
-            });
+        // axios.post('http://localhost:3000/numberOfRecordsByMonthWithTimeRange', {
+        //     startTime : this.props.startTime === null ? "Mar 1994" : this.props.startTime,
+        //     endTime : this.props.endTime === null ? "Dec 2020" : this.props.endTime,
+        // })
+        //     .then(res => {
+        //         console.log("received data");
+        //         // this.setState({items:[...this.state.items, res.data]});
+        //         this.setState({ 'itemsWithRange' : res.data.items.reverse()});
+        //         this.setState({'totalNum' : res.data.totalNum})
+        //         this.setState({'startTime' : this.props.startTime});
+        //         this.setState({'endTime' : this.props.endTime})
+        //         eventProxy.trigger("totalModsNum", res.data.totalNum);
+        //     });
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime) return;
+        this.setState({"startTime" : nextProps.startTime, "endTime" : nextProps.endTime});
+        console.log("nextprops");
+        console.log(nextProps.startTime);
+        console.log(nextProps.endTime);
         this.queryTotalModsWithinTimeRange(nextProps.startTime, nextProps.endTime)
     }
 
@@ -50,12 +54,10 @@ export default class LineChartWithTimeRange extends React.Component {
             endTime : endTime === null ? "Dec 2020" : endTime,
         })
             .then(res => {
-                console.log("received data");
+                console.log("received data for linechart");
                 // this.setState({items:[...this.state.items, res.data]});
-                this.setState({ 'itemsWithRange' : res.data.items.reverse()});
-                this.setState({'totalNum' : res.data.totalNum})
-                this.setState({'startTime' : startTime});
-                this.setState({'endTime' : endTime});
+                this.setState({ 'itemsWithRange' : res.data.items.reverse(),
+                    'totalNum' : res.data.totalNum, 'startTime' : startTime, 'endTime' : endTime});
             });
     }
 

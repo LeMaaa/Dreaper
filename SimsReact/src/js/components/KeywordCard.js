@@ -57,10 +57,18 @@ class KeywordCard extends React.Component{
     }
 
     showModal(){
-        this.setState({
-            visible: true,
-        });
+
+        let res = this.queryModsWithinTimeRange(this.props.startTime, this.props.endTime, this.props.keyword);
+
+            return res.then(() => {
+                this.setState({
+                    visible: true,
+                });
+            }).catch((err) => {
+                console.log("error to show modal");
+            });
     }
+
 
     handleOk(e) {
         console.log(e);
@@ -84,7 +92,7 @@ class KeywordCard extends React.Component{
         console.log(startTime);
         console.log(endTime);
         console.log(keyword);
-        axios.post('http://localhost:3000/getModsWithKeyword', {
+        return axios.post('http://localhost:3000/getModsWithKeyword', {
 
             startTime: startTime === null ? "Mar 1994" : startTime,
             endTime: endTime === null ? "Dec 2020" : endTime,
@@ -95,15 +103,12 @@ class KeywordCard extends React.Component{
                 console.log("received data www");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({ 'mods' : res.data.mods})
-                this.setState({"currentMod" : res.data.mods[0]});
-                this.setState({'totalDownloads' : res.data.totalDownloads});
-                this.setState({'totalViews' : res.data.totalViews});
-                this.setState({
+                this.setState({ 'mods' : res.data.mods, "currentMod" : res.data.mods[0],
+                    'totalDownloads' : res.data.totalDownloads,
+                    'totalViews' : res.data.totalViews,
                     'startTime': startTime,
                     'endTime': endTime,
-                    'keyword' : keyword
-                })
+                    'keyword' : keyword });
                 this.renderDownloadModList();
                 this.renderViewsModList();
             });
@@ -115,11 +120,12 @@ class KeywordCard extends React.Component{
     }
 
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime
-            && nextProps.keyword === this.state.keyword) return;
-        this.queryModsWithinTimeRange(nextProps.startTime, nextProps.endTime, nextProps.keyword )
-    }
+    // try remove this
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime
+    //         && nextProps.keyword === this.state.keyword) return;
+    //     this.queryModsWithinTimeRange(nextProps.startTime, nextProps.endTime, nextProps.keyword )
+    // }
 
     renderDownloadModList() {
         console.log("downlodas")
@@ -141,49 +147,19 @@ class KeywordCard extends React.Component{
     }
 
 
-
+    // refactor
     componentDidMount() {
-        axios.post('http://localhost:3000/getModsWithKeyword', {
-
-            startTime: this.props.startTime === null ? "Mar 1994" : this.props.startTime,
-            endTime: this.props.endTime === null ? "Dec 2020" : this.props.endTime,
-            keyword : this.props.keyword
-
-        })
-            .then(res => {
-                console.log("received data www");
-                // console.log(res.data);
-                console.log(res.data)
-                this.setState({"mods" : res.data.mods});
-                this.setState({"totalViews" : res.data.totalViews});
-                this.setState({"totalDownloads" : res.data.totalDownloads});
-                this.setState({'totalNumOfCurrentKeyword': res.data.totalNumOfCurrentKeyword })
-
-                this.setState({ 'item' : [{
-                    name : this.props.keyword,
-                    value : this.props.value,
-                }]});
-
-                // if(this.state.currentMod === null ) {
-                    this.setState({"currentMod" : res.data.mods[0]});
-                // }
-
-                this.renderDownloadModList();
-                this.renderViewsModList();
-            });
-
             eventProxy.on('ChangeMod', (item) => {
                 this.setState({
                     'currentMod' : item
                 });
             });
 
-            // eventProxy.on("showModal", (value) => {
-            //     this.setState({
-            //         visible: true,
-            //     });
-            // })
-
+            eventProxy.on("showModal", (value) => {
+                this.setState({
+                    visible: true,
+                });
+            })
     }
 
 
