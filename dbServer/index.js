@@ -125,10 +125,22 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
     console.log("startTime : "  + req.body.startTime);
     console.log("endTime : " + req.body.endTime );
 
+    var startTime;
+    var endTime;
 
-    var startTime = new Date(req.body.startTime);
-    console.log(startTime)
-    var endTime =  new Date(req.body.endTime);
+    if(req.body.startTime === null || req.body.startTime.length === 0) {
+        startTime = new Date("2000/01/01");
+    }else {
+        startTime = new Date(req.body.startTime);
+    }
+
+    if(req.body.endTime === null || req.body.endTime.length === 0) {
+        endTime = new Date();
+    }else {
+        endTime = new Date(req.body.endTime);
+    }
+
+    console.log(startTime);
     console.log(endTime);
 
     // var query = "keywords." +req.body.keyword + '';
@@ -388,9 +400,25 @@ app.post('/getModByName', (req, res, next) => {
 
 app.post('/getKeyWordWithThreshold', (req, res, next) => {
     console.log("getKeyWordWithThreshold _ called");
-    var startTime = Date.parse(req.body.startTime)/1000;
+
+    let startTime;
+    let endTime;
+
+    if(req.body.startTime === null || req.body.startTime.length === 0) {
+        startTime = Date.parse("2000/01/01")/1000;
+    }else {
+        startTime = Date.parse(req.body.startTime)/1000;
+    }
+
+    let today = new Date();
+
+    if(req.body.endTime === null || req.body.endTime.length === 0) {
+        endTime = Date.parse(today)/1000;
+    }else {
+        endTime = Date.parse(req.body.endTime)/1000;
+    }
+
     console.log(startTime);
-    var endTime =  Date.parse(req.body.endTime)/1000;
     console.log(endTime);
 
     var query = { '$or': [{
@@ -433,13 +461,26 @@ app.post('/getCreators', (req, res, next) => {
 
 app.post('/getModsWithKeyword', (req, res, next) => {
     console.log("getModsWithKeyword _ called");
-    console.log(req)
+    console.log(req);
 
-    var startTime = new Date(req.body.startTime);
-    console.log("getModsWithKeyWord - startTime")
-    console.log(startTime)
-    var endTime =  new Date(req.body.endTime);
+    let startTime;
+    let endTime;
+
+    if(req.body.startTime === null || req.body.startTime.length === 0) {
+        startTime = new Date("2000/01/01");
+    }else {
+        startTime = new Date(req.body.startTime);
+    }
+
+    if(req.body.endTime === null || req.body.endTime.length === 0) {
+        endTime = new Date();
+    }else {
+        endTime = new Date(req.body.endTime);
+    }
+
+    console.log(startTime);
     console.log(endTime);
+
 
     // var query = "keywords." +req.body.keyword + '';
 
@@ -450,7 +491,6 @@ app.post('/getModsWithKeyword', (req, res, next) => {
         $gte: startTime,
         $lt: endTime,
     };
-
 
     Item.find(query).limit(30).exec((err, mods) => {
         if (err) {

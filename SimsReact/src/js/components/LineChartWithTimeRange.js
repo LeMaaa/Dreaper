@@ -35,6 +35,7 @@ export default class LineChartWithTimeRange extends React.Component {
                 this.setState({'totalNum' : res.data.totalNum})
                 this.setState({'startTime' : this.props.startTime});
                 this.setState({'endTime' : this.props.endTime})
+                eventProxy.trigger("totalModsNum", res.data.totalNum);
             });
     }
 
@@ -64,7 +65,7 @@ export default class LineChartWithTimeRange extends React.Component {
             <BarChart width={1000} height={200} data={this.state.itemsWithRange}
                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <XAxis dataKey="time"/>
-                <Tooltip/>
+                <Tooltip cursor={false}/>
                 <ReferenceLine y={0} stroke='#000'/>
                 <Bar dataKey= "number of mods" fill="#8884d8" />
             </BarChart>

@@ -89,14 +89,6 @@ a {
 }
 
 
-/*.ant-card.ant-card-bordered {*/
-    /*width:200px !important;*/
-/*}*/
-
-
-/*.ant-avatar > * {*/
-    /*line-height : 140px !important;*/
-/*}*/
 
 .WrapperDefined {
     font-size: 45px;
@@ -110,9 +102,6 @@ a {
     padding-top: 74px;
 }
 
-/*.keywordCircle.ant-card-body {
-    padding: inherit !important;
-}*/
 
 .textUnderCircle {
     font-size: 20px;
@@ -140,5 +129,10 @@ a {
 .scrollSearch {
     overflow: auto;
     max-height: 520px;
+}
+
+.panelTitle  {
+    text-align: center;
+    vertical-align: middle;
 }
 

@@ -39,6 +39,7 @@ class Dashboard extends React.Component{
         this.state = {
             startTime : "1994/03/01",
             endTime : "2020/12/30",
+            totalModsNum: 0,
             keywords : [],
             topMods : [],
             topModsSearchBox : [],
@@ -68,13 +69,17 @@ class Dashboard extends React.Component{
             console.log(entry);
             this.setState({"creators" : this.state.creators.concat(entry)});
         });
+
+        eventProxy.on("totalModsNum", (num) => {
+            this.setState({"totalModsNum" : num});
+        });
     }
 
 
     queryKeyWords(startTime ,endTime) {
         axios.post('http://localhost:3000/getKeyWordWithThreshold', {
-            startTime: startTime === null ? "1994/03/01" : startTime,
-            endTime: endTime === null ? "2020/12/30" : endTime,
+            startTime: (startTime === null || startTime.length === 0) ? "1994/03/01" : startTime,
+            endTime: (endTime === null || endTime) ? "2020/12/30" : endTime,
         })
             .then(res => {
                 console.log("received data");
@@ -103,8 +108,8 @@ class Dashboard extends React.Component{
         console.log("Top mods panel");
         console.log(this.props.topMods);
         axios.post('http://localhost:3000/topModsWithDownloads', {
-            startTime : startTime === null ?  "1994/03/01" : startTime,
-            endTime : endTime === null ? "2020/12/30" : endTime,
+            startTime : (startTime === null || startTime.length === 0) ?  "1994/03/01" : startTime,
+            endTime : (endTime === null || endTime.length === 0) ? "2020/12/30" : endTime,
         })
             .then(res => {
                 console.log("received top mods");
@@ -178,8 +183,6 @@ class Dashboard extends React.Component{
     }
 
 
-
-
     render () {
         var currentPanel;
         var currentTitle;
@@ -194,13 +197,13 @@ class Dashboard extends React.Component{
                 searched = {this.state.searched} startTime = {this.state.startTime} endTime = {this.state.endTime}/>
         } else if(this.state.currentView === "Creators") {
             currentPanel = <CreatorsPanel creators = {this.state.creators}/>;
-            currentTitle = "Ranked By Accumulative Downloads";
+            currentTitle = "Ranked By Accumulated Downloads";
             currentSearchBox = <SearchBoxCreator entries = {this.state.creatorsForSearchBox}/>
         } else if(this.state.currentView === "topMods") {
             currentPanel = <TopModsPanel topMods = {this.state.topMods}
                                          startTime = {this.state.startTime} endTime = {this.state.endTime}/>
             currentSearchBox = <SearchBoxTopMod entries = {this.state.topModsSearchBox}/>
-            currentTitle = "Created Ranked By Accumulative Downloads";
+            currentTitle = "Created Ranked By Accumulated Downloads";
         }
 
 
@@ -217,7 +220,11 @@ class Dashboard extends React.Component{
                             </Select>
                             {" "}{currentTitle}
                         </Col>
-                        <Col span={6}></Col>
+                        <Col span={6} className="PanelTitle">
+                            { this.state.currentView !== "Creators" ?
+                                "Total  " + numeral(this.state.totalModsNum).format("0,0") + " Mods"
+                                : null }
+                        </Col>
                         <Col span={6}>
                             {
                                 this.state.currentView !== "Creators" ?

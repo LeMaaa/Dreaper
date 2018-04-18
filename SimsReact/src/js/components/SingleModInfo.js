@@ -5,6 +5,7 @@ import React from 'react';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 import numeral from 'numeral'
+import moment from 'moment'
 
 import TimeSeriesData from '../components/TimeSeriesData'
 
@@ -43,9 +44,9 @@ class SingleModInfo extends React.Component {
                 <Card title= {currentMod.title} style={{ width: '100%' }} >
                     <Row>
                         <Col span={12}>
-                            Creator : {numeral(currentMod.artist).format('0,0')}
+                            Creator : {currentMod.artist}
                             <br/>
-                            Publish Date : {numeral(currentMod.publish_date).format('0,0')}
+                            Publish Date : {moment(currentMod.publish_date).format("MMM Do YYYY")}
                             <br/>
                             Download : {numeral(currentMod.downloads).format('0,0')}
                             <br/>

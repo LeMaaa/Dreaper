@@ -96,6 +96,7 @@ class KeywordCard extends React.Component{
                 // console.log(res.data);
                 console.log(res.data)
                 this.setState({ 'mods' : res.data.mods})
+                this.setState({"currentMod" : res.data.mods[0]});
                 this.setState({'totalDownloads' : res.data.totalDownloads});
                 this.setState({'totalViews' : res.data.totalViews});
                 this.setState({
@@ -163,9 +164,9 @@ class KeywordCard extends React.Component{
                     value : this.props.value,
                 }]});
 
-                if(this.state.currentMod === null ) {
+                // if(this.state.currentMod === null ) {
                     this.setState({"currentMod" : res.data.mods[0]});
-                }
+                // }
 
                 this.renderDownloadModList();
                 this.renderViewsModList();
