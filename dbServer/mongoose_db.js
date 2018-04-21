@@ -55,6 +55,8 @@ var Keyword_Schema = new Schema({
     value : {},
 }, {collection : keyword_collection});
 
+Keyword_Schema.index({'_id': 'text'});
+
 var Creator_Schema = new Schema({
     _id : String,
     value: {}

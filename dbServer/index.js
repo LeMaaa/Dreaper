@@ -398,6 +398,99 @@ app.post('/getModByName', (req, res, next) => {
 
 });
 
+
+// only used to search 50+ keyword in a timerange
+app.get('/getMatchingKeyword', (req, res, next) => {
+    console.log("getKeyWordWithThreshold _ called");
+
+    let startTime = "";
+    let endTime = "";
+    let search_term = req.query.keyword;
+
+    if (search_term === undefined || search_term.length === 0) {
+        res.status(500).send("term to search cannot be empty");
+    }
+
+    if(req.query.startTime === undefined || req.query.startTime.length === 0) {
+        startTime = Date.parse("2000/01/01")/1000;
+    }else {
+        startTime = Date.parse(req.query.startTime)/1000;
+    }
+
+    let today = new Date();
+
+    if(req.query.endTime === undefined || req.query.endTime.length === 0) {
+        endTime = Date.parse(today)/1000;
+    }else {
+        endTime = Date.parse(req.query.endTime)/1000;
+    }
+
+    console.log(startTime);
+    console.log(endTime);
+
+    // can be improved to text search
+    var query = { 
+        '$and' :[
+            {'$or': [{
+            "value.startDate": { $gte: startTime, $lt: endTime },
+            "value.endDate": { $gte: startTime, $lt: endTime }
+            }]},
+            {$text: {$search: search_term}}
+        ]
+    };
+
+    console.log(query);
+
+    Keyword.find(query).sort({ 'value.count' : -1}).exec((err, docs) => {
+
+        let ret = [];
+        console.log(docs.length);
+        async.each(docs, (keyword, cb) => {
+            // find mods count within time range
+            let cnt_query = {};
+            const startDate = new Date(startTime * 1000);
+            const endDate = new Date(endTime * 1000);
+            // console.log(keyword);
+            cnt_query["keywords." + keyword._id] = {$exists : true};
+            cnt_query["publish_date"] = {
+                $gte: startDate,
+                $lt: endDate,
+            };
+
+            Item.count(cnt_query).exec((err, cnt) => {
+                    if(err) {
+                        console.log(err);
+                        return cb(err);
+                    } else {
+                        keyword.set('value', cnt, {strict: false});
+                        ret.push(keyword);
+                        return cb();
+                    }
+                }
+            );
+        }, (err) => {
+            if ( err ) { console.log(err); res.status(500).send(err); }
+
+            // sort and return top 50
+            ret.sort((a, b) => {
+                return b.value - a.value;
+            })
+
+            // assign ranking
+            ret = ret.slice(0, 50).map((entry, i) => {
+                entry.set('rank', '--', {strict: false});
+                return entry;
+            })
+
+            // console.log(done);
+            // console.log(ret);
+            console.log("returning keywords within range");
+            res.json(ret);
+
+        });
+    });
+});
+
 app.post('/getKeyWordWithThreshold', (req, res, next) => {
     console.log("getKeyWordWithThreshold _ called");
 
@@ -475,17 +568,6 @@ app.post('/getKeyWordWithThreshold', (req, res, next) => {
             res.json(ret);
 
         });
-        // if (err) {
-        //     console.log(err);
-        //     res.status(504).send("Oh uh, something went wrong");
-        // } else {
-        //     res_docs = docs.map((doc, index) => {
-        //         doc.set('value', doc.value.count, {strict: false});
-        //         doc.set('rank', index+1, {strict: false});
-        //         return doc;
-        //     });
-        //     res.json(res_docs);
-        // }
     });
 });
 
