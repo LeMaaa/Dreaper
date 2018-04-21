@@ -157,7 +157,8 @@ export default class SearchBarRowKeyword extends React.Component {
                 >
                     <Row type="flex" justify="space-around">
                         <Col span = {8}>
-                            <CircleOnPanel index = {this.props.entry.rank} name = {this.props.entry._id}/>
+                            <CircleOnPanel index = {this.props.entry.rank} name = {this.props.entry._id}
+                                           percentage = { numeral(this.props.value/this.state.totalModsNumForAll).format('0.0%')}/>
                         </Col>
 
                         <Col span={8}>

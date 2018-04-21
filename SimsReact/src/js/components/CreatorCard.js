@@ -10,7 +10,7 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 import numeral from 'numeral'
 
-import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider } from 'antd';
+import { Avatar, Card, Button, Modal, Row, Col, Badge, Divider, Tag, Icon } from 'antd';
 const { Meta } = Card;
 
 import SingleModInfo from '../components/SingleModInfo' ;
@@ -33,6 +33,7 @@ class CreatorCard extends React.Component{
             visible: false,
             noTitleKey: 'Downloads',
             currentMod : null,
+            totalModForCurrentCreator : 0,
 
             contentListNoTitle : {
                 Downloads: <p>Downloads content</p>,
@@ -89,7 +90,10 @@ class CreatorCard extends React.Component{
                 console.log("received data for by name");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({ 'mods' : res.data, 'currentMod' :  res.data.sort(function(a, b){return b.downloads - a.downloads})[0]})
+                this.setState({
+                    'mods' : res.data,
+                    'totalModForCurrentCreator' : res.data.length,
+                    'currentMod' :  res.data.sort(function(a, b){return b.downloads - a.downloads})[0]})
                 this.renderDownloadModList();
                 this.renderViewsModList();
             });
@@ -142,8 +146,12 @@ class CreatorCard extends React.Component{
                     {/*{this.props.keyword}*/}
                     {/*</div>*/}
                     <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
-                    <CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id} />
-                    <span className="textUnderCircle"> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} downloads </span>
+                    {/*<CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id} />*/}
+                    {this.props.creatorEntry._id}
+                    <br/>
+                    <Tag > <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
+                    {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods
+
 
                     {/*<KeywordCircleOnPanel items = {this.state.item}/>*/}
 

@@ -629,14 +629,16 @@ app.post('/getModsWithKeyword', (req, res, next) => {
             res.status(500).send("Oh uh, something went wrong");
         } else {
             console.log("checking current mods");
-            // console.log(mods)
-            var totalDownloads = 0;
-            var totalViews = 0;
+            console.log(mods)
+            let totalDownloads = 0;
+            let totalViews = 0;
+            let totalMods = 0;
             mods.map((mod) => {
                 totalDownloads = totalDownloads + mod.downloads;
                 totalViews = totalViews + mod.views;
+                totalMods = totalMods + 1;
             });
-            res.json({mods : mods, totalDownloads : totalDownloads, totalViews : totalViews});
+            res.json({mods : mods, totalDownloads : totalDownloads, totalViews : totalViews, totalMods : totalMods});
         }
     });
 });
