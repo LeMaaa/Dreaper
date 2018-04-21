@@ -158,7 +158,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
             // res.end(err);
         } else {
                 docs.forEach((doc) => {
-                    console.log(doc.time_series_data);
+                    // console.log(doc.time_series_data);
                     const key = moment(doc.publish_date).format("MMM YYYY");
                     const keyDay = moment(doc.publish_date).format("MMM Do YYYY");
                     data[key] = data[key] === undefined ? 1 : data[key]+1;
@@ -427,18 +427,65 @@ app.post('/getKeyWordWithThreshold', (req, res, next) => {
         }] 
     };
 
+
     Keyword.find(query).sort({ 'value.count' : -1}).limit(50).exec((err, docs) => {
-        if (err) {
-            console.log(err);
-            res.status(504).send("Oh uh, something went wrong");
-        } else {
-            res_docs = docs.map((doc, index) => {
-                doc.set('value', doc.value.count, {strict: false});
-                doc.set('rank', index+1, {strict: false});
-                return doc;
-            });
-            res.json(res_docs);
-        }
+
+        let ret = [];
+        console.log(docs.length);
+        async.each(docs, (keyword, cb) => {
+            // find mods count within time range
+            let cnt_query = {};
+            const startDate = new Date(startTime * 1000);
+            const endDate = new Date(endTime * 1000);
+            // console.log(keyword);
+            cnt_query["keywords." + keyword._id] = {$exists : true};
+            cnt_query["publish_date"] = {
+                $gte: startDate,
+                $lt: endDate,
+            };
+
+            Item.count(cnt_query).exec((err, cnt) => {
+                    if(err) {
+                        console.log(err);
+                        return cb(err);
+                    } else {
+                        keyword.set('value', cnt, {strict: false});
+                        ret.push(keyword);
+                        return cb();
+                    }
+                }
+            );
+        }, (err) => {
+            if ( err ) { console.log(err); res.status(500).send(err); }
+
+            // sort and return top 50
+            ret.sort((a, b) => {
+                return b.value - a.value;
+            })
+
+            // assign ranking
+            ret = ret.slice(0, 50).map((entry, i) => {
+                entry.set('rank', i+1, {strict: false});
+                return entry;
+            })
+
+            // console.log(done);
+            // console.log(ret);
+            console.log("returning keywords with range");
+            res.json(ret);
+
+        });
+        // if (err) {
+        //     console.log(err);
+        //     res.status(504).send("Oh uh, something went wrong");
+        // } else {
+        //     res_docs = docs.map((doc, index) => {
+        //         doc.set('value', doc.value.count, {strict: false});
+        //         doc.set('rank', index+1, {strict: false});
+        //         return doc;
+        //     });
+        //     res.json(res_docs);
+        // }
     });
 });
 
@@ -461,7 +508,7 @@ app.post('/getCreators', (req, res, next) => {
 
 app.post('/getModsWithKeyword', (req, res, next) => {
     console.log("getModsWithKeyword _ called");
-    console.log(req);
+    // console.log(req);
 
     let startTime;
     let endTime;
@@ -491,6 +538,8 @@ app.post('/getModsWithKeyword', (req, res, next) => {
         $gte: startTime,
         $lt: endTime,
     };
+
+    console.log(query);
 
     Item.find(query).limit(30).exec((err, mods) => {
         if (err) {
@@ -575,5 +624,5 @@ app.post('/topModsWithDownloads', (req, res, next) => {
     });
 });
 
-app.listen(3000, () => console.log('dbserver listening on port 8000!'));
+app.listen(3000, () => console.log('dbserver listening on port 3000!'));
 
