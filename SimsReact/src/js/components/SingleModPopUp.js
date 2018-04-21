@@ -12,8 +12,10 @@ import numeral from 'numeral';
 
 import TimeSeriesData from '../components/TimeSeriesData'
 
-import {Card, Row, Col, Collapse, Divider} from 'antd'
+import {Card, Row, Col, Collapse, Divider, Tabs} from 'antd'
 const Panel = Collapse.Panel;
+const TabPane = Tabs.TabPane;
+
 
 
 
@@ -46,72 +48,77 @@ class SingleModPopUp extends React.Component {
 
         return (
             <div>
-                <Card title= {currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"} style={{ width: '100%' }} bordered={false}>
-                    <Row> Link  :  <a href={currentMod.url}> {currentMod.url} </a></Row>
-                    <Row>
-                        <Col span={6} style={{ background: '#bec3c6'}}> Download : {numeral(currentMod.downloads).format('0,0')}
-                            <Divider type="vertical" />
-                        </Col>
+                {
+                    currentMod === null ? <div> Sorry :( Mod is unavailable</div> :
+                    <Card title={currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}
+                          style={{width: '100%'}} bordered={false}>
+                        <Row> Link : <a href={currentMod.url}> {currentMod.url} </a></Row>
+                        <Row>
+                            <Col span={6} style={{background: '#bec3c6'}}> Download
+                                : {numeral(currentMod.downloads).format('0,0')}
+                                <Divider type="vertical"/>
+                            </Col>
 
-                        <Col span = {6} style={{ background: '#bec3c6'}}>View : {numeral(currentMod.views).format('0,0')}
-                            <Divider type="vertical" />
-                        </Col>
+                            <Col span={6} style={{background: '#bec3c6'}}>View
+                                : {numeral(currentMod.views).format('0,0')}
+                                <Divider type="vertical"/>
+                            </Col>
 
-                        <Col span = {6} style={{ background: '#bec3c6'}} > Favorite : {numeral(currentMod.favourited).format('0,0')}
-                            <Divider type="vertical" />
-                        </Col>
-                        <Col span={6} style={{ background: '#bec3c6'}}> Thanks : {numeral(currentMod.thanks).format('0,0')} </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            Creator : {currentMod.artist}
-                        </Col>
-                        <Col span = {12} >
-                            Game Version : {currentMod.game_version}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            Keywords : {currentMod.keywords === null ? "None" :
-                            currentMod.keywords[Object.keys(currentMod.keywords)[0]] + ", "
-                            + currentMod.keywords[Object.keys(currentMod.keywords)[1]]}
-                        </Col>
-                        <Col> Pack Required : {currentMod.pack_requirement}</Col>
-                    </Row>
+                            <Col span={6} style={{background: '#bec3c6'}}> Favorite
+                                : {numeral(currentMod.favourited).format('0,0')}
+                                <Divider type="vertical"/>
+                            </Col>
+                            <Col span={6} style={{background: '#bec3c6'}}> Thanks
+                                : {numeral(currentMod.thanks).format('0,0')} </Col>
+                        </Row>
+                        <Row>
+                            <Col span={12}>
+                                Creator : {currentMod.artist}
+                            </Col>
+                            <Col span={12}>
+                                Game Version : {currentMod.game_version}
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                Keywords : {currentMod.keywords === null ? "None" :
+                                currentMod.keywords[Object.keys(currentMod.keywords)[0]] + ", "
+                                + currentMod.keywords[Object.keys(currentMod.keywords)[1]]}
+                            </Col>
+                            <Col> Pack Required : {currentMod.pack_requirement}</Col>
+                        </Row>
 
-                    <Divider />
-                    <Row>
-                        {this.renderTimeSeriesData(currentMod)}
-                    </Row>
-                    <Divider />
-                    <Row>
-                        <Collapse accordion>
-                            <Panel header = "Description" key="description">
-                                <div className="scroll-text"> {currentMod.description}</div>
-                            </Panel>
-                            <Panel header="Comments" key="comments">
-                                <div>
+                        <Divider />
+                        <Row>
+                            {this.renderTimeSeriesData(currentMod)}
+                        </Row>
+                        <Divider />
+                        <Row>
+                            <Tabs onChange={this.changeTab} type="card" defaultActiveKey="Description">
+                                <TabPane tab="Description" key="Description">
+                                    <div className="scroll-text"> {currentMod.description}</div>
+                                </TabPane>
+                                <TabPane tab="Comments" key="Comments">
                                     {currentMod.comments.map(comment => {
                                         return <div> comment
-                                        <Divider />
+                                            <Divider />
                                         </div>
                                     })}
-                                </div>
-                            </Panel>
-                            <Panel header="Tags & Types" key="Tags & Types">
-                                <div>
-                                    Type : {currentMod.types.map(type => {
-                                        return type + " "
-                                })} <br/>
-                                    Tags : {currentMod.tags.map(tag => {
-                                    return tag + " "
-                                })}
-                                </div>
-                            </Panel>
-                        </Collapse>
-                    </Row>
-
-                </Card>
+                                </TabPane>
+                                <TabPane tab="Tag & Type" key="Tag&Type">
+                                    <div>
+                                        Type : {currentMod.types.map(type => {
+                                        return type + ", "
+                                    })} <br/>
+                                        Tags : {currentMod.tags.map(tag => {
+                                        return tag + ", "
+                                    })}
+                                    </div>
+                                </TabPane>
+                            </Tabs>
+                        </Row>
+                    </Card>
+                }
             </div>
         );
     }

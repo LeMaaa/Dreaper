@@ -158,12 +158,6 @@ class Dashboard extends React.Component{
         }
     }
 
-    // handleChange(value) {
-    //     console.log(`selected ${value}`);
-    //     console.log(value);
-    //     this.switchPanel(value);
-    // }
-
     searchKeyword(value) {
         console.log("search keyword");
         console.log(value);

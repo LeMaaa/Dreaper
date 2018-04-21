@@ -35,6 +35,8 @@ class KeywordCard extends React.Component{
             currentMod : null,
             totalDownloads : 0 ,
             totalViews : 0,
+            totalMods : 0,
+            totalModsNumForAll : 0,
 
             contentListNoTitle : {
                 Downloads: <p>Downloads content</p>,
@@ -107,7 +109,9 @@ class KeywordCard extends React.Component{
                     'totalViews' : res.data.totalViews,
                     'startTime': startTime,
                     'endTime': endTime,
-                    'keyword' : keyword });
+                    'keyword' : keyword,
+                    "totalMods" : res.data.totalMods
+                });
                 this.renderDownloadModList();
                 this.renderViewsModList();
             });
@@ -154,6 +158,12 @@ class KeywordCard extends React.Component{
                 });
             });
 
+            eventProxy.on("totalModsNum", (num) => {
+                this.setState({
+                    'totalModsNumForAll' : num
+                });
+            });
+
             eventProxy.on("showModal", (value) => {
                 this.setState({
                     visible: true,
@@ -175,7 +185,8 @@ class KeywordCard extends React.Component{
 
                     <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
                     {/*<Button icon = "close-circle-o" />*/}
-                    <CircleOnPanel index = {this.props.index} name = {this.props.keyword}/>
+                    <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
+                                   percentage = { numeral(this.props.value/this.state.totalModsNumForAll).format('0.0%')}/>
                     <span className="textUnderCircle"> {numeral(this.props.value).format('0,0')} mods </span>
 
                 </Card>
@@ -186,11 +197,12 @@ class KeywordCard extends React.Component{
                     footer = {null}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    width = {1100}
+                    width = {1200}
                 >
                     <Row type="flex" justify="space-around">
-                        <Col span = {8}>
-                            <CircleOnPanel index = {this.props.index} name = {this.props.keyword}/>
+                        <Col span = {4}>
+                            <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
+                                           percentage = { numeral(this.props.value/this.state.totalModsNumForAll).format('0.0%')}/>
                         </Col>
 
                         <Col span={8}>
@@ -204,7 +216,7 @@ class KeywordCard extends React.Component{
                             </Card>
                         </Col>
 
-                        <Col span = {8}>
+                        <Col span = {12}>
                             <SingleModInfo currentMod = {this.state.currentMod}/>
                         </Col>
                     </Row>

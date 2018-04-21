@@ -7,10 +7,15 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import eventProxy from 'react-eventproxy'
 
-import {Badge, Button} from "antd";
+import {Badge, Button, Tag} from "antd";
 
 
 export default class CircleOnPanel extends React.Component {
+    /*
+
+        props :
+        percentage : percentage of current keyword
+     */
     constructor(props) {
         super(props)
         this.state = {
@@ -25,8 +30,9 @@ export default class CircleOnPanel extends React.Component {
     render() {
         return (
             <div>
-                <div className="panel-circle" >
+                <div  >
                     {this.props.name}
+                    <Tag color="magenta">{this.props.percentage}</Tag>
                 </div>
             </div>
         );
