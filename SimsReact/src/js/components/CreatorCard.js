@@ -10,9 +10,11 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 import numeral from 'numeral'
 
-import { Avatar, Card, Button, Modal, Row, Col, Badge, Divider, Tag, Icon } from 'antd';
+import { Avatar, Card, Button, Modal, Row, Col, Badge, Divider, Tag, Icon, Checkbox } from 'antd';
 import {Pie, PieChart, LabelList, Tooltip, Cell} from 'recharts'
 const { Meta } = Card;
+const CheckableTag = Tag.CheckableTag;
+
 
 import SingleModInfo from '../components/SingleModInfo' ;
 import DownloadModBar from "./DownloadModBar";
@@ -40,6 +42,7 @@ class CreatorCard extends React.Component{
             currentMod : null,
             totalModForCurrentCreator : 0,
             keywordPieRanking : [],
+            selectedTags: [],
 
             contentListNoTitle : {
                 Downloads: <p>Downloads content</p>,
@@ -59,10 +62,13 @@ class CreatorCard extends React.Component{
         this.handleCancel = this.handleCancel.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
+        this.onChangeKeyword = this.onChangeKeyword.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     showModal(e){
         let res = this.queryModsForCreator(this.props.creatorEntry);
+        this.populateKeywordArray();
         res.then(() => {
             this.setState({
                 visible: true,
@@ -132,9 +138,16 @@ class CreatorCard extends React.Component{
     populateKeywordArray() {
 
         let that = this;
+        let selectedTags = [];
+        let cont = 0;
         if(this.props.creatorEntry.value.keywords !== null && this.props.creatorEntry.value.keywords !== undefined) {
             let result = Object.keys(this.props.creatorEntry.value.keywords).map(function(key) {
                 console.log(key);
+
+                if(cont <= 4) {
+                    selectedTags.push(key);
+                    cont++;
+                }
 
                 return {keyword : key,
                     downloads : that.props.creatorEntry.value.keywords[key].downloads,
@@ -142,18 +155,31 @@ class CreatorCard extends React.Component{
             });
 
             let keywordPieRanking = result.length >= 5 ? result.slice(0, 5) : result;
-            this.setState({"keywordPieRanking" : keywordPieRanking});
+            this.setState({"keywordPieRanking" : keywordPieRanking, "selectedTags" : selectedTags});
             
             return keywordPieRanking;
 
         }
     }
 
+    onChangeKeyword (checkedValues) {
+        console.log('checked = ', checkedValues);
+    }
+
+    handleChange(tag, checked) {
+        const { selectedTags } = this.state;
+        const nextSelectedTags = checked ?
+            [...selectedTags, tag] :
+            selectedTags.filter(t => t !== tag);
+        console.log('You are interested in: ', nextSelectedTags);
+        this.setState({ selectedTags: nextSelectedTags });
+
+        // TODO : ADD FILTER FUNCTION -- NESTED FOR LOOP DOESN'T WORK
+    }
+
 
     componentDidMount() {
         // this.queryModsForCreator(this.props.creatorEntry);
-
-        this.populateKeywordArray();
 
         eventProxy.on('ChangeMod', (item) => {
             this.setState({
@@ -166,6 +192,7 @@ class CreatorCard extends React.Component{
 
 
     render () {
+        const that = this;
 
         return (
             <div className="CreatorCircle">
@@ -196,7 +223,7 @@ class CreatorCard extends React.Component{
                     width = {1300}
                 >
                     <Row type="flex" justify="space-around">
-                        <Col span = {5}>
+                        <Col span = {6}>
                             <Row>
                                 <Card >
                                     <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
@@ -210,16 +237,40 @@ class CreatorCard extends React.Component{
                                 <Card >
                                     <Row>
                                         <Col span = {8}>
-                                            <PieChart width={100} height={100}>
+                                            <PieChart width={80} height={80}>
                                                 {/*<Legend verticalAlign="bottom" height={50}/>*/}
                                                 <Pie isAnimationActive={false} data={this.state.keywordPieRanking} dataKey="downloads" nameKey="keyword"
-                                                     cx={50} cy={50} outerRadius={40} fill="#8884d8" labelLine={false}>
+                                                     cx={30} cy={30} outerRadius={30} fill="#8884d8" labelLine={false}>
                                                     {this.state.keywordPieRanking.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
                                                 </Pie>
-                                                <Tooltip/>
+                                                {/*<Tooltip/>*/}
                                             </PieChart>
                                         </Col>
                                         <Col span = {16}>
+                                            {/*<Checkbox.Group style={{ width: '100%' }} onChange={this.onChangeKeyword}>*/}
+                                            {/*{*/}
+                                                {/*this.state.keywordPieRanking.map((entry, index) =>*/}
+                                                    {/*<Row key={entry.keyword}> <Avatar style={{backgroundColor :#fff}}/>*/}
+                                                        {/*<Checkbox value= {entry.keyword}>{entry.keyword}</Checkbox>*/}
+                                                    {/*</Row>)*/}
+                                            {/*}*/}
+                                            {/*</Checkbox.Group>*/}
+
+
+                                            {this.state.keywordPieRanking.map((tag, index) => (
+                                                <Row  key={tag.keyword}>
+                                                    <Avatar style={{color : COLORS[index % COLORS.length], backgroundColor : "#fff"}}>
+                                                        {numeral(tag.downloads / that.props.creatorEntry.value.downloads).format('0.00%')}  </Avatar>
+                                                    <CheckableTag
+                                                        style = {{backgroundColor :
+                                                            this.state.selectedTags.indexOf(tag.keyword) > -1 ? COLORS[index % COLORS.length] :  "#fff"}}
+                                                        checked={this.state.selectedTags.indexOf(tag.keyword) > -1}
+                                                        onChange={checked => this.handleChange(tag.keyword, checked)}
+                                                    >
+                                                        {tag.keyword}
+                                                    </CheckableTag>
+                                                </Row>
+                                            ))}
 
                                         </Col>
                                     </Row>
@@ -239,7 +290,7 @@ class CreatorCard extends React.Component{
                             </Card>
                         </Col>
 
-                        <Col span = {11}>
+                        <Col span = {10}>
                             <SingleModInfo currentMod = {this.state.currentMod}/>
                         </Col>
                     </Row>

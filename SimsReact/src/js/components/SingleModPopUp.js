@@ -52,65 +52,68 @@ class SingleModPopUp extends React.Component {
                     currentMod === null ? <div> Sorry :( Mod is unavailable</div> :
                     <Card title={currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}
                           style={{width: '100%'}} bordered={false}>
-                        <Row> Link : <a href={currentMod.url}> {currentMod.url} </a></Row>
+                        <Row>  <span style={{fontWeight : "bold"}}>Link: </span><a href={currentMod.url}> {currentMod.url} </a></Row>
                         <Row>
-                            <Col span={6} style={{background: '#bec3c6'}}> Download
-                                : {numeral(currentMod.downloads).format('0,0')}
-                                <Divider type="vertical"/>
+                            <Col span={8} >
+                                <span style={{fontWeight : "bold"}}>Download:</span> {numeral(currentMod.downloads).format('0,0')}
                             </Col>
 
-                            <Col span={6} style={{background: '#bec3c6'}}>View
-                                : {numeral(currentMod.views).format('0,0')}
-                                <Divider type="vertical"/>
+                            <Col span={8} >
+                                <span style={{fontWeight : "bold"}}> Favorite:</span> {numeral(currentMod.favourited).format('0,0')}
+                            </Col>
+                            <Col span={8}>
+                                <span style={{fontWeight : "bold"}}>Game Version :</span> {currentMod.game_version}
                             </Col>
 
-                            <Col span={6} style={{background: '#bec3c6'}}> Favorite
-                                : {numeral(currentMod.favourited).format('0,0')}
-                                <Divider type="vertical"/>
-                            </Col>
-                            <Col span={6} style={{background: '#bec3c6'}}> Thanks
-                                : {numeral(currentMod.thanks).format('0,0')} </Col>
                         </Row>
                         <Row>
-                            <Col span={12}>
-                                Creator : {currentMod.artist}
+                            <Col span={8} >
+                                <span style={{fontWeight : "bold"}}>View: </span> {numeral(currentMod.views).format('0,0')}
                             </Col>
-                            <Col span={12}>
-                                Game Version : {currentMod.game_version}
+                            <Col span={8} >
+                                <span style={{fontWeight : "bold"}}>Thanks: </span> {numeral(currentMod.thanks).format('0,0')} </Col>
+                            <Col span={8}>
+                                <span style={{fontWeight : "bold"}}>Creator : </span> <a href={"http://modthesims.info" + currentMod.artist_url}>  {currentMod.artist}
+                            </a>
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
-                                Keywords : {currentMod.keywords === null ? "None" :
-                                currentMod.keywords[Object.keys(currentMod.keywords)[0]] + ", "
-                                + currentMod.keywords[Object.keys(currentMod.keywords)[1]]}
-                            </Col>
-                            <Col> Pack Required : {currentMod.pack_requirement}</Col>
+                            <span style={{fontWeight : "bold"}}>Keywords :</span> {currentMod.keywords === null ? "None" :
+                            Object.keys(currentMod.keywords).map((key, index) => {
+                                if(index <= 9) return key + ", "
+                            })
+                        }
                         </Row>
+                        <Row>  <span style={{fontWeight : "bold"}}>Pack Required :</span> {currentMod.pack_requirement.length === 0 ? "None" : currentMod.pack_requirement.map(pack => {
+                            return pack + ", "
+                        })} </Row>
 
-                        <Divider />
                         <Row>
                             {this.renderTimeSeriesData(currentMod)}
                         </Row>
-                        <Divider />
                         <Row>
                             <Tabs onChange={this.changeTab} type="card" defaultActiveKey="Description">
                                 <TabPane tab="Description" key="Description">
                                     <div className="scroll-text"> {currentMod.description}</div>
                                 </TabPane>
                                 <TabPane tab="Comments" key="Comments">
-                                    {currentMod.comments.map(comment => {
-                                        return <div> comment
-                                            <Divider />
-                                        </div>
-                                    })}
+                                    <div className="scroll-text">
+                                        {currentMod.comments === null || currentMod.comments.length === 0 ? "No Data Available :(" :currentMod.comments.map(comment => {
+                                            return <div> comment
+                                                <Divider />
+                                            </div>
+                                        })}
+                                    </div>
                                 </TabPane>
                                 <TabPane tab="Tag & Type" key="Tag&Type">
-                                    <div>
-                                        Type : {currentMod.types.map(type => {
-                                        return type + ", "
+                                    <div className="scroll-text">
+                                        <span style={{fontWeight : "bold"}}>Type :</span>
+                                        {currentMod.types === null || currentMod.types.length === 0 ? "No Data Available :(" :
+                                            currentMod.types.map(type => {
+                                            return type + ", "
                                     })} <br/>
-                                        Tags : {currentMod.tags.map(tag => {
+                                        <span style={{fontWeight : "bold"}}>Tags :</span>
+                                            {currentMod.tags === null || currentMod.tags.length === 0  ? "No Data Available :(" :currentMod.tags.map(tag => {
                                         return tag + ", "
                                     })}
                                     </div>
