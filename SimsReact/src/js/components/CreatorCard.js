@@ -11,6 +11,7 @@ import eventProxy from 'react-eventproxy';
 import numeral from 'numeral'
 
 import { Avatar, Card, Button, Modal, Row, Col, Badge, Divider, Tag, Icon } from 'antd';
+import {Pie, PieChart, LabelList, Tooltip, Cell} from 'recharts'
 const { Meta } = Card;
 
 import SingleModInfo from '../components/SingleModInfo' ;
@@ -20,6 +21,10 @@ import CircleOnPanel from './CircleOnPanel'
 
 import KeywordPieChart from "./KeywordPieChart";
 import KeywordCircleOnPanel from "./CircleOnPanel";
+
+const COLORS = ['#0088FE', '#00C49F', '#d7cce5', '#FFBB28', '#FF8042', '#ff47d1', '#6dbcb3','#ff6d70', '#3b41dd', '#06d0db', '#c85bff',
+    '#e82573', '#2c6587', '#263163', '#97a5e5' ,'#ed9044', '#a86f72'];
+
 
 
 
@@ -34,6 +39,7 @@ class CreatorCard extends React.Component{
             noTitleKey: 'Downloads',
             currentMod : null,
             totalModForCurrentCreator : 0,
+            keywordPieRanking : [],
 
             contentListNoTitle : {
                 Downloads: <p>Downloads content</p>,
@@ -123,9 +129,31 @@ class CreatorCard extends React.Component{
         this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {this.state.mods} totalViews = {this.state.totalViews}/>
     }
 
+    populateKeywordArray() {
+
+        let that = this;
+        if(this.props.creatorEntry.value.keywords !== null && this.props.creatorEntry.value.keywords !== undefined) {
+            let result = Object.keys(this.props.creatorEntry.value.keywords).map(function(key) {
+                console.log(key);
+
+                return {keyword : key,
+                    downloads : that.props.creatorEntry.value.keywords[key].downloads,
+                    views: that.props.creatorEntry.value.keywords[key].views};
+            });
+
+            let keywordPieRanking = result.length >= 5 ? result.slice(0, 5) : result;
+            this.setState({"keywordPieRanking" : keywordPieRanking});
+            
+            return keywordPieRanking;
+
+        }
+    }
+
 
     componentDidMount() {
         // this.queryModsForCreator(this.props.creatorEntry);
+
+        this.populateKeywordArray();
 
         eventProxy.on('ChangeMod', (item) => {
             this.setState({
@@ -133,10 +161,12 @@ class CreatorCard extends React.Component{
             });
         });
 
+
     }
 
 
     render () {
+
         return (
             <div className="CreatorCircle">
                 <Card onClick={this.showModal}>
@@ -163,11 +193,39 @@ class CreatorCard extends React.Component{
                     footer = {null}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    width = {1100}
+                    width = {1300}
                 >
                     <Row type="flex" justify="space-around">
-                        <Col span = {8}>
-                            {/*<KeywordPieChart items = {this.state.item}/>*/}
+                        <Col span = {5}>
+                            <Row>
+                                <Card >
+                                    <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
+                                    {this.props.creatorEntry._id}
+                                    <br/>
+                                    <Tag > <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
+                                    {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods
+                                </Card>
+                            </Row>
+                            <Row>
+                                <Card >
+                                    <Row>
+                                        <Col span = {8}>
+                                            <PieChart width={100} height={100}>
+                                                {/*<Legend verticalAlign="bottom" height={50}/>*/}
+                                                <Pie isAnimationActive={false} data={this.state.keywordPieRanking} dataKey="downloads" nameKey="keyword"
+                                                     cx={50} cy={50} outerRadius={40} fill="#8884d8" labelLine={false}>
+                                                    {this.state.keywordPieRanking.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
+                                                </Pie>
+                                                <Tooltip/>
+                                            </PieChart>
+                                        </Col>
+                                        <Col span = {16}>
+
+                                        </Col>
+                                    </Row>
+
+                                </Card>
+                            </Row>
                         </Col>
 
                         <Col span={8}>
@@ -181,7 +239,7 @@ class CreatorCard extends React.Component{
                             </Card>
                         </Col>
 
-                        <Col span = {8}>
+                        <Col span = {11}>
                             <SingleModInfo currentMod = {this.state.currentMod}/>
                         </Col>
                     </Row>

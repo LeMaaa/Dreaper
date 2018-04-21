@@ -20,6 +20,8 @@ import CircleOnPanel from "./CircleOnPanel";
 
 
 
+
+
 class KeywordCard extends React.Component{
     constructor(props) {
         super(props)
@@ -200,7 +202,7 @@ class KeywordCard extends React.Component{
                     width = {1200}
                 >
                     <Row type="flex" justify="space-around">
-                        <Col span = {4}>
+                        <Col span = {5}>
                             <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
                                            percentage = { numeral(this.props.value/this.state.totalModsNumForAll).format('0.0%')}/>
                         </Col>
@@ -216,7 +218,7 @@ class KeywordCard extends React.Component{
                             </Card>
                         </Col>
 
-                        <Col span = {12}>
+                        <Col span = {11}>
                             <SingleModInfo currentMod = {this.state.currentMod}/>
                         </Col>
                     </Row>
