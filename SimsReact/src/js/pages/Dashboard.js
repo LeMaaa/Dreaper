@@ -168,13 +168,34 @@ class Dashboard extends React.Component{
         console.log("search keyword");
         console.log(value);
         var initialKeywords = this.state.keywordsForSearchBox;
+        if (value === "") {
+            this.setState({"searched": false});
+            this.setState({"keywordsForSearchBox_Search": initialKeywords});
+            return;
+        }
+
         initialKeywords = initialKeywords.filter((keyword) => {
             return keyword._id.search(value) !== -1;
         });
         console.log("initialKeywords");
         console.log(initialKeywords);
-        this.setState({"Searched" : true});
-        this.setState({"keywordsForSearchBox_Search": initialKeywords});
+
+        // cannot find match in current list, ask server
+        const endTime = this.state.endTime;
+        const startTime = this.state.startTime
+        const query_params = '?startTime=' + startTime + '&endTime=' + endTime + '&keyword=' + value;
+
+        if (initialKeywords.length === 0) {
+            return axios.get('http://localhost:3000/getMatchingKeyword'+query_params)
+                .then(res => {
+                    // received new keywords in current time range that matched the search value
+                    // update the search box list
+                    this.setState({"keywordsForSearchBox_Search": res.data});
+                });
+        } else {
+            this.setState({"searched" : true});
+            this.setState({"keywordsForSearchBox_Search": initialKeywords});
+        }
     }
 
     disabledDate(current) {

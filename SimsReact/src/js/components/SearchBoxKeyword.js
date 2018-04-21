@@ -50,6 +50,9 @@ export default class SearchBoxKeyword extends React.Component {
 
     renderKeywordList(entries) {
 
+        if (entries.length === 0) {
+            return (<div> No matching record found! </div>);
+        }
         return entries.map( entry =>
             <SearchBarRowKeyword key = {entry._id} index = {entry.rank} entry = {entry}
                                  startTime = {this.props.startTime} endTime = {this.props.endTime}/> )
