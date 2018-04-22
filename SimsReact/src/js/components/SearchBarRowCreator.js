@@ -81,7 +81,7 @@ export default class SearchBarRowCreator extends React.Component {
                 console.log("received data for by name");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({'currentMod' : res.data.sort(function(a, b){return b.downloads - a.downloads}), 'mods' : res.data});
+                this.setState({'currentMod' : res.data.sort(function(a, b){return b.downloads - a.downloads})[0], 'mods' : res.data});
                 this.renderDownloadModList(res.data);
                 this.renderViewsModList(res.data);
             });
