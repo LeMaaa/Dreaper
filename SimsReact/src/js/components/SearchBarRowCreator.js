@@ -23,7 +23,7 @@ import CircleOnPanel from '../components/CircleOnPanel'
 const Item = List.Item;
 const CheckableTag = Tag.CheckableTag;
 
-const COLORS = ['#0088FE', '#00C49F', '#d7cce5', '#FFBB28', '#FF8042', '#ff47d1', '#6dbcb3','#ff6d70', '#3b41dd', '#06d0db', '#c85bff',
+const COLORS = ['#0088FE', '#00C49F', '#c85bff', '#FFBB28', '#FF8042', '#ff47d1', '#6dbcb3','#ff6d70', '#3b41dd', '#06d0db',
     '#e82573', '#2c6587', '#263163', '#97a5e5' ,'#ed9044', '#a86f72'];
 
 export default class SearchBarRowCreator extends React.Component {
@@ -43,6 +43,7 @@ export default class SearchBarRowCreator extends React.Component {
             mods : [],
             keywordPieRanking : [],
             selectedTags: [],
+            filteredMods : [],
 
             contentListNoTitle : {
                 Downloads: <p>Downloads content</p>,
@@ -61,6 +62,8 @@ export default class SearchBarRowCreator extends React.Component {
         this.handleCancel = this.handleCancel.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.filterKeyword = this.filterKeyword.bind(this);
     }
 
 
@@ -78,22 +81,22 @@ export default class SearchBarRowCreator extends React.Component {
                 console.log("received data for by name");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({'currentMod' : res.data[0], 'mods' : res.data});
-                this.renderDownloadModList();
-                this.renderViewsModList();
+                this.setState({'currentMod' : res.data.sort(function(a, b){return b.downloads - a.downloads}), 'mods' : res.data});
+                this.renderDownloadModList(res.data);
+                this.renderViewsModList(res.data);
             });
     }
 
 
-    renderDownloadModList() {
+    renderDownloadModList(arr) {
         console.log("downlodas")
-        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {this.state.mods} totalDownloads = {this.state.totalDownloads}/>
+        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {arr} totalDownloads = {this.state.totalDownloads}/>
     }
 
 
-    renderViewsModList() {
+    renderViewsModList(arr) {
         console.log("views");
-        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {this.state.mods} totalViews = {this.state.totalViews}/>
+        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {arr} totalViews = {this.state.totalViews}/>
     }
 
     showModal(){
@@ -149,15 +152,32 @@ export default class SearchBarRowCreator extends React.Component {
         }
     }
 
+
+    filterKeyword(item,nextSelectedTags) {
+        console.log("item", item, nextSelectedTags)
+        if(nextSelectedTags === null || nextSelectedTags === 0) return false;
+        for(let i = 0; i < nextSelectedTags.length; i++) {
+            console.log("tag", i, nextSelectedTags[i]);
+            if(item.keywords === undefined || item.keywords === null) return false;
+
+            if(nextSelectedTags[i] in item.keywords) {
+                console.log("ssss[i])", item.keywords.hasOwnProperty(nextSelectedTags[i]))
+                return true;
+            }
+        }
+        return false;
+    }
+
     handleChange(tag, checked) {
         const { selectedTags } = this.state;
-        const nextSelectedTags = checked ?
-            [...selectedTags, tag] :
-            selectedTags.filter(t => t !== tag);
+        const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
         console.log('You are interested in: ', nextSelectedTags);
-        this.setState({ selectedTags: nextSelectedTags });
-
-        // TODO : ADD FILTER FUNCTION -- NESTED FOR LOOP DOESN'T WORK
+        let arr = this.state.mods.filter((item) => this.filterKeyword(item,nextSelectedTags));
+        this.setState({"filteredMods" : arr, "selectedTags": nextSelectedTags});
+        this.renderDownloadModList(arr);
+        this.renderViewsModList(arr);
+        console.log("arr", arr);
+        // TODO : PROBLEMS WITH KWYWORD ITSELF
     }
 
 
@@ -165,6 +185,8 @@ export default class SearchBarRowCreator extends React.Component {
         console.log(key, type);
         this.setState({ [type]: key });
     }
+
+
 
     render() {
         let that = this;

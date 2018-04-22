@@ -82,9 +82,9 @@ export default class SearchBarRowKeyword extends React.Component {
                 console.log("received data from search bar");
                 // console.log(res.data);
                 console.log(res.data)
-                if(this.state.currentMod === null ) {
-                    this.setState({"currentMod" : res.data.mods[0]});
-                }
+
+                this.setState({"currentMod" : res.data.mods.sort(function(a, b){return b.downloads - a.downloads})[0]});
+
 
                 this.setState({"mods" : res.data.mods, "totalViews" : res.data.totalViews,
                     "totalDownloads" : res.data.totalDownloads, 'totalNumOfCurrentKeyword': res.data.totalNumOfCurrentKeyword,

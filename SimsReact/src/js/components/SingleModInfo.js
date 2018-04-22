@@ -29,7 +29,7 @@ class SingleModInfo extends React.Component {
 
             return timestamp1 - timestamp2;
         }
-        if (mod.time_series_data !== null && mod.time_series_data.length > 0)
+        if (mod.time_series_data !== null && mod.time_series_data !== undefined &&  mod.time_series_data.length > 0)
             return <TimeSeriesData itemForTimeSeriesData = {mod.time_series_data.sort(sort_by_date)} />;
         else
             return (<p> Sorry, this mod does not contain time series data </p>);
@@ -76,13 +76,13 @@ class SingleModInfo extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <span style={{fontWeight : "bold"}}>Keywords :</span> {currentMod.keywords === null ? "None" :
+                            <span style={{fontWeight : "bold"}}>Keywords :</span> {currentMod.keywords === null || currentMod.keywords === undefined  ? "None" :
                                 Object.keys(currentMod.keywords).map((key, index) => {
                                     if(index <= 9) return key + ", "
                                 })
                             }
                         </Row>
-                        <Row>  <span style={{fontWeight : "bold"}}>Pack Required :</span> {currentMod.pack_requirement.length === 0 ? "None" : currentMod.pack_requirement.map(pack => {
+                        <Row>  <span style={{fontWeight : "bold"}}>Pack Required :</span> {currentMod.pack_requirement === undefined || currentMod.pack_requirement === null ? "None" : currentMod.pack_requirement.map(pack => {
                             return pack + ", "
                         })} </Row>
                         <Row> <span style={{fontWeight : "bold"}}>Life Cycle : </span></Row>
@@ -98,7 +98,7 @@ class SingleModInfo extends React.Component {
                                 </TabPane>
                                 <TabPane tab="Comments" key="Comments">
                                     <div className="scroll-text">
-                                        {currentMod.comments === null || currentMod.comments.length === 0 ? "No Data Available :(" :currentMod.comments.map(comment => {
+                                        {currentMod.comments === null || currentMod.comments === undefined ? "No Data Available :(" :currentMod.comments.map(comment => {
                                             return <div> comment
                                                 <Divider />
                                             </div>
@@ -108,12 +108,12 @@ class SingleModInfo extends React.Component {
                                 <TabPane tab="Tag & Type" key="Tag&Type">
                                     <div className="scroll-text">
                                         <span style={{fontWeight : "bold"}}>Type :</span>
-                                        {currentMod.types === null || currentMod.types.length === 0 ? "No Data Available :(" :
+                                        {currentMod.types === null || currentMod.types === undefined ? "No Data Available :(" :
                                             currentMod.types.map(type => {
                                                 return type + ", "
                                             })} <br/>
                                         <span style={{fontWeight : "bold"}}>Tags :</span>
-                                        {currentMod.tags === null || currentMod.tags.length === 0  ? "No Data Available :(" :currentMod.tags.map(tag => {
+                                        {currentMod.tags === null || currentMod.tags === undefined  ? "No Data Available :(" :currentMod.tags.map(tag => {
                                             return tag + ", "
                                         })}
                                     </div>

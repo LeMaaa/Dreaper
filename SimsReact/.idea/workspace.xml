@@ -15,23 +15,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Dashboard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/js/pages/Dashboard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="91" column="15" lean-forward="false" selection-start-line="91" selection-start-column="15" selection-end-line="91" selection-end-column="15" />
-              <folding>
-                <element signature="e#40#66#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CreatorCard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/components/CreatorCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="70" />
+            <state relative-caret-position="252">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="42" selection-end-column="30" />
               <folding>
                 <element signature="e#81#107#0" expanded="true" />
                 <element signature="e#471#528#0" expanded="true" />
@@ -40,11 +28,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="DownloadModBar.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/js/components/DownloadModBar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="34" column="100" lean-forward="true" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="100" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="SearchBarRowCreator.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/components/SearchBarRowCreator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-472">
-              <caret line="168" column="14" lean-forward="true" selection-start-line="168" selection-start-column="14" selection-end-line="168" selection-end-column="14" />
+            <state relative-caret-position="245">
+              <caret line="83" column="109" lean-forward="false" selection-start-line="83" selection-start-column="55" selection-end-line="83" selection-end-column="109" />
               <folding>
                 <element signature="e#83#109#0" expanded="true" />
               </folding>
@@ -78,8 +76,8 @@
       <file leaf-file-name="SearchBarRowKeyword.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/components/SearchBarRowKeyword.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="164" column="60" lean-forward="true" selection-start-line="164" selection-start-column="60" selection-end-line="164" selection-end-column="60" />
+            <state relative-caret-position="200">
+              <caret line="82" column="41" lean-forward="true" selection-start-line="82" selection-start-column="41" selection-end-line="82" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -88,8 +86,8 @@
       <file leaf-file-name="SingleModInfo.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/components/SingleModInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="86" column="34" lean-forward="false" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
+            <state relative-caret-position="960">
+              <caret line="113" column="53" lean-forward="true" selection-start-line="113" selection-start-column="53" selection-end-line="113" selection-end-column="53" />
               <folding>
                 <element signature="e#40#66#0" expanded="true" />
               </folding>
@@ -227,13 +225,13 @@
         <option value="$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js" />
         <option value="$PROJECT_DIR$/src/js/pages/Dashboard.js" />
         <option value="$PROJECT_DIR$/src/js/components/CircleOnPanel.js" />
-        <option value="$PROJECT_DIR$/src/js/components/CreatorCard.js" />
         <option value="$PROJECT_DIR$/src/js/components/ModCard.js" />
         <option value="$PROJECT_DIR$/src/js/components/SingleModPopUp.js" />
         <option value="$PROJECT_DIR$/src/js/components/TimeSeriesData.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBoxCreator.js" />
-        <option value="$PROJECT_DIR$/src/js/components/SearchBarRowCreator.js" />
         <option value="$PROJECT_DIR$/src/js/components/KeywordCard.js" />
+        <option value="$PROJECT_DIR$/src/js/components/CreatorCard.js" />
+        <option value="$PROJECT_DIR$/src/js/components/SearchBarRowCreator.js" />
         <option value="$PROJECT_DIR$/src/js/components/SingleModInfo.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBarRowKeyword.js" />
       </list>
@@ -573,12 +571,12 @@
       <workItem from="1524081836186" duration="6646000" />
       <workItem from="1524175520940" duration="5104000" />
       <workItem from="1524287665111" duration="3969000" />
-      <workItem from="1524341851362" duration="16189000" />
+      <workItem from="1524341851362" duration="21469000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="256776000" />
+    <option name="totallyTimeSpent" value="262056000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -850,13 +848,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/components/DownloadModBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="34" column="51" lean-forward="false" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="99" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="780">
@@ -898,7 +889,7 @@
         <state relative-caret-position="90">
           <caret line="12" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
-            <element signature="e#42#68#0" expanded="true" />
+            <element signature="e#42#68#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -908,7 +899,7 @@
         <state relative-caret-position="15">
           <caret line="91" column="15" lean-forward="false" selection-start-line="91" selection-start-column="15" selection-end-line="91" selection-end-column="15" />
           <folding>
-            <element signature="e#40#66#0" expanded="true" />
+            <element signature="e#40#66#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -949,27 +940,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/components/CreatorCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="70" />
-          <folding>
-            <element signature="e#81#107#0" expanded="true" />
-            <element signature="e#471#528#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/components/SearchBarRowCreator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-472">
-          <caret line="168" column="14" lean-forward="true" selection-start-line="168" selection-start-column="14" selection-end-line="168" selection-end-column="14" />
-          <folding>
-            <element signature="e#83#109#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/components/KeywordCard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="151">
@@ -981,10 +951,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/components/CreatorCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="42" selection-end-column="30" />
+          <folding>
+            <element signature="e#81#107#0" expanded="true" />
+            <element signature="e#471#528#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/components/DownloadModBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="34" column="100" lean-forward="true" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/components/SearchBarRowCreator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="83" column="109" lean-forward="false" selection-start-line="83" selection-start-column="55" selection-end-line="83" selection-end-column="109" />
+          <folding>
+            <element signature="e#83#109#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/components/SingleModInfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="86" column="34" lean-forward="false" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
+        <state relative-caret-position="960">
+          <caret line="113" column="53" lean-forward="true" selection-start-line="113" selection-start-column="53" selection-end-line="113" selection-end-column="53" />
           <folding>
             <element signature="e#40#66#0" expanded="true" />
           </folding>
@@ -993,8 +992,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/components/SearchBarRowKeyword.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="164" column="60" lean-forward="true" selection-start-line="164" selection-start-column="60" selection-end-line="164" selection-end-column="60" />
+        <state relative-caret-position="200">
+          <caret line="82" column="41" lean-forward="true" selection-start-line="82" selection-start-column="41" selection-end-line="82" selection-end-column="41" />
           <folding />
         </state>
       </provider>
