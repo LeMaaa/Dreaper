@@ -89,7 +89,12 @@ class SingleModPopUp extends React.Component {
                         })} </Row>
 
                         <Row>
-                            {this.renderTimeSeriesData(currentMod)}
+                            <Col span = {4}>
+                                <span style={{fontWeight : "bold"}}>Life Cycle</span>
+                            </Col>
+                            <Col span = {20}>
+                                {this.renderTimeSeriesData(currentMod)}
+                            </Col>
                         </Row>
                         <Row>
                             <Tabs onChange={this.changeTab} type="card" defaultActiveKey="Description">

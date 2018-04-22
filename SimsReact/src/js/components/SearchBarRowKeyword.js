@@ -34,6 +34,7 @@ export default class SearchBarRowKeyword extends React.Component {
             totalDownloads : 0,
             totalViews : 0,
             currentMod : null,
+            totalModsNumForAll : 0,
             totalNumOfCurrentKeyword : 0,
             mods : [],
 
@@ -58,9 +59,15 @@ export default class SearchBarRowKeyword extends React.Component {
 
     componentDidMount() {
 
-            eventProxy.on("ChangeMod", item => {
-                this.setState({"currentMod" : item});
+        eventProxy.on("ChangeMod", item => {
+            this.setState({"currentMod" : item});
+        });
+
+        eventProxy.on("totalModsNum", (num) => {
+            this.setState({
+                'totalModsNumForAll' : num
             });
+        });
 
     }
 
@@ -153,12 +160,13 @@ export default class SearchBarRowKeyword extends React.Component {
                     footer = {null}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    width = {1100}
+                    width = {1300}
                 >
                     <Row type="flex" justify="space-around">
-                        <Col span = {8}>
+                        <Col span = {5}>
                             <CircleOnPanel index = {this.props.entry.rank} name = {this.props.entry._id}
-                                           percentage = { numeral(this.props.value/this.state.totalModsNumForAll).format('0.0%')}/>
+                                           percentage = { numeral(this.props.entry.value / this.state.totalModsNumForAll).format('0.0%')}/>
+                            {this.props.entry.value} Mods
                         </Col>
 
                         <Col span={8}>
@@ -172,7 +180,7 @@ export default class SearchBarRowKeyword extends React.Component {
                             </Card>
                         </Col>
 
-                        <Col span = {8}>
+                        <Col span = {11}>
                             <SingleModInfo currentMod = {this.state.currentMod}/>
                         </Col>
                     </Row>

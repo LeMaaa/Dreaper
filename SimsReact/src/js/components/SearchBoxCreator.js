@@ -46,22 +46,8 @@ export default class SearchBoxCreator extends React.Component {
 
 
         return entries.map( entry =>
-            <SearchBarRowCreator key = {entry._id} index = {entry.rank} entry = {entry}
+            <SearchBarRowCreator key = {entry._id} index = {entry.rank} creatorEntry = {entry}
                                  startTime = {this.props.startTime} endTime = {this.props.endTime}/> )
-
-        // return (<List
-        //     itemLayout="horizontal"
-        //     dataSource={entries}
-        //     renderItem={item => (
-        //       <List.Item>
-        //         <List.Item.Meta
-        //           avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={item.rank}/>}
-        //           title={item['_id']}
-        //           description={"Downloads: " + item.value.downloads}
-        //         />
-        //       </List.Item>
-        //     )}
-        //   />)
     }
 
 

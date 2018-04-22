@@ -199,7 +199,7 @@ class KeywordCard extends React.Component{
                     footer = {null}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    width = {1200}
+                    width = {1300}
                 >
                     <Row type="flex" justify="space-around">
                         <Col span = {5}>

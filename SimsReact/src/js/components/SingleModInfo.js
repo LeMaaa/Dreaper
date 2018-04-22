@@ -85,9 +85,11 @@ class SingleModInfo extends React.Component {
                         <Row>  <span style={{fontWeight : "bold"}}>Pack Required :</span> {currentMod.pack_requirement.length === 0 ? "None" : currentMod.pack_requirement.map(pack => {
                             return pack + ", "
                         })} </Row>
-
+                        <Row> <span style={{fontWeight : "bold"}}>Life Cycle : </span></Row>
                         <Row>
-                            {this.renderTimeSeriesData(currentMod)}
+                            <Col >
+                                {this.renderTimeSeriesData(currentMod)}
+                            </Col>
                         </Row>
                         <Row>
                             <Tabs onChange={this.changeTab} type="card" defaultActiveKey="Description">
