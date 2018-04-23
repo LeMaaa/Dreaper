@@ -219,6 +219,7 @@ a {
 }
 
 .custom-item-badge {
+    min-width: 30.5px;
     sup {
         background: #50E3CD;
     }
