@@ -149,13 +149,9 @@ class Dashboard extends React.Component{
             'endTime' : dateString[1],
         });
 
-        if (this.state.currentView === "topMods") {
-            console.log("change time range for top mods");
-            this.queryTopMods(dateString[0], dateString[1]);
-        } else if (this.state.currentView === "Keywords") {
-            console.log("change time range for keywords");
-            this.queryKeyWords(dateString[0], dateString[1]);
-        }
+
+        this.queryTopMods(dateString[0], dateString[1]);
+        this.queryKeyWords(dateString[0], dateString[1]);
     }
 
     searchKeyword(value) {

@@ -1,6 +1,10 @@
-
 a {
     text-decoration: none !important;
+}
+
+/* apply font to every element */
+* {
+    font-family: Avenir-Heavy;
 }
 
 .root {
@@ -40,18 +44,21 @@ a {
 }
 
 .ant-spin-container {
-    overflow:scroll;
-    height:540px;
+    overflow: scroll;
+    height: 540px;
 }
 
 .scroll-text {
-    overflow:scroll;
-    height:100px;
+    overflow: scroll;
+    height: 100px;
 }
 
 .stats-card {
-    max-width: 230px;
-    width: 20%;
+    height: 250px;
+    overflow: hidden;
+
+    margin: 10px !important;
+
 }
 
 .search-card {
@@ -104,8 +111,12 @@ a {
 
 
 .textUnderCircle {
-    font-size: 20px;
     text-align: center;
+    font-family: Avenir-Book;
+    font-size: 14px;
+    color: #9B9B9B;
+
+    display: block;
 }
 
 .filter-list {
@@ -136,7 +147,35 @@ a {
     vertical-align: middle;
 }
 
-/*.ant-card-head {*/
-    /*background-color: #5cbfff !important;*/
-/*}*/
+/* overwrite ant-card styles */
 
+.ant-card-head {
+    background-color: #50E3C2 !important;
+
+    .ant-card-head-title {
+        color: white !important;
+        text-align: center;
+    }
+}
+
+
+.card-main-text {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.mod-card-text {
+    text-align: center;
+    font-weight: 600;
+}
+
+.percentage-tag {
+    opacity: 0.63 !important;
+    border: 1px solid #50E3C2 !important;
+    border-radius: 100px !important;
+    display: block !important;
+
+    margin: 0 30% !important;
+    text-align: center;
+}

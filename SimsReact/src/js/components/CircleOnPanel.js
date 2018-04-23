@@ -29,11 +29,9 @@ export default class CircleOnPanel extends React.Component {
 
     render() {
         return (
-            <div>
-                <div  >
-                    {this.props.name}
-                    <Tag color="magenta">{this.props.percentage}</Tag>
-                </div>
+            <div className="card-center">
+                <div className="card-main-text"> {this.props.name} </div>
+                <Tag className="percentage-tag"> {this.props.percentage} </Tag>
             </div>
         );
     }

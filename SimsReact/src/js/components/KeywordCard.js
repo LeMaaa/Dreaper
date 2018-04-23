@@ -178,19 +178,11 @@ class KeywordCard extends React.Component{
     render () {
         return (
             <div>
-                <Card onClick={this.showModal} title = {"TOP " + this.props.index}>
-
-                    {/*{this.renderKeywordCircle}*/}
-                    {/*<div className="WrapperDefined" >*/}
-                   {/*{this.props.keyword}*/}
-                    {/*</div>*/}
-
-
-                    {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
-                    {/*<Button icon = "close-circle-o" />*/}
+                <Card className="stats-card" onClick={this.showModal} title = {"TOP " + this.props.index}>
                     <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
                                    percentage = { numeral(this.props.value/this.state.totalModsNumForAll).format('0.0%')}/>
-                    <span className="textUnderCircle"> {numeral(this.props.value).format('0,0')} mods </span>
+                    <br />
+                    <div className="textUnderCircle"> {numeral(this.props.value).format('0,0')} mods </div>
 
                 </Card>
                 <Modal
