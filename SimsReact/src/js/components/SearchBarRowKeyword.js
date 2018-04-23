@@ -145,9 +145,9 @@ export default class SearchBarRowKeyword extends React.Component {
     render() {
         return (
             <div>
-                <List.Item onClick = {(e) => this.showModal(e, this.props.entry._id)}>
+                <List.Item className="custom-list-item" onClick = {(e) => this.showModal(e, this.props.entry._id)}>
                     <List.Item.Meta
-                        avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={this.props.entry.rank}/>}
+                        avatar={ <Badge className="custom-item-badge" count={this.props.entry.rank}/>}
                         title={this.props.entry['_id']}
                         // description= {"Mods " + numeral(this.props.entry['value']).format('0,0')}
                     />
