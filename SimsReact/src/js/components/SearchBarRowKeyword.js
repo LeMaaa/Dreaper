@@ -149,13 +149,12 @@ export default class SearchBarRowKeyword extends React.Component {
                     <List.Item.Meta
                         avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={this.props.entry.rank}/>}
                         title={this.props.entry['_id']}
-                        description= {"Mods " + numeral(this.props.entry['value']).format('0,0')}
+                        // description= {"Mods " + numeral(this.props.entry['value']).format('0,0')}
                     />
                 </List.Item>
 
                 <Modal
-                    title = {"No." + this.props.entry.rank + "  -  " + this.props.entry._id}
-
+                    title = {null}
                     visible={this.state.visible}
                     footer = {null}
                     onOk={this.handleOk}
@@ -171,6 +170,7 @@ export default class SearchBarRowKeyword extends React.Component {
 
                         <Col span={8}>
                             <Card
+                                bordered = {false}
                                 style={{ width: '100%' }}
                                 tabList={this.state.tabListNoTitle}
                                 activeTabKey={this.state.noTitleKey}

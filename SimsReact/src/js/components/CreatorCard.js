@@ -212,13 +212,13 @@ class CreatorCard extends React.Component{
 
         return (
             <div className="CreatorCircle">
-                <Card onClick={this.showModal}>
+                <Card onClick={this.showModal} title = {"TOP " + this.props.index}>
 
                     {/*{this.renderKeywordCircle}*/}
                     {/*<div className="WrapperDefined" >*/}
                     {/*{this.props.keyword}*/}
                     {/*</div>*/}
-                    <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
+                    {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
                     {/*<CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id} />*/}
                     {this.props.creatorEntry._id}
                     <br/>
@@ -230,7 +230,7 @@ class CreatorCard extends React.Component{
 
                 </Card>
                 <Modal
-                    title = {"No." + this.props.index + "  -  " + this.props.creatorEntry._id}
+                    title = {null}
 
                     visible={this.state.visible}
                     footer = {null}
@@ -239,18 +239,19 @@ class CreatorCard extends React.Component{
                     width = {1300}
                 >
                     <Row type="flex" justify="space-around">
-                        <Col span = {6}>
+                        <Col span = {5}>
                             <Row>
-                                <Card >
-                                    <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
+                                <Card title = {"TOP " +  this.props.index}>
+                                    {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
                                     {this.props.creatorEntry._id}
                                     <br/>
                                     <Tag > <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
                                     {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods
                                 </Card>
                             </Row>
+                            <br/>
                             <Row>
-                                <Card >
+                                <Card title = {"Creator's Top Keywords"} >
                                     <Row>
                                         <Col span = {8}>
                                             <PieChart width={80} height={80}>
@@ -290,13 +291,13 @@ class CreatorCard extends React.Component{
 
                                         </Col>
                                     </Row>
-
                                 </Card>
                             </Row>
                         </Col>
-
+                        <Col span = {1}/>
                         <Col span={8}>
                             <Card
+                                bordered={false}
                                 style={{ width: '100%' }}
                                 tabList={this.state.tabListNoTitle}
                                 activeTabKey={this.state.noTitleKey}
@@ -305,7 +306,6 @@ class CreatorCard extends React.Component{
                                 {this.state.contentListNoTitle[this.state.noTitleKey]}
                             </Card>
                         </Col>
-
                         <Col span = {10}>
                             <SingleModInfo currentMod = {this.state.currentMod}/>
                         </Col>

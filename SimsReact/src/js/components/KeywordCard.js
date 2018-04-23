@@ -61,6 +61,7 @@ class KeywordCard extends React.Component{
     }
 
     showModal(){
+        eventProxy.trigger('openTimeSeriesData');
 
         let res = this.queryModsWithinTimeRange(this.props.startTime, this.props.endTime, this.props.keyword);
             return res.then(() => {
@@ -177,7 +178,7 @@ class KeywordCard extends React.Component{
     render () {
         return (
             <div>
-                <Card onClick={this.showModal}>
+                <Card onClick={this.showModal} title = {"TOP " + this.props.index}>
 
                     {/*{this.renderKeywordCircle}*/}
                     {/*<div className="WrapperDefined" >*/}
@@ -185,7 +186,7 @@ class KeywordCard extends React.Component{
                     {/*</div>*/}
 
 
-                    <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
+                    {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
                     {/*<Button icon = "close-circle-o" />*/}
                     <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
                                    percentage = { numeral(this.props.value/this.state.totalModsNumForAll).format('0.0%')}/>
@@ -193,8 +194,6 @@ class KeywordCard extends React.Component{
 
                 </Card>
                 <Modal
-                    title = {"No." + this.props.index + "  -  " + this.props.keyword}
-
                     visible={this.state.visible}
                     footer = {null}
                     onOk={this.handleOk}
@@ -209,6 +208,7 @@ class KeywordCard extends React.Component{
 
                         <Col span={8}>
                             <Card
+                                bordered = {false}
                                 style={{ width: '100%' }}
                                 tabList={this.state.tabListNoTitle}
                                 activeTabKey={this.state.noTitleKey}

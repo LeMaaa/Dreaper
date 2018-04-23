@@ -15,25 +15,64 @@ const colors = ['red', 'green', 'pink', 'yellow', 'black', 'blue', 'pink', 'brow
 class TimeSeriesData extends React.Component{
     constructor(props) {
         super(props);
+        this.state = {
+            timeSeriesData:[],
+        }
+        this.populateNewTimeSeriesData = this.populateNewTimeSeriesData.bind(this);
+    }
+
+    populateNewTimeSeriesData() {
+        const arr = this.props.itemForTimeSeriesData;
+        console.log("aaatime")
+        let res = [];
+        if(this.props.itemForTimeSeriesData === null || this.props.itemForTimeSeriesData.length === 0) return;
+        let i = 1;
+        let before = moment(this.props.itemForTimeSeriesData[0].date);
+
+        while(i < this.props.itemForTimeSeriesData.length) {
+            console.log("props",i, this.props.itemForTimeSeriesData[i].date)
+            let cur = moment(this.props.itemForTimeSeriesData[i].date)
+            let today = before.clone().add(1,"days");
+
+            console.log("cur", cur.format("YYYY-MM-DD"));
+            console.log("today", today.format("YYYY-MM-DD"));
+            console.log("before", before.format("YYYY-MM-DD"));
+
+            if(cur.format("YYYY-MM-DD") === today.format("YYYY-MM-DD") ) {
+                console.log("==",this.props.itemForTimeSeriesData[i].date)
+                res.push(this.props.itemForTimeSeriesData[i - 1]); // before
+                before = cur.clone();
+                i++;
+            }else if (today.format("YYYY-MM-DD") < cur.format("YYYY-MM-DD")){
+                console.log("!==",this.props.itemForTimeSeriesData[i].date)
+                res.push({
+                    date : moment(today).format("YYYY-MM-DD"),
+                    downloads : 0,
+                    views : 0,
+                });
+                before = today.clone();
+            }else {
+                before = today.clone();
+                i++;
+            }
+        }
+        if(i !== 1) {
+            res.push( this.props.itemForTimeSeriesData[ this.props.itemForTimeSeriesData.length - 1]);
+        }
+
+        this.setState({"timeSeriesData" :  res});
+
+        console.log("new time ", res);
     }
 
     componentDidMount() {
-        const arr = this.props.itemForTimeSeriesData;
-        console.log("aaa")
-        let res = [];
-        if(this.props.itemForTimeSeriesData === null || this.props.itemForTimeSeriesData.length === 0) return;
-        let i = 0;
-        // while(i < this.props.itemForTimeSeriesData.length) {
-        //     if(i !== 0) {
-        //         const ytd = moment(this.props.itemForTimeSeriesData[i - 1].date);
-        //         const cur = moment(this.props.itemForTimeSeriesData[i].date)
-        //         const today = moment(this.props.itemForTimeSeriesData[i - 1].date).add(1, 'days')
-        //         if(cur === today) {
-        //             res.push()
-        //
-        //         }
-        //     }
-        // }
+        // this.populateNewTimeSeriesData();
+
+        // eventProxy.on("openTimeSeriesData", () => {
+        //     console.log('trigger')
+        //     this.populateNewTimeSeriesData();
+        // });
+
     }
 
     render() {
@@ -50,7 +89,7 @@ class TimeSeriesData extends React.Component{
                 //<Bar dataKey="thanks" stackId="a" fill="#ff6666" />
                 //<Bar dataKey="views" stackId="a" fill="#FFBB28" />
             //</BarChart>
-            <LineChart width={400} height={260} data={this.props.itemForTimeSeriesData}
+            <LineChart width={400} height={230} data={this.props.itemForTimeSeriesData}
                        margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <XAxis dataKey="date"/>
                 <YAxis/>

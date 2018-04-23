@@ -48,8 +48,10 @@ class SingleModInfo extends React.Component {
             <div>
                 {
                     currentMod === null ?  <div> Sorry :( Mod is unavailable</div> :
-                    <Card title={currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}
-                           bordered={false} style={{width: '100%'}}>
+                    <Card bordered={false} style={{width: '100%'}} title = {null}>
+                        <Row>
+                            <h2> {currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}</h2>
+                        </Row>
                         <Row>  <span style={{fontWeight : "bold"}}>Link: </span><a href={currentMod.url}> {currentMod.url} </a></Row>
                         <Row>
                             <Col span={8} >

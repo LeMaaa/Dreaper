@@ -46,7 +46,7 @@ a {
 
 .scroll-text {
     overflow:scroll;
-    height:200px;
+    height:100px;
 }
 
 .stats-card {
@@ -128,11 +128,15 @@ a {
 
 .scrollSearch {
     overflow: auto;
-    max-height: 520px;
+    max-height: 320px;
 }
 
 .panelTitle  {
     text-align: center;
     vertical-align: middle;
 }
+
+/*.ant-card-head {*/
+    /*background-color: #5cbfff !important;*/
+/*}*/
 

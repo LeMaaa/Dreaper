@@ -201,13 +201,12 @@ export default class SearchBarRowCreator extends React.Component {
                     <List.Item.Meta
                         avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={this.props.creatorEntry.rank}/>}
                         title={this.props.creatorEntry['_id']}
-                        description= {"Downloads: " + numeral(this.props.creatorEntry.value.downloads).format('0,0')}
+                        // description= {"Downloads: " + numeral(this.props.creatorEntry.value.downloads).format('0,0')}
                     />
                 </List.Item>
 
                 <Modal
-                    title = {"No." + this.props.index + "  -  " + this.props.creatorEntry._id}
-
+                    title = {null}
                     visible={this.state.visible}
                     footer = {null}
                     onOk={this.handleOk}
@@ -217,16 +216,17 @@ export default class SearchBarRowCreator extends React.Component {
                     <Row type="flex" justify="space-around">
                         <Col span = {6}>
                             <Row>
-                                <Card >
-                                    <Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>
+                                <Card  title = {"TOP " + this.props.index}>
+                                    {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
                                     {this.props.creatorEntry._id}
                                     <br/>
                                     <Tag > <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
                                     {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods
                                 </Card>
                             </Row>
+                            <br/>
                             <Row>
-                                <Card >
+                                <Card title = {"Creator's Top Keywords"}>
                                     <Row>
                                         <Col span = {8}>
                                             <PieChart width={80} height={80}>
@@ -263,6 +263,7 @@ export default class SearchBarRowCreator extends React.Component {
 
                         <Col span={8}>
                             <Card
+                                bordered = {false}
                                 style={{ width: '100%' }}
                                 tabList={this.state.tabListNoTitle}
                                 activeTabKey={this.state.noTitleKey}
