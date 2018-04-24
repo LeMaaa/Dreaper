@@ -194,8 +194,12 @@ class KeywordCard extends React.Component{
                 >
                     <Row type="flex" justify="space-around">
                         <Col span = {5}>
-                            <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
-                                           percentage = { numeral(this.props.value/this.props.totalModsNum).format('0.0%')}/>
+                            <Card className="stats-card" title = {"TOP " + this.props.index}>
+                                <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
+                                               percentage = { numeral(this.props.value/this.state.totalModsNum).format('0.0%')}/>
+                                <br />
+                                <div className="textUnderCircle"> {numeral(this.props.value).format('0,0')} mods </div>
+                            </Card>
                         </Col>
 
                         <Col span={8}>
