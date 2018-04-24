@@ -15,7 +15,7 @@ import eventProxy from 'react-eventproxy';
 import numeral from 'numeral'
 
 
-import {Badge, Button,Tag, List, Modal, Row, Col, Card} from "antd";
+import {Avatar, Badge, Button,Tag, List, Modal, Row, Col, Card} from "antd";
 const Item = List.Item;
 
 import SingleModPopUp from '../components/SingleModPopUp';
@@ -65,9 +65,9 @@ export default class SearchBarRowTopMod extends React.Component {
         return (
             <div>
                 {/*<Button type="dashed" onClick = {this.addCreator}>{this.props.entry._id}</Button>*/}
-                <List.Item onClick = {(e) => this.show(e,this.props.index)}>
+                <List.Item className="custom-list-item mod-list-item" onClick = {(e) => this.show(e,this.props.index)}>
                              <List.Item.Meta
-                           avatar={ <Badge className="custom-item-badge" count={this.props.entry.rank}/>}
+                           avatar={ <Avatar className="custom-avatar" > {this.props.entry.rank} </Avatar> }
                            title={this.props.entry['title']}
                            description= {"Downloads: " + numeral(this.props.entry['downloads']).format('0,0')}
                          />

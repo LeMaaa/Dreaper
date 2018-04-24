@@ -8,7 +8,7 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy'
 import numeral from 'numeral'
 
-import {Radio, Icon, Badge, Button, Tag, Modal, Row, Col, Card, List} from "antd";
+import {Radio, Icon, Avatar, Button, Tag, Modal, Row, Col, Card, List} from "antd";
 const CheckableTag = Tag.CheckableTag;
 const Item = List.Item;
 
@@ -149,7 +149,7 @@ export default class SearchBarRowKeyword extends React.Component {
             <div>
                 <List.Item className="custom-list-item" onClick = {(e) => this.showModal(e, this.props.entry._id)}>
                     <List.Item.Meta
-                        avatar={ <Badge className="custom-item-badge" count={this.props.entry.rank}/>}
+                        avatar={<Avatar className="custom-avatar" > {this.props.entry.rank} </Avatar> }
                         title={this.props.entry['_id']}
                         // description= {"Mods " + numeral(this.props.entry['value']).format('0,0')}
                     />

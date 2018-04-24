@@ -12,7 +12,7 @@ import eventProxy from 'react-eventproxy';
 import numeral from 'numeral';
 
 
-import {Radio, Badge, Button, Tag, List, Modal, Row, Col, Card, Avatar, Icon} from "antd";
+import {Radio, Button, Tag, List, Modal, Row, Col, Card, Avatar, Icon} from "antd";
 import {Pie, PieChart, Tooltip, Cell, } from 'recharts'
 
 import SingleModPopUp from '../components/SingleModPopUp'
@@ -238,7 +238,7 @@ export default class SearchBarRowCreator extends React.Component {
 
                 <List.Item className="custom-list-item" onClick = {(e) => this.showModal(e,this.props.index)}>
                     <List.Item.Meta
-                        avatar={ <Badge className="custom-item-badge" count={this.props.creatorEntry.rank}/>}
+                        avatar={ <Avatar className="custom-avatar" > {this.props.creatorEntry.rank} </Avatar> }
                         title={this.props.creatorEntry['_id']}
                         // description= {"Downloads: " + numeral(this.props.creatorEntry.value.downloads).format('0,0')}
                     />

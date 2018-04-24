@@ -287,18 +287,6 @@ class Dashboard extends React.Component{
                         </Col>
 
                     </Row>
-                        {/*<Row type="flex" justify="space-around" >*/}
-                            {/*{*/}
-                                {/*this.state.keywords.map((entry, index) => {*/}
-                                    {/*return <Col span={6} key = {index} >*/}
-                                        {/*<KeywordCard keyword = {entry._id} startTime = {this.state.startTime}*/}
-                                                     {/*endTime = {this.state.endTime}*/}
-                                                     {/*index = {index + 1}*/}
-                                                     {/*value = {entry.value} />*/}
-                                            {/*</Col>*/}
-                                {/*})*/}
-                            {/*}*/}
-                        {/*</Row>*/}
                     <Row >
                         {this.state.currentView === "Creators" ? null
                             : <LineChartWithTimeRange startTime = {this.state.startTime} endTime = {this.state.endTime} />  }

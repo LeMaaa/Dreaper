@@ -117,6 +117,7 @@ a {
 .content-container {
     min-width: 1000px !important;
     padding-top: 74px;
+    min-height: 100vh;
 }
 
 
@@ -234,6 +235,17 @@ a {
             margin-left: 1px !important;
         }
     }
+
+    .custom-avatar {
+        background: #50E3CD;
+    }
+}
+
+.custom-list-item.mod-list-item {
+    border-radius: 20px;
+    border: 1px solid transparent !important;
+    margin: 3px 4px !important;
+    padding: 2px 0px !important;
 }
 
 .custom-list-item:hover {
@@ -249,10 +261,15 @@ a {
     .custom-item-badge {
         sup {
             background: white;
-            color: #50E3CD;;
+            color: #50E3CD;
             margin-top: 3px !important;
             margin-left: 1px !important;
         }
+    }
+
+    .custom-avatar {
+        color: #50E3CD;
+        background: white;
     }
 }
 
