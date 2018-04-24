@@ -7,7 +7,7 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 import numeral from 'numeral'
 
-import { Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider} from 'antd';
+import { Radio, Avatar, Card, Icon, Button, Modal, Row, Col, Badge, Divider} from 'antd';
 const { Meta } = Card;
 
 import SingleModInfo from '../components/SingleModInfo' ;
@@ -58,6 +58,7 @@ class KeywordCard extends React.Component{
         this.handleCancel = this.handleCancel.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
+        this.handleTabChange = this.handleTabChange.bind(this);
     }
 
     showModal(){
@@ -125,6 +126,11 @@ class KeywordCard extends React.Component{
         this.setState({ [type]: key });
     }
 
+    handleTabChange(e) {
+        const newView = e.target.value;
+        this.setState({ 'noTitleKey': newView });
+    }
+
 
     // try remove this
     // componentWillReceiveProps(nextProps) {
@@ -176,6 +182,8 @@ class KeywordCard extends React.Component{
 
 
     render () {
+
+        const currentView = this.state.noTitleKey;
         return (
             <div>
                 <Card className="stats-card" onClick={this.showModal} title = {"TOP " + this.props.index}>
@@ -206,10 +214,11 @@ class KeywordCard extends React.Component{
                             <Card
                                 bordered = {false}
                                 style={{ width: '100%' }}
-                                tabList={this.state.tabListNoTitle}
-                                activeTabKey={this.state.noTitleKey}
-                                onTabChange={(key) => { this.onTabChange(key, 'noTitleKey'); }}
                             >
+                                <Radio.Group className="custom-tab-group" value={currentView} onChange={this.handleTabChange}>
+                                  <Radio.Button className="custom-tab" value="Downloads">Downloads</Radio.Button>
+                                  <Radio.Button className="custom-tab" value="Views">Views</Radio.Button>
+                                </Radio.Group>
                                 {this.state.contentListNoTitle[this.state.noTitleKey]}
                             </Card>
                         </Col>

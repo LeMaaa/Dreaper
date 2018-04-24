@@ -9,10 +9,9 @@ import moment from 'moment'
 
 import TimeSeriesData from '../components/TimeSeriesData'
 
-import {Card, Row, Col, Collapse, Divider, Tabs, Icon, Button} from 'antd'
+import {Radio, Card, Row, Col, Collapse, Divider, Tabs, Icon, Button} from 'antd'
 const Panel = Collapse.Panel;
 const TabPane = Tabs.TabPane;
-
 
 
 class SingleModInfo extends React.Component {
@@ -20,6 +19,12 @@ class SingleModInfo extends React.Component {
         super(props);
         this.renderTimeSeriesData = this.renderTimeSeriesData.bind(this);
         this.changeTab = this.changeTab.bind(this);
+        this.renderModDetailsView = this.renderModDetailsView.bind(this);
+        this.handleTabChange = this.handleTabChange.bind(this);
+
+        this.state = {
+            currentView: 'Description'
+        };
     }
 
     renderTimeSeriesData(mod) {
@@ -41,60 +46,79 @@ class SingleModInfo extends React.Component {
         console.log(key);
     }
 
+    handleTabChange(e) {
+        console.log(e.target.value);
+        console.log("tab changing");
+        const newView = e.target.value;
+        console.log(this.state.currentView);
+        this.setState({ 'currentView': newView });
+    }
+
+    renderModDetailsView() {
+
+    }
+
     render() {
 
         const { currentMod } = this.props;
+        const { currentView } = this.state.currentView;
+
         return (
             <div>
                 {
                     currentMod === null ?  <div> Sorry :( Mod is unavailable</div> :
                     <Card bordered={false} style={{width: '100%'}} title = {null}>
+
                         <Row>
                             <h2> {currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}</h2>
                         </Row>
-                        <Row>  <span style={{fontWeight : "bold"}}>Link: </span><a href={currentMod.url}> {currentMod.url} </a></Row>
+                        <Row>  <span className="mod-field">Link: </span><a href={currentMod.url}> {currentMod.url} </a></Row>
                         <Row>
                             <Col span={8} >
-                                <span style={{fontWeight : "bold"}}>Download:</span> {numeral(currentMod.downloads).format('0,0')}
+                                <span className="mod-field">Download:</span> {numeral(currentMod.downloads).format('0,0')}
                             </Col>
 
                             <Col span={8} >
-                                <span style={{fontWeight : "bold"}}> Favorite:</span> {numeral(currentMod.favourited).format('0,0')}
+                                <span className="mod-field"> Favorite:</span> {numeral(currentMod.favourited).format('0,0')}
                             </Col>
                             <Col span={8}>
-                                <span style={{fontWeight : "bold"}}>Game Version :</span> {currentMod.game_version}
+                                <span className="mod-field">Game Version :</span> {currentMod.game_version}
                             </Col>
 
                         </Row>
                         <Row>
                             <Col span={8} >
-                                <span style={{fontWeight : "bold"}}>View: </span> {numeral(currentMod.views).format('0,0')}
+                                <span className="mod-field">View: </span> {numeral(currentMod.views).format('0,0')}
                             </Col>
                             <Col span={8} >
-                                <span style={{fontWeight : "bold"}}>Thanks: </span> {numeral(currentMod.thanks).format('0,0')} </Col>
+                                <span className="mod-field">Thanks: </span> {numeral(currentMod.thanks).format('0,0')} </Col>
                             <Col span={8}>
-                                <span style={{fontWeight : "bold"}}>Creator : </span> <a href={"http://modthesims.info" + currentMod.artist_url}>  {currentMod.artist}
+                                <span className="mod-field">Creator : </span> <a href={"http://modthesims.info" + currentMod.artist_url}>  {currentMod.artist}
                                 </a>
                             </Col>
                         </Row>
                         <Row>
-                            <span style={{fontWeight : "bold"}}>Keywords :</span> {currentMod.keywords === null || currentMod.keywords === undefined  ? "None" :
+                            <span className="mod-field">Keywords :</span> {currentMod.keywords === null || currentMod.keywords === undefined  ? "None" :
                                 Object.keys(currentMod.keywords).map((key, index) => {
                                     if(index <= 9) return key + ", "
                                 })
                             }
                         </Row>
-                        <Row>  <span style={{fontWeight : "bold"}}>Pack Required :</span> {currentMod.pack_requirement === undefined || currentMod.pack_requirement === null ? "None" : currentMod.pack_requirement.map(pack => {
+                        <Row>  <span className="mod-field">Pack Required :</span> {currentMod.pack_requirement === undefined || currentMod.pack_requirement === null ? "None" : currentMod.pack_requirement.map(pack => {
                             return pack + ", "
                         })} </Row>
-                        <Row> <span style={{fontWeight : "bold"}}>Life Cycle : </span></Row>
+                        <Row> <span className="mod-field">Life Cycle : </span></Row>
                         <Row>
                             <Col >
                                 {this.renderTimeSeriesData(currentMod)}
                             </Col>
                         </Row>
                         <Row>
-                            <Tabs onChange={this.changeTab} type="card" defaultActiveKey="Description">
+
+
+                            {this.renderModDetailsView()}
+
+                            <Tabs className="custom-mod-tab-group" onChange={this.changeTab} type="card" defaultActiveKey="Description">
                                 <TabPane tab="Description" key="Description">
                                     <div className="scroll-text"> {currentMod.description}</div>
                                 </TabPane>

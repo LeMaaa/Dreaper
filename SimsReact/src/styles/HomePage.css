@@ -218,7 +218,7 @@ a {
     padding: 2px 0px !important;
 
     transition: all 0.2s ease;
-    
+
     text-overflow: ellipsis;
     overflow: hidden;
 
@@ -257,3 +257,72 @@ a {
         background: #50E3CD;
     }
 }
+
+/* custom tab style */
+
+.custom-tab-group {
+    display: block !important;
+    text-align: center;
+}
+
+.custom-tab {
+    border-color: transparent !important;
+    border-color: #C5C5C5 !important;
+}
+
+.custom-tab:hover {
+    color: black !important;
+}
+
+.custom-tab:first-child {
+    border-radius: 20px 0 0 20px !important;
+    border-color: #C5C5C5 !important;
+}
+
+.custom-tab:last-child {
+    border-radius: 0 20px 20px 0 !important;
+    border-color: #C5C5C5 !important;
+}
+
+.custom-tab.ant-radio-button-wrapper-checked {
+    background-color: #50E3CD !important;
+    color: white !important;
+    border-color: #C5C5C5 !important;
+
+    box-shadow: 0px 0 0 0 transparent!important;
+}
+
+.custom-mod-tab-group {
+    .ant-tabs-tab {
+        border-color: transparent !important;
+        border-color: #C5C5C5 !important;
+        color: black !important;
+    }
+
+
+/*    .ant-tabs-tab:first-child {
+        border-radius: 20px 0 0 20px !important;
+        border-color: #C5C5C5 !important;
+    }
+
+    .ant-tabs-tab:last-child {
+        border-radius: 0 20px 20px 0 !important;
+        border-color: #C5C5C5 !important;
+    }*/
+
+    .ant-tabs-tab-active {
+        background-color: #50E3CD !important;
+        color: white !important;
+        border-color: #C5C5C5 !important;
+    }
+}
+/* mod info styles */
+
+.mod-field {
+    font-weight: 600;
+}
+
+.mod-value {
+    font-weight: 300;
+}
+

@@ -10,7 +10,7 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy';
 import numeral from 'numeral'
 
-import { Avatar, Card, Button, Modal, Row, Col, Badge, Divider, Tag, Icon, Checkbox } from 'antd';
+import { Radio, Avatar, Card, Button, Modal, Row, Col, Badge, Divider, Tag, Icon, Checkbox } from 'antd';
 import {Pie, PieChart, LabelList, Tooltip, Cell} from 'recharts'
 const { Meta } = Card;
 const CheckableTag = Tag.CheckableTag;
@@ -65,6 +65,7 @@ class CreatorCard extends React.Component{
         this.onTabChange = this.onTabChange.bind(this);
         this.onChangeKeyword = this.onChangeKeyword.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleTabChange = this.handleTabChange.bind(this);
         this.filterKeyword = this.filterKeyword.bind(this);
     }
 
@@ -197,6 +198,11 @@ class CreatorCard extends React.Component{
         console.log('checked = ', checkedValues);
     }
 
+    handleTabChange(e) {
+        const newView = e.target.value;
+        this.setState({ 'noTitleKey': newView });
+    }
+
     handleChange(tag, checked) {
         const { selectedTags } = this.state;
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
@@ -225,6 +231,8 @@ class CreatorCard extends React.Component{
 
     render () {
         const that = this;
+
+        const currentView = this.state.noTitleKey;
 
         return (
             <div>
@@ -255,7 +263,7 @@ class CreatorCard extends React.Component{
                             </Row>
                             <br/>
                             <Row>
-                                <Card title = {"Creator's Top Keywords"} >
+                                <Card className="stats-card" title = {"Creator's Top Keywords"} >
                                     <Row>
                                         <Col span = {8}>
                                             <PieChart width={80} height={80}>
@@ -268,16 +276,6 @@ class CreatorCard extends React.Component{
                                             </PieChart>
                                         </Col>
                                         <Col span = {16}>
-                                            {/*<Checkbox.Group style={{ width: '100%' }} onChange={this.onChangeKeyword}>*/}
-                                            {/*{*/}
-                                                {/*this.state.keywordPieRanking.map((entry, index) =>*/}
-                                                    {/*<Row key={entry.keyword}> <Avatar style={{backgroundColor :#fff}}/>*/}
-                                                        {/*<Checkbox value= {entry.keyword}>{entry.keyword}</Checkbox>*/}
-                                                    {/*</Row>)*/}
-                                            {/*}*/}
-                                            {/*</Checkbox.Group>*/}
-
-
                                             {this.state.keywordPieRanking.map((tag, index) => (
                                                 <Row  key={tag.keyword}>
                                                     <Avatar style={{color : COLORS[index % COLORS.length], backgroundColor : "#fff"}}>
@@ -303,10 +301,11 @@ class CreatorCard extends React.Component{
                             <Card
                                 bordered={false}
                                 style={{ width: '100%' }}
-                                tabList={this.state.tabListNoTitle}
-                                activeTabKey={this.state.noTitleKey}
-                                onTabChange={(key) => { this.onTabChange(key, 'noTitleKey'); }}
                             >
+                                <Radio.Group className="custom-tab-group" value={currentView} onChange={this.handleTabChange}>
+                                  <Radio.Button className="custom-tab" value="Downloads">Downloads</Radio.Button>
+                                  <Radio.Button className="custom-tab" value="Views">Views</Radio.Button>
+                                </Radio.Group>
                                 {this.state.contentListNoTitle[this.state.noTitleKey]}
                             </Card>
                         </Col>
