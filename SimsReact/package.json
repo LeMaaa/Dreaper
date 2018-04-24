@@ -1,22 +1,14 @@
 {
-  "name": "victory-tutorial",
+  "name": "Sims-Visualization",
   "version": "1.0.0",
-  "description": "A tutorial for Victory used with the Getting Started guide in Victory Docs.",
+  "description": "Sims Mod Data Visualization tool",
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --content-base dist"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FormidableLabs/victory-tutorial.git"
-  },
-  "author": "emma.brillhart@formidable.com",
+  "author": "guanbeiqi@gmail.com",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FormidableLabs/victory-tutorial/issues"
-  },
-  "homepage": "https://github.com/FormidableLabs/victory-tutorial#readme",
   "devDependencies": {
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",

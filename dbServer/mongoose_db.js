@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 const user_info = require('./user_credential.js');
 
-const local_rul = 'mongodb://localhost:27017/sims_test_db';
+const local_url = 'mongodb://localhost:27017/sims_test_db';
 
 const local_collection = 'sims_records_test';
 const keyword_collection = 'keyword_mapred_date';
