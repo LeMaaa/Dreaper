@@ -110,6 +110,7 @@ a {
 }
 
 .content-container {
+    min-width: 1000px !important;
     padding-top: 74px;
 }
 
@@ -163,9 +164,13 @@ a {
     }
 }
 
+.card-center {
+    width: 100%;
+}
+
 .card-main-text {
     text-align: center;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 600;
 }
 
@@ -181,7 +186,10 @@ a {
     border-radius: 100px !important;
     display: block !important;
 
-    margin: 0 30% !important;
+    margin: 0 20% !important;
+
+    text-overflow: ellipsis ellipsis;
+    overflow: hidden;
     text-align: center;
 }
 
@@ -209,9 +217,34 @@ a {
     margin: 3px 4px !important;
     padding: 2px 0px !important;
 
+    transition: all 0.2s ease;
+    
+    text-overflow: ellipsis;
+    overflow: hidden;
+
     .custom-item-badge {
         sup {
             background: #50E3CD;
+            margin-top: 3px !important;
+            margin-left: 1px !important;
+        }
+    }
+}
+
+.custom-list-item:hover {
+    background-color: #50E3CD !important;
+
+    border: 1px solid transparent !important;
+
+    h4 {
+        color: white !important;
+    }
+
+
+    .custom-item-badge {
+        sup {
+            background: white;
+            color: #50E3CD;;
             margin-top: 3px !important;
             margin-left: 1px !important;
         }

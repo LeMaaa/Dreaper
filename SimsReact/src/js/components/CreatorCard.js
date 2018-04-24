@@ -228,21 +228,10 @@ class CreatorCard extends React.Component{
         return (
             <div>
                 <Card className="stats-card" onClick={this.showModal} title = {"TOP " + this.props.index}>
-
-                    {/*{this.renderKeywordCircle}*/}
-                    {/*<div className="WrapperDefined" >*/}
-                    {/*{this.props.keyword}*/}
-                    {/*</div>*/}
-                    {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
-                    {/*<CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id} />*/}
                     <div className="card-main-text"> {this.props.creatorEntry._id} </div>
                     <br/>
                     <Tag className="percentage-tag"> <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
                     <div className="textUnderCircle"> {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods </div>
-
-
-                    {/*<KeywordCircleOnPanel items = {this.state.item}/>*/}
-
                 </Card>
                 <Modal
                     title = {null}
@@ -256,12 +245,11 @@ class CreatorCard extends React.Component{
                     <Row type="flex" justify="space-around">
                         <Col span = {5}>
                             <Row>
-                                <Card title = {"TOP " +  this.props.index}>
-                                    {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
-                                    {this.props.creatorEntry._id}
+                                <Card className="stats-card" title = {"TOP " + this.props.index}>
+                                    <div className="card-main-text"> {this.props.creatorEntry._id} </div>
                                     <br/>
-                                    <Tag > <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
-                                    {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods
+                                    <Tag className="percentage-tag"> <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
+                                    <div className="textUnderCircle"> {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods </div>
                                 </Card>
                             </Row>
                             <br/>
