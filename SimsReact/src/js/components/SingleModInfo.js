@@ -52,7 +52,7 @@ class SingleModInfo extends React.Component {
             }
         }
 
-        time_data = time_data.slice(0, j);
+        time_data = time_data.slice(0, j+1);
 
         // interpolate dates in between
         for (let i = 0; i < time_data.length-1; i++) {
