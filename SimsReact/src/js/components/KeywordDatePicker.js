@@ -26,7 +26,7 @@ export default class KeywordDatePicker extends React.Component {
 
 
     // componentDidMount() {
-    //     axios.get('http://localhost:3000/getTimeRangeThreshold')
+    //     axios.get('http://dreaper.etc.cmu.edu:3000/getTimeRangeThreshold')
     //         .then(res => {
     //             console.log("received data - getTimeRangeThreshold");
     //             console.log(res.data);
@@ -58,7 +58,7 @@ export default class KeywordDatePicker extends React.Component {
     updateModForInputTimeRange(e)  {
         e.preventDefault();
 
-        axios.post('http://localhost:3000/getKeyWordWithThreshold', {
+        axios.post('http://dreaper.etc.cmu.edu:3000/getKeyWordWithThreshold', {
 
             startTime : this.state.startDate,
             endTime : this.state.endDate

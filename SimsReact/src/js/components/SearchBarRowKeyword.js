@@ -72,7 +72,7 @@ export default class SearchBarRowKeyword extends React.Component {
     }
 
     queryModsforKeyword() {
-        return axios.post('http://localhost:3000/getModsWithKeyword', {
+        return axios.post('http://dreaper.etc.cmu.edu:3000/getModsWithKeyword', {
 
             startTime: this.props.startTime === null ? "Mar 1994" : this.props.startTime,
             endTime: this.props.endTime === null ? "Dec 2020" : this.props.endTime,

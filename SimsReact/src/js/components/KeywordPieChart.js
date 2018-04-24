@@ -20,7 +20,7 @@ export default class KeywordPieChart extends React.Component {
     }
 
     // componentDidMount() {
-    //     axios.post('http://localhost:3000/getKeyWordWithThreshold', {
+    //     axios.post('http://dreaper.etc.cmu.edu:3000/getKeyWordWithThreshold', {
     //
     //             startTime: this.props.startTime === null ? "Mar 1994" : this.props.startTime,
     //             endTime: this.props.endTime === null ? "Dec 2020" : this.props.endTime,
@@ -40,7 +40,7 @@ export default class KeywordPieChart extends React.Component {
     //     let nextStartTime = nextProps.startTime === null ? "Mar 1994" : nextProps.startTime;
     //     let nextEndTime = nextProps.endTime === null ? "Dec 2020" : nextProps.endTime;
     //
-    //     axios.post('http://localhost:3000/getKeyWordWithThreshold', {
+    //     axios.post('http://dreaper.etc.cmu.edu:3000/getKeyWordWithThreshold', {
     //             startTime: nextStartTime ,
     //             endTime: nextEndTime,
     //     })

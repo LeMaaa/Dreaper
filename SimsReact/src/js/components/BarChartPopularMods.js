@@ -43,7 +43,7 @@ export default class BarChartPopularMods extends React.Component {
         const endTimestamp = this.props.endTimestamp === "" ? "1521504000" : this.props.endTimestamp;
         const keywords = this.props.keywords === "" ? "trait" : this.props.keywords;
 
-        let url = "http://localhost:3000/topmodswithtag?startTime=" + 
+        let url = "http://dreaper.etc.cmu.edu:3000/topmodswithtag?startTime=" + 
         startTimestamp + "&endTime=" + endTimestamp + "&keywords=" + keywords;
         this.fetchData(url);
 
@@ -59,7 +59,7 @@ export default class BarChartPopularMods extends React.Component {
         const endTimestamp = nextProps.endTimestamp === "" ? "1521504000" : nextProps.endTimestamp;
         const keywords = nextProps.keywords === "" ? "trait" : nextProps.keywords;
 
-        let url = "http://localhost:3000/topmodswithtag?startTime=" + 
+        let url = "http://dreaper.etc.cmu.edu:3000/topmodswithtag?startTime=" + 
         startTimestamp + "&endTime=" + endTimestamp + "&keywords=" + keywords;
         this.fetchData(url);
 

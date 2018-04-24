@@ -73,7 +73,7 @@ export default class SearchBarRowCreator extends React.Component {
     }
 
     getModByName() {
-        return axios.post('http://localhost:3000/getModByName', {
+        return axios.post('http://dreaper.etc.cmu.edu:3000/getModByName', {
             modName : this.props.creatorEntry.value.mods
         })
             .then(res => {
@@ -239,7 +239,6 @@ export default class SearchBarRowCreator extends React.Component {
 
         this.setState({"filteredMods" : arr, "selectedTags": nextSelectedTags, "keywordColorMap" : newKeywordColorMap});
     }
-
 
 
     onTabChange(key, type) {

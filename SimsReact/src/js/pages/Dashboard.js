@@ -78,7 +78,7 @@ class Dashboard extends React.Component{
 
 
     queryKeyWords(startTime ,endTime) {
-        axios.post('http://localhost:3000/getKeyWordWithThreshold', {
+        axios.post('http://dreaper.etc.cmu.edu:3000/getKeyWordWithThreshold', {
             startTime: (startTime === null || startTime.length === 0) ? "1994/03/01" : startTime,
             endTime: (endTime === null || endTime.length === 0) ? "2020/12/30" : endTime,
         })
@@ -94,7 +94,7 @@ class Dashboard extends React.Component{
     }
 
     queryCreators() {
-        axios.post('http://localhost:3000/getCreators')
+        axios.post('http://dreaper.etc.cmu.edu:3000/getCreators')
             .then(res => {
                 console.log("received data");
                 console.log(res.data);
@@ -108,7 +108,7 @@ class Dashboard extends React.Component{
     queryTopMods(startTime, endTime) {
         console.log("Top mods panel");
         console.log(this.props.topMods);
-        axios.post('http://localhost:3000/topModsWithDownloads', {
+        axios.post('http://dreaper.etc.cmu.edu:3000/topModsWithDownloads', {
             startTime : (startTime === null || startTime.length === 0) ?  "1994/03/01" : startTime,
             endTime : (endTime === null || endTime.length === 0) ? "2020/12/30" : endTime,
         })
@@ -178,7 +178,7 @@ class Dashboard extends React.Component{
         const query_params = '?startTime=' + startTime + '&endTime=' + endTime + '&keyword=' + value;
 
         if (initialKeywords.length === 0) {
-            return axios.get('http://localhost:3000/getMatchingKeyword'+query_params)
+            return axios.get('http://dreaper.etc.cmu.edu:3000/getMatchingKeyword'+query_params)
                 .then(res => {
                     // received new keywords in current time range that matched the search value
                     // update the search box list

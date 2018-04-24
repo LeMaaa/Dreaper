@@ -40,7 +40,7 @@ export default class LineChartWithTimeRange extends React.Component {
     }
 
     queryTotalModsWithinTimeRange(startTime , endTime) {
-        axios.post('http://localhost:3000/numberOfRecordsByMonthWithTimeRange', {
+        axios.post('http://dreaper.etc.cmu.edu:3000/numberOfRecordsByMonthWithTimeRange', {
             startTime :startTime === null ? "Mar 1994" :startTime,
             endTime : endTime === null ? "Dec 2020" : endTime,
         })

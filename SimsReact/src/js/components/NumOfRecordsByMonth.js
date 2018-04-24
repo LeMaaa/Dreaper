@@ -26,7 +26,7 @@ class NumOfRecordsByMonth extends React.Component{
     componentDidMount() {
         console.log("calling to get per month data");
 
-        axios.get('http://localhost:3000/numberOfRecordsByMonth')
+        axios.get('http://dreaper.etc.cmu.edu:3000/numberOfRecordsByMonth')
             .then(res => {
                 console.log("received data");
                 // this.setState({items:[...this.state.items, res.data]});

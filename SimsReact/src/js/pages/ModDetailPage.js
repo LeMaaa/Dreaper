@@ -30,7 +30,7 @@ class ModDetailPage extends React.Component{
     }
 
     componentWillMount() {
-        axios.post('http://localhost:3000/getModByName', {
+        axios.post('http://dreaper.etc.cmu.edu:3000/getModByName', {
 
                 modName:  "Reduced Random Townies Generation (UPDATED 03.13.2018)" ,
         })

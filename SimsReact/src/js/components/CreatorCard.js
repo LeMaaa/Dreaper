@@ -92,7 +92,7 @@ class CreatorCard extends React.Component{
         console.log("query mods with time range")
         console.log(creatorEntry);
 
-        return axios.post('http://localhost:3000/getModByName', {
+        return axios.post('http://dreaper.etc.cmu.edu:3000/getModByName', {
             modName : creatorEntry.value.mods
         })
             .then(res => {
