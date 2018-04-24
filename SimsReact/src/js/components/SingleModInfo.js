@@ -28,10 +28,71 @@ class SingleModInfo extends React.Component {
 
             return timestamp1 - timestamp2;
         }
-        if (mod.time_series_data !== null && mod.time_series_data !== undefined &&  mod.time_series_data.length > 0)
-            return <TimeSeriesData itemForTimeSeriesData = {mod.time_series_data.sort(sort_by_date)} />;
-        else
+
+        let time_data = mod.time_series_data.sort(sort_by_date);
+
+        if (time_data === null || time_data === undefined || time_data.length <= 0)
             return (<p> Sorry, this mod does not contain time series data </p>);
+
+        let final_time_data = [];
+
+        // accumulate same values
+
+        let j = 0;
+        for (let i = 1; i < time_data.length; i++) {
+
+            if (time_data[j]['date'] === time_data[i]['date']) {
+                time_data[j]['views'] += time_data[i]['views'];
+                time_data[j]['downloads'] += time_data[i]['downloads'];
+                time_data[j]['favourited'] += time_data[i]['favourited'];
+                time_data[j]['thanks'] += time_data[i]['thanks'];
+            } else {
+                j++;
+                time_data[j] = time_data[i];
+            }
+        }
+
+        time_data = time_data.slice(0, j);
+
+        console.log("checking time data");
+        console.log(time_data);
+        // interpolate dates in between
+        for (let i = 0; i < time_data.length-1; i++) {
+            final_time_data.push(time_data[i]);
+
+            if (i === time_data.length-2) {
+                final_time_data.push(time_data[i+1]);
+                break;
+            }
+
+            let curDate = new Date(time_data[i].date);
+            let nextDate = new Date(time_data[i+1].date)
+
+            while (curDate.getTime() !== nextDate.getTime()) {
+                curDate.setDate(curDate.getDate() + 1);
+                console.log(curDate.getTime())
+                console.log(nextDate.getTime());
+
+                if (curDate.getTime() >= nextDate.getTime()) {
+                    break;
+                } else {
+                    const new_date_string = curDate.toISOString().substring(0, 10);
+                    let new_time_data = {
+                        'favourited': 0,
+                        'views': 0,
+                        'downloads': 0,
+                        'thanks': 0,
+                        'date': new_date_string
+                    }
+                    final_time_data.push(new_time_data);
+                }
+            }
+        }
+
+        console.log(final_time_data);
+
+        return <TimeSeriesData itemForTimeSeriesData = {final_time_data} />;
+
 
     }
 
