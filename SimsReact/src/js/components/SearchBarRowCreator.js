@@ -47,11 +47,6 @@ export default class SearchBarRowCreator extends React.Component {
             pieChartDownloads : 0,
             pieChartViews : 0,
 
-            contentListNoTitle : {
-                Downloads: <p>Downloads content</p>,
-                Views: <p>Views content</p>,
-            },
-
             tabListNoTitle : [{
                 key: 'Downloads',
                 tab: 'Downloads',
@@ -67,6 +62,7 @@ export default class SearchBarRowCreator extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleTabChange = this.handleTabChange.bind(this);
         this.filterKeyword = this.filterKeyword.bind(this);
+        this.renderModList = this.renderModList.bind(this);
     }
 
 
@@ -84,27 +80,24 @@ export default class SearchBarRowCreator extends React.Component {
                 console.log("received data for by name");
                 // console.log(res.data);
                 console.log(res.data)
-                this.setState({'currentMod' : res.data.sort(function(a, b){return b.downloads - a.downloads})[0], 'mods' : res.data});
-                this.renderDownloadModList(res.data);
-                this.renderViewsModList(res.data);
+                this.setState({
+                    'currentMod' : res.data.sort(function(a, b){return b.downloads - a.downloads})[0],
+                    'mods' : res.data,
+                    'filteredMods': res.data,
+                    'totalModForCurrentCreator': res.data.length
+                })
+                console.log("query mods with time range")
             });
     }
 
-
-    renderDownloadModList(arr) {
-        console.log("downlodas")
-        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {arr}
-                                                                     keywordPieRanking = {this.state.keywordPieRanking}
-                                                                     totalDownloads = {this.props.creatorEntry.value.downloads}/>
+    renderModList() {
+        if (this.state.noTitleKey === 'Downloads') {
+            return  (<DownloadModBar mods = {this.state.filteredMods} keywordPieRanking = {this.state.keywordColorMap} totalDownload={this.props.creatorEntry.value.downloads}/>);
+        } else if (this.state.noTitleKey === 'Views') {
+            return (<ViewsModBar mods = {this.state.filteredMods}  keywordPieRanking = {this.state.keywordColorMap} totalViews={this.props.creatorEntry.value.views}/>);
+        }
     }
 
-
-    renderViewsModList(arr) {
-        console.log("views");
-        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {arr}
-                                                              keywordPieRanking = {this.state.keywordPieRanking}
-                                                              totalViews = {this.props.creatorEntry.value.views}/>
-    }
 
     showModal(){
         this.populateKeywordArray();
@@ -169,7 +162,7 @@ export default class SearchBarRowCreator extends React.Component {
             selectedTags.push("other");
             pieChartDownloads = pieChartDownloads + otherDownloads;
             this.setState({"keywordPieRanking" : keywordPieRanking, "selectedTags" : selectedTags,
-                "pieChartViews" : pieChartViews, "pieChartDownloads": pieChartDownloads});
+                "pieChartViews" : pieChartViews, "pieChartDownloads": pieChartDownloads, "keywordColorMap" : keywordPieRanking });
             console.log("keyword ranking", keywordPieRanking)
             return keywordPieRanking;
         }
@@ -199,14 +192,24 @@ export default class SearchBarRowCreator extends React.Component {
     }
 
     handleChange(tag, checked) {
-        const { selectedTags } = this.state;
+        const { selectedTags, keywordColorMap, keywordPieRanking } = this.state;
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
         console.log('You are interested in: ', nextSelectedTags);
+        const matchedKeyword = keywordPieRanking.find((entry) => { return entry.keyword === tag });
+        console.log(matchedKeyword);
+        const newKeywordColorMap = checked ? [...keywordColorMap, matchedKeyword] : keywordColorMap.filter(t => t.keyword !== tag)
+        // if(nextSelectedTags !== null || nextSelectedTags.length !== 0) {
+        //     for(let entry in keywordColorMap) {
+        //
+        //     }
+        // }
+        // console.log("new color map", newKeywordColorMap);
+
         let arr = this.state.mods.filter((item) => this.filterKeyword(item,nextSelectedTags));
-        this.setState({"filteredMods" : arr, "selectedTags": nextSelectedTags});
-        this.renderDownloadModList(arr);
-        this.renderViewsModList(arr);
-        console.log("arr", arr);
+
+        this.setState({"filteredMods" : arr, "selectedTags": nextSelectedTags, "keywordColorMap" : newKeywordColorMap});
+
+        // console.log("arr", arr);
         // TODO : PROBLEMS WITH KWYWORD ITSELF
     }
 
@@ -305,7 +308,7 @@ export default class SearchBarRowCreator extends React.Component {
                                   <Radio.Button className="custom-tab" value="Downloads">Downloads</Radio.Button>
                                   <Radio.Button className="custom-tab" value="Views">Views</Radio.Button>
                                 </Radio.Group>
-                                {this.state.contentListNoTitle[this.state.noTitleKey]}
+                                {this.renderModList()}
                             </Card>
                         </Col>
 
