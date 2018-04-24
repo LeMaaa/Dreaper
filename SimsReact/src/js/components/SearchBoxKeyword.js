@@ -55,6 +55,7 @@ export default class SearchBoxKeyword extends React.Component {
         }
         return entries.map( entry =>
             <SearchBarRowKeyword key = {entry._id} index = {entry.rank} entry = {entry}
+                                 totalModsNum = {this.props.totalModsNum}
                                  startTime = {this.props.startTime} endTime = {this.props.endTime}/> )
         //
         // return (<List

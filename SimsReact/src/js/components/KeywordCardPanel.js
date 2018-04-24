@@ -32,6 +32,7 @@ export default class KeywordCardPanel extends React.Component {
                         return <Col span={6} key = {index} >
                             <KeywordCard keyword = {entry._id} startTime = {this.props.startTime}
                                          endTime = {this.props.endTime}
+                                         totalModsNum = {this.props.totalModsNum}
                                          index = {entry.rank}
                                          value = {entry.value} />
                         </Col>

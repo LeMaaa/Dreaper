@@ -35,6 +35,7 @@ class DownloadModBar extends React.Component{
                 dataSource = {this.props.mods.sort(function(a, b){return b.downloads - a.downloads})}
                 renderItem = {(item, index) => (
                     <List.Item actions={[<Button key = {index} icon = "bar-chart" onClick={(e) => this.showModDetail(item)}/>]}>
+
                         <List.Item.Meta
                             avatar={<Avatar> {index + 1} </Avatar>}
                             title={<a>{item.title}</a>}

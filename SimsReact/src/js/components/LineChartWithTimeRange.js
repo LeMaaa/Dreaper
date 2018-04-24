@@ -24,6 +24,9 @@ export default class LineChartWithTimeRange extends React.Component {
     }
 
     componentDidMount() {
+        console.log("query for mount")
+        this.queryTotalModsWithinTimeRange(this.props.startTime, this.props.endTime)
+        this.setState({"startTime" : this.props.startTime, "endTime" : this.props.endTime})
         // axios.post('http://localhost:3000/numberOfRecordsByMonthWithTimeRange', {
         //     startTime : this.props.startTime === null ? "Mar 1994" : this.props.startTime,
         //     endTime : this.props.endTime === null ? "Dec 2020" : this.props.endTime,
@@ -40,6 +43,7 @@ export default class LineChartWithTimeRange extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("next props",  nextProps);
         if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime) return;
         this.setState({"startTime" : nextProps.startTime, "endTime" : nextProps.endTime});
         console.log("nextprops");

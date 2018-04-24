@@ -122,13 +122,13 @@ class Dashboard extends React.Component{
 
     onHandleChange(value) {
         if(value === "Creators") {
-            console.log(value);
+            console.log("change to creator",value);
             this.setState( { "currentView": "Creators"});
         } else if(value === "Keywords") {
-            console.log(value);
+            console.log("chnage to keywords", value);
             this.setState({"currentView" : "Keywords" });
         } else if(value === "topMods") {
-            console.log(value);
+            console.log("change to topmods", value);
             this.setState( { "currentView": "topMods"});
         }
 
@@ -149,13 +149,13 @@ class Dashboard extends React.Component{
             'endTime' : dateString[1],
         });
 
-        if (this.state.currentView === "topMods") {
+        // if (this.state.currentView === "topMods") {
             console.log("change time range for top mods");
             this.queryTopMods(dateString[0], dateString[1]);
-        } else if (this.state.currentView === "Keywords") {
+        // } else if (this.state.currentView === "Keywords") {
             console.log("change time range for keywords");
             this.queryKeyWords(dateString[0], dateString[1]);
-        }
+        // }
     }
 
     searchKeyword(value) {
@@ -207,12 +207,13 @@ class Dashboard extends React.Component{
             if(this.state.keywords === null || this.state.length === 0) {
                 currentPanel = <div>Sorry :( No Data Available.</div>
             }else {
-                currentPanel =  <KeywordCardPanel keywords = {this.state.keywords}
+                currentPanel =  <KeywordCardPanel keywords = {this.state.keywords} totalModsNum = {this.state.totalModsNum}
                                                   startTime = {this.state.startTime} endTime = {this.state.endTime} />;
             }
             currentTitle = "Ranked By Number of Mods";
             currentSearchBox = <SearchBoxKeyword
                 entries = {this.state.keywordsForSearchBox_Search}
+                totalModsNum = {this.state.totalModsNum}
                 searched = {this.state.searched} startTime = {this.state.startTime} endTime = {this.state.endTime}/>
         } else if(this.state.currentView === "Creators") {
             if(this.state.creators === null || this.state.creators.length === 0) {

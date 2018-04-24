@@ -189,7 +189,7 @@ class KeywordCard extends React.Component{
                     {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
                     {/*<Button icon = "close-circle-o" />*/}
                     <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
-                                   percentage = { numeral(this.props.value/this.state.totalModsNumForAll).format('0.0%')}/>
+                                   percentage = { numeral(this.props.value/this.props.totalModsNum).format('0.0%')}/>
                     <span className="textUnderCircle"> {numeral(this.props.value).format('0,0')} mods </span>
 
                 </Card>
@@ -203,7 +203,7 @@ class KeywordCard extends React.Component{
                     <Row type="flex" justify="space-around">
                         <Col span = {5}>
                             <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
-                                           percentage = { numeral(this.props.value/this.state.totalModsNumForAll).format('0.0%')}/>
+                                           percentage = { numeral(this.props.value/this.props.totalModsNum).format('0.0%')}/>
                         </Col>
 
                         <Col span={8}>

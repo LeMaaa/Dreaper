@@ -41,6 +41,9 @@ class CreatorCard extends React.Component{
             keywordPieRanking : [],
             selectedTags: [],
             filteredMods : [],
+            pieChartDownloads : 0,
+            pieChartViews : 0,
+
 
             contentListNoTitle : {
                 Downloads: <p>Downloads content</p>,
@@ -116,23 +119,17 @@ class CreatorCard extends React.Component{
         console.log(key, type);
         this.setState({ [type]: key });
     }
-
-
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.creator === this.state.creator) return;
-    //     this.queryModsForCreator(nextProps.creatorEntry);
-    //
-    // }
+    
 
     renderDownloadModList(arr) {
         console.log("downlodas")
-        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {arr} totalDownloads = {this.state.totalDownloads}/>
+        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {arr} totalDownloads = {this.props.creatorEntry.value.downloads}/>
     }
 
 
     renderViewsModList(arr) {
         console.log("views");
-        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {arr} totalViews = {this.state.totalViews}/>
+        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {arr} totalViews = {this.props.creatorEntry.value.views}/>
     }
 
     populateKeywordArray() {
@@ -140,40 +137,59 @@ class CreatorCard extends React.Component{
         let that = this;
         let selectedTags = [];
         let cont = 0;
+        let pieChartDownloads = 0, pieChartViews = 0;
+        let otherDownloads = 0, otherViews = 0;
         if(this.props.creatorEntry.value.keywords !== null && this.props.creatorEntry.value.keywords !== undefined) {
-            let result = Object.keys(this.props.creatorEntry.value.keywords).map(function(key) {
+            let result = Object.keys(this.props.creatorEntry.value.keywords).sort(function (k1, k2) {
+                return that.props.creatorEntry.value.keywords[k2].downloads - that.props.creatorEntry.value.keywords[k1].downloads;
+            }).map(function(key) {
                 console.log(key);
-
-                if(cont <= 4) {
+                if(cont < 4) {
                     selectedTags.push(key);
                     cont++;
-                }
+                    pieChartDownloads = pieChartDownloads + that.props.creatorEntry.value.keywords[key].downloads;
+                    pieChartViews = pieChartViews + that.props.creatorEntry.value.keywords[key].views;
 
-                return {keyword : key,
-                    downloads : that.props.creatorEntry.value.keywords[key].downloads,
-                    views: that.props.creatorEntry.value.keywords[key].views};
+                    return {keyword : key,
+                        downloads : that.props.creatorEntry.value.keywords[key].downloads,
+                        views: that.props.creatorEntry.value.keywords[key].views};
+                }else {
+                        otherDownloads = otherDownloads +  that.props.creatorEntry.value.keywords[key].downloads;
+                        otherViews =  otherViews + that.props.creatorEntry.value.keywords[key].views};
             });
 
-            let keywordPieRanking = result.length >= 5 ? result.slice(0, 5) : result;
-            this.setState({"keywordPieRanking" : keywordPieRanking, "selectedTags" : selectedTags});
-            
+            let keywordPieRanking = result.length >= 4 ? result.slice(0, 4) : result;
+            keywordPieRanking.push({
+                keyword: "other",
+                downloads: otherDownloads,
+                views: otherViews,
+            });
+            selectedTags.push("other");
+            pieChartDownloads = pieChartDownloads + otherDownloads;
+            this.setState({"keywordPieRanking" : keywordPieRanking, "selectedTags" : selectedTags,
+            "pieChartViews" : pieChartViews, "pieChartDownloads": pieChartDownloads});
+            console.log("keyword ranking", keywordPieRanking)
             return keywordPieRanking;
-
         }
     }
 
     filterKeyword(item,nextSelectedTags) {
         console.log("item", item, nextSelectedTags)
         if(nextSelectedTags === null || nextSelectedTags === 0) return false;
+        let isOther = false;
         for(let i = 0; i < nextSelectedTags.length; i++) {
             console.log("tag", i, nextSelectedTags[i]);
             if(item.keywords === undefined || item.keywords === null) return false;
-
+            if(nextSelectedTags[i] === "other") {
+                isOther = true;
+                continue;
+            }
             if(nextSelectedTags[i] in item.keywords) {
                 console.log("ssss[i])", item.keywords.hasOwnProperty(nextSelectedTags[i]))
                 return true;
             }
         }
+        if(isOther) return true;
         return false;
     }
 
@@ -277,7 +293,7 @@ class CreatorCard extends React.Component{
                                             {this.state.keywordPieRanking.map((tag, index) => (
                                                 <Row  key={tag.keyword}>
                                                     <Avatar style={{color : COLORS[index % COLORS.length], backgroundColor : "#fff"}}>
-                                                        {numeral(tag.downloads / that.props.creatorEntry.value.downloads).format('0.00%')}  </Avatar>
+                                                        {numeral(tag.downloads /  that.state.pieChartDownloads).format('0.00%')}  </Avatar>
                                                     <CheckableTag
                                                         style = {{backgroundColor :
                                                             this.state.selectedTags.indexOf(tag.keyword) > -1 ? COLORS[index % COLORS.length] :  "#fff"}}
