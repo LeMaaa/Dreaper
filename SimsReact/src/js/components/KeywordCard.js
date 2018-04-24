@@ -180,9 +180,9 @@ class KeywordCard extends React.Component{
             <div>
                 <Card className="stats-card" onClick={this.showModal} title = {"TOP " + this.props.index}>
                     <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
-                                   percentage = { numeral(this.props.value/this.state.totalModsNum).format('0.0%')}/>
+                                   percentage = { numeral(this.props.value / this.props.totalModsNum).format('0.00%')}/>
                     <br />
-                    <div className="textUnderCircle"> {numeral(this.props.value).format('0,0')} mods </div>
+                    <div className="textUnderCircle"> { numeral(this.props.value).format('0,0') } mods </div>
 
                 </Card>
                 <Modal
