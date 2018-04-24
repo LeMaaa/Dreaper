@@ -38,17 +38,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LineChartWithTimeRange.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LineChartWithTimeRange.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="44" column="42" lean-forward="false" selection-start-line="44" selection-start-column="42" selection-end-line="44" selection-end-column="42" />
+            <state relative-caret-position="400">
+              <caret line="81" column="9" lean-forward="true" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DownloadModBar.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DownloadModBar.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/components/DownloadModBar.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="355">
@@ -225,13 +225,13 @@
         <option value="$PROJECT_DIR$/src/js/components/KeywordCardPanel.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBoxKeyword.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBarRowKeyword.js" />
-        <option value="$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js" />
         <option value="$PROJECT_DIR$/src/js/pages/Dashboard.js" />
         <option value="$PROJECT_DIR$/src/js/components/CreatorCard.js" />
         <option value="$PROJECT_DIR$/src/js/components/KeywordCard.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBarRowCreator.js" />
         <option value="$PROJECT_DIR$/src/js/components/ViewsModBar.js" />
         <option value="$PROJECT_DIR$/src/js/components/DownloadModBar.js" />
+        <option value="$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js" />
       </list>
     </option>
   </component>
@@ -571,12 +571,12 @@
       <workItem from="1524287665111" duration="3969000" />
       <workItem from="1524341851362" duration="21822000" />
       <workItem from="1524421326308" duration="10833000" />
-      <workItem from="1524515815616" duration="12554000" />
+      <workItem from="1524515815616" duration="13066000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="285796000" />
+    <option name="totallyTimeSpent" value="286308000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -911,14 +911,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="44" column="42" lean-forward="false" selection-start-line="44" selection-start-column="42" selection-end-line="44" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/pages/Dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2074">
@@ -1000,6 +992,14 @@
           <folding>
             <element signature="e#41#67#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="81" column="9" lean-forward="true" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
