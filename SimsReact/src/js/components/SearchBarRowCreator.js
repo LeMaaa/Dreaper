@@ -92,13 +92,17 @@ export default class SearchBarRowCreator extends React.Component {
 
     renderDownloadModList(arr) {
         console.log("downlodas")
-        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {arr} totalDownloads = {this.state.totalDownloads}/>
+        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {arr}
+                                                                     keywordPieRanking = {this.state.keywordPieRanking}
+                                                                     totalDownloads = {this.state.totalDownloads}/>
     }
 
 
     renderViewsModList(arr) {
         console.log("views");
-        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {arr} totalViews = {this.state.totalViews}/>
+        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {arr}
+                                                              keywordPieRanking = {this.state.keywordPieRanking}
+                                                              totalViews = {this.state.totalViews}/>
     }
 
     showModal(){
@@ -130,14 +134,13 @@ export default class SearchBarRowCreator extends React.Component {
     populateKeywordArray() {
 
         let that = this;
-        let selectedTags = [];
-        let cont = 0;
-        let pieChartDownloads = 0, pieChartViews = 0;
+        let selectedTags = [], cont = 0, pieChartDownloads = 0, pieChartViews = 0;
         let otherDownloads = 0, otherViews = 0;
+
         if(this.props.creatorEntry.value.keywords !== null && this.props.creatorEntry.value.keywords !== undefined) {
             let result = Object.keys(this.props.creatorEntry.value.keywords).sort(function (k1, k2) {
                 return that.props.creatorEntry.value.keywords[k2].downloads - that.props.creatorEntry.value.keywords[k1].downloads;
-            }).map(function(key) {
+            }).map((key, index) => {
                 console.log(key);
                 if(cont < 4) {
                     selectedTags.push(key);
@@ -147,7 +150,9 @@ export default class SearchBarRowCreator extends React.Component {
 
                     return {keyword : key,
                         downloads : that.props.creatorEntry.value.keywords[key].downloads,
-                        views: that.props.creatorEntry.value.keywords[key].views};
+                        views: that.props.creatorEntry.value.keywords[key].views,
+                        color : COLORS[index % COLORS.length] };
+
                 }else {
                     otherDownloads = otherDownloads +  that.props.creatorEntry.value.keywords[key].downloads;
                     otherViews =  otherViews + that.props.creatorEntry.value.keywords[key].views};
@@ -158,6 +163,7 @@ export default class SearchBarRowCreator extends React.Component {
                 keyword: "other",
                 downloads: otherDownloads,
                 views: otherViews,
+                color : COLORS[cont % COLORS.length]
             });
             selectedTags.push("other");
             pieChartDownloads = pieChartDownloads + otherDownloads;
@@ -167,6 +173,8 @@ export default class SearchBarRowCreator extends React.Component {
             return keywordPieRanking;
         }
     }
+
+
 
 
     filterKeyword(item,nextSelectedTags) {

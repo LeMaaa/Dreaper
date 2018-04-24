@@ -27,7 +27,22 @@ class ViewsModBar extends React.Component{
 
     }
 
+    assignColor(item) {
+        if(this.props.keywordPieRanking === null || this.props.keywordPieRanking === undefined) {
+            console.log("color default")
+            return "#50E3C2";
+        } else {
+            for(let i = 0; i < this.props.keywordPieRanking.length - 1; i++) {
+                if(item.keywords.hasOwnProperty(this.props.keywordPieRanking[i].keyword)) {
+                    return this.props.keywordPieRanking[i].color;
+                }
+            }
+            return this.props.keywordPieRanking[this.props.keywordPieRanking.length - 1].color;
+        }
+    }
+
     render () {
+        let that = this;
         return (
             <List
                 itemLayout = "horizontal"
@@ -35,7 +50,7 @@ class ViewsModBar extends React.Component{
                 renderItem = {(item, index) => (
                     <List.Item onClick={(e) => this.showModDetail(item)}>
                         <List.Item.Meta
-                            avatar={<Avatar> {index + 1}  </Avatar>}
+                            avatar={<Avatar style={{ backgroundColor: that.assignColor(item) }}> {index + 1}  </Avatar>}
                             title={<a>{item.title}</a>}
                             description = {<Progress percent={item.views / this.props.totalViews * 100} format={() => numeral(item.views).format('0,0')} />}
                         />

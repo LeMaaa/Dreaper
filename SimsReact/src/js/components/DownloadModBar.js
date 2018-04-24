@@ -33,12 +33,16 @@ class DownloadModBar extends React.Component{
     */
 
     assignColor(item) {
-        for(let i = 0; i < this.props.keywordPieRanking.length - 1; i++) {
-            if(item.keywords.hasOwnProperty(this.props.keywordPieRanking[i].keyword)) {
-                return this.props.keywordPieRanking[i].color;
+        if(this.props.keywordPieRanking === null || this.props.keywordPieRanking === undefined) {
+            return "#50E3C2";
+        } else {
+            for(let i = 0; i < this.props.keywordPieRanking.length - 1; i++) {
+                if(item.keywords.hasOwnProperty(this.props.keywordPieRanking[i].keyword)) {
+                    return this.props.keywordPieRanking[i].color;
+                }
             }
+            return this.props.keywordPieRanking[this.props.keywordPieRanking.length - 1].color;
         }
-        return this.props.keywordPieRanking[this.props.keywordPieRanking.length - 1].color;
     }
 
 
