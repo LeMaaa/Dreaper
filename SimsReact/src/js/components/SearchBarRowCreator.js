@@ -92,7 +92,7 @@ export default class SearchBarRowCreator extends React.Component {
 
     renderModList() {
         if (this.state.noTitleKey === 'Downloads') {
-            return  (<DownloadModBar mods = {this.state.filteredMods} keywordPieRanking = {this.state.keywordColorMap} totalDownload={this.props.creatorEntry.value.downloads}/>);
+            return  (<DownloadModBar mods = {this.state.filteredMods} keywordPieRanking = {this.state.keywordColorMap} totalDownloads={this.props.creatorEntry.value.downloads}/>);
         } else if (this.state.noTitleKey === 'Views') {
             return (<ViewsModBar mods = {this.state.filteredMods}  keywordPieRanking = {this.state.keywordColorMap} totalViews={this.props.creatorEntry.value.views}/>);
         }
@@ -197,20 +197,36 @@ export default class SearchBarRowCreator extends React.Component {
         console.log('You are interested in: ', nextSelectedTags);
         const matchedKeyword = keywordPieRanking.find((entry) => { return entry.keyword === tag });
         console.log(matchedKeyword);
-        const newKeywordColorMap = checked ? [...keywordColorMap, matchedKeyword] : keywordColorMap.filter(t => t.keyword !== tag)
-        // if(nextSelectedTags !== null || nextSelectedTags.length !== 0) {
-        //     for(let entry in keywordColorMap) {
-        //
-        //     }
-        // }
-        // console.log("new color map", newKeywordColorMap);
+
+        // need to maintain the ordering for the former four based on downloads
+        let newKeywordColorMap = [];
+
+        if (checked) {
+            if (matchedKeyword) {
+                for (let i = 0; i < keywordPieRanking.length; i++) {
+                    // If matched keyword downloads is larger, place it into the new array
+                    // or if current one is other, place mathced before
+                    if (matchedKeyword.downloads > keywordPieRanking[i].downloads || keywordPieRanking[i].keyword === "other") {
+                        newKeywordColorMap.push(matchedKeyword);
+                        while (i < keywordPieRanking.length) {
+                            newKeywordColorMap.push(keywordPieRanking[i]);
+                            i++;
+                        }
+                        break;
+                    } else {
+                        newKeywordColorMap.push(keywordPieRanking[i])
+                    }
+                }
+            } else {
+                newKeywordColorMap = keywordPieRanking;
+            }
+        } else {
+            newKeywordColorMap = keywordColorMap.filter(t => t.keyword !== tag);
+        }
 
         let arr = this.state.mods.filter((item) => this.filterKeyword(item,nextSelectedTags));
 
         this.setState({"filteredMods" : arr, "selectedTags": nextSelectedTags, "keywordColorMap" : newKeywordColorMap});
-
-        // console.log("arr", arr);
-        // TODO : PROBLEMS WITH KWYWORD ITSELF
     }
 
 

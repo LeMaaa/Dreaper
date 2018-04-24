@@ -19,6 +19,7 @@ class DownloadModBar extends React.Component{
 
         }
         this.showModDetail = this.showModDetail.bind(this);
+        this.assignColor = this.assignColor.bind(this);
     }
 
     showModDetail(item){
@@ -47,7 +48,6 @@ class DownloadModBar extends React.Component{
 
 
     render () {
-        const that = this;
         return (
             <List
                 itemLayout = "horizontal"
@@ -55,7 +55,7 @@ class DownloadModBar extends React.Component{
                 renderItem = {(item, index) => (
                     <List.Item actions={[<p></p>]} onClick={(e) => this.showModDetail(item)}>
                         <List.Item.Meta
-                            avatar={<Avatar style={{ backgroundColor: that.assignColor(item) }} > {index + 1} </Avatar>}
+                            avatar={<Avatar style={{ backgroundColor: this.assignColor(item) }} > {index + 1} </Avatar>}
                             title={<a>{item.title}</a>}
                             description = { <Progress percent={item.downloads / this.props.totalDownloads * 100} format={() => numeral(item.downloads).format('0,0')} />}
                         />

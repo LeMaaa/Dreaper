@@ -68,8 +68,6 @@ class SingleModInfo extends React.Component {
 
             while (curDate.getTime() !== nextDate.getTime()) {
                 curDate.setDate(curDate.getDate() + 1);
-                console.log(curDate.getTime())
-                console.log(nextDate.getTime());
 
                 if (curDate.getTime() >= nextDate.getTime()) {
                     break;
