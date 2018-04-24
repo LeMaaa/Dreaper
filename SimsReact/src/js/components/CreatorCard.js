@@ -179,7 +179,7 @@ class CreatorCard extends React.Component{
         }
     }
 
-    filterKeyword(item,nextSelectedTags) {
+    filterKeyword(item, nextSelectedTags) {
         console.log("item", item, nextSelectedTags)
         if(nextSelectedTags === null || nextSelectedTags === 0) return false;
         let isOther = false;

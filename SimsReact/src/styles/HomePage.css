@@ -43,6 +43,11 @@ a {
     overflow: hidden;
 }
 
+.header {
+    font-size: 24px;
+    color: white;
+}
+
 .ant-spin-container {
     overflow: scroll;
     height: 540px;
