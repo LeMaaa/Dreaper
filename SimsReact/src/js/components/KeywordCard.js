@@ -141,13 +141,17 @@ class KeywordCard extends React.Component{
 
     renderDownloadModList() {
         console.log("downlodas")
-        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {this.state.mods} totalDownloads = {this.state.totalDownloads}/>
+        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {this.state.mods}
+                                                                     keywordPieRanking = {null}
+                                                                     totalDownloads = {this.state.totalDownloads}/>
     }
 
 
     renderViewsModList() {
         console.log("views");
-        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {this.state.mods} totalViews = {this.state.totalViews}/>
+        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {this.state.mods}
+                                                              keywordPieRanking = {null}
+                                                              totalViews = {this.state.totalViews}/>
     }
 
     renderKeywordCircle() {
@@ -188,9 +192,9 @@ class KeywordCard extends React.Component{
             <div>
                 <Card className="stats-card" onClick={this.showModal} title = {"TOP " + this.props.index}>
                     <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
-                                   percentage = { numeral(this.props.value/this.state.totalModsNum).format('0.0%')}/>
+                                   percentage = { numeral(this.props.value / this.props.totalModsNum).format('0.00%')}/>
                     <br />
-                    <div className="textUnderCircle"> {numeral(this.props.value).format('0,0')} mods </div>
+                    <div className="textUnderCircle"> { numeral(this.props.value).format('0,0') } mods </div>
 
                 </Card>
                 <Modal
@@ -204,7 +208,7 @@ class KeywordCard extends React.Component{
                         <Col span = {5}>
                             <Card className="stats-card" title = {"TOP " + this.props.index}>
                                 <CircleOnPanel index = {this.props.index} name = {this.props.keyword}
-                                               percentage = { numeral(this.props.value/this.state.totalModsNum).format('0.0%')}/>
+                                               percentage = { numeral(this.props.value/this.props.totalModsNum).format('0.0%')}/>
                                 <br />
                                 <div className="textUnderCircle"> {numeral(this.props.value).format('0,0')} mods </div>
                             </Card>

@@ -8,7 +8,8 @@ import eventProxy from 'react-eventproxy';
 import moment from 'moment';
 import numeral from 'numeral';
 
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Layout  } from 'antd';
+const { Header } = Layout;
 
 import KeywordCard from '../components/KeywordCard'
 import LineChartWithTimeRange from '../components/LineChartWithTimeRange'
@@ -27,7 +28,7 @@ const Search = Input.Search;
 
 const Option = Select.Option;
 
-const dateFormat = 'YYYY/MM/DD';
+const dateFormat = 'MM/DD/YYYY';
 const monthFormat = 'YYYY/MM';
 
 
@@ -250,7 +251,7 @@ class Dashboard extends React.Component{
                             {
                                 this.state.currentView !== "Creators" ?
                                     <RangePicker
-                                        defaultValue={[moment('2014-01-01', dateFormat), moment(today)]}
+                                        defaultValue={[moment('01/01/2014', dateFormat), moment(today)]}
                                         disabledDate={this.disabledDate}
                                         size = "large"
                                         onChange = {this.onChange}

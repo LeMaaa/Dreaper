@@ -63,7 +63,6 @@ class CreatorCard extends React.Component{
         this.handleCancel = this.handleCancel.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
-        this.onChangeKeyword = this.onChangeKeyword.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleTabChange = this.handleTabChange.bind(this);
         this.filterKeyword = this.filterKeyword.bind(this);
@@ -124,26 +123,29 @@ class CreatorCard extends React.Component{
 
     renderDownloadModList(arr) {
         console.log("downlodas")
-        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {arr} totalDownloads = {this.props.creatorEntry.value.downloads}/>
+        this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {arr}
+                                                                     keywordPieRanking = {this.state.keywordPieRanking}
+                                                                     totalDownloads = {this.props.creatorEntry.value.downloads}/>
     }
 
 
     renderViewsModList(arr) {
         console.log("views");
-        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {arr} totalViews = {this.props.creatorEntry.value.views}/>
+        this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {arr}
+                                                              keywordPieRanking = {this.state.keywordPieRanking}
+                                                              totalViews = {this.props.creatorEntry.value.views}/>
     }
 
     populateKeywordArray() {
 
         let that = this;
-        let selectedTags = [];
-        let cont = 0;
-        let pieChartDownloads = 0, pieChartViews = 0;
+        let selectedTags = [], cont = 0, pieChartDownloads = 0, pieChartViews = 0;
         let otherDownloads = 0, otherViews = 0;
+
         if(this.props.creatorEntry.value.keywords !== null && this.props.creatorEntry.value.keywords !== undefined) {
             let result = Object.keys(this.props.creatorEntry.value.keywords).sort(function (k1, k2) {
                 return that.props.creatorEntry.value.keywords[k2].downloads - that.props.creatorEntry.value.keywords[k1].downloads;
-            }).map(function(key) {
+            }).map((key, index) => {
                 console.log(key);
                 if(cont < 4) {
                     selectedTags.push(key);
@@ -153,7 +155,9 @@ class CreatorCard extends React.Component{
 
                     return {keyword : key,
                         downloads : that.props.creatorEntry.value.keywords[key].downloads,
-                        views: that.props.creatorEntry.value.keywords[key].views};
+                        views: that.props.creatorEntry.value.keywords[key].views,
+                        color : COLORS[index % COLORS.length] };
+
                 }else {
                         otherDownloads = otherDownloads +  that.props.creatorEntry.value.keywords[key].downloads;
                         otherViews =  otherViews + that.props.creatorEntry.value.keywords[key].views};
@@ -164,6 +168,7 @@ class CreatorCard extends React.Component{
                 keyword: "other",
                 downloads: otherDownloads,
                 views: otherViews,
+                color : COLORS[cont % COLORS.length]
             });
             selectedTags.push("other");
             pieChartDownloads = pieChartDownloads + otherDownloads;
@@ -207,7 +212,9 @@ class CreatorCard extends React.Component{
         const { selectedTags } = this.state;
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
         console.log('You are interested in: ', nextSelectedTags);
+
         let arr = this.state.mods.filter((item) => this.filterKeyword(item,nextSelectedTags));
+
         this.setState({"filteredMods" : arr, "selectedTags": nextSelectedTags});
         this.renderDownloadModList(arr);
         this.renderViewsModList(arr);
@@ -217,15 +224,11 @@ class CreatorCard extends React.Component{
 
 
     componentDidMount() {
-        // this.queryModsForCreator(this.props.creatorEntry);
-
         eventProxy.on('ChangeMod', (item) => {
             this.setState({
                 'currentMod' : item
             });
         });
-
-
     }
 
 
