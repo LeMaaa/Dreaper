@@ -94,7 +94,7 @@ export default class SearchBarRowCreator extends React.Component {
         console.log("downlodas")
         this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {arr}
                                                                      keywordPieRanking = {this.state.keywordPieRanking}
-                                                                     totalDownloads = {this.state.totalDownloads}/>
+                                                                     totalDownloads = {this.props.creatorEntry.value.downloads}/>
     }
 
 
@@ -102,7 +102,7 @@ export default class SearchBarRowCreator extends React.Component {
         console.log("views");
         this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {arr}
                                                               keywordPieRanking = {this.state.keywordPieRanking}
-                                                              totalViews = {this.state.totalViews}/>
+                                                              totalViews = {this.props.totalViews}/>
     }
 
     showModal(){
