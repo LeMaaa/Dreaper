@@ -53,7 +53,7 @@ class DownloadModBar extends React.Component{
                 itemLayout = "horizontal"
                 dataSource = {this.props.mods.sort(function(a, b){return b.downloads - a.downloads})}
                 renderItem = {(item, index) => (
-                    <List.Item onClick={(e) => this.showModDetail(item)}>
+                    <List.Item actions={[<p></p>]} onClick={(e) => this.showModDetail(item)}>
                         <List.Item.Meta
                             avatar={<Avatar style={{ backgroundColor: that.assignColor(item) }} > {index + 1} </Avatar>}
                             title={<a>{item.title}</a>}
