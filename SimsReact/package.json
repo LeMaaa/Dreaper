@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --content-base dist"
+    "start": "webpack-dev-server --content-base dist",
+    "prod": "webpack-dev-server --content-base dist --host 0.0.0.0"
   },
   "author": "guanbeiqi@gmail.com",
   "license": "ISC",
