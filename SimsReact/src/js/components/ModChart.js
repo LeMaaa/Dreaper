@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import eventProxy from 'react-eventproxy'
-import {ScatterChart, Scatter, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'Recharts';
+import {ScatterChart, Scatter, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 import TwoLevelPieChart from './TwoLevelPieChart'
 import PieChart from './KeywordPieChart'

@@ -8,7 +8,7 @@
 import React from 'react';
 import moment from 'moment';
 import eventProxy from 'react-eventproxy'
-import {Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Line, LineChart} from 'Recharts';
+import {Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Line, LineChart} from 'recharts';
 
 const colors = ['red', 'green', 'pink', 'yellow', 'black', 'blue', 'pink', 'brown', 'grey', 'ruby'];
 

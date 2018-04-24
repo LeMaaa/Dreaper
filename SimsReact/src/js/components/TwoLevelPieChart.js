@@ -4,7 +4,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import {PieChart, Pie} from 'Recharts';
+import {PieChart, Pie} from 'recharts';
 
 class TwoLevelPieChart extends React.Component {
 
