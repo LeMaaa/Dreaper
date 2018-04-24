@@ -167,7 +167,7 @@ export default class SearchBarRowKeyword extends React.Component {
                         <Col span = {5}>
                             <Card className="stats-card" title = {"TOP " + this.props.entry.rank}>
                                 <CircleOnPanel index = {this.props.index} name = {this.props.entry._id}
-                                               percentage = { numeral(this.props.entry.value/this.state.totalModsNum).format('0.0%')}/>
+                                               percentage = { numeral(this.props.entry.value/this.props.totalModsNum).format('0.0%')}/>
                                 <br />
                                 <div className="textUnderCircle"> {numeral(this.props.entry.value).format('0,0')} mods </div>
                             </Card>
