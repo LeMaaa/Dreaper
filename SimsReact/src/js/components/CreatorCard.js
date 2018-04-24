@@ -227,8 +227,8 @@ class CreatorCard extends React.Component{
         const that = this;
 
         return (
-            <div className="CreatorCircle">
-                <Card onClick={this.showModal} title = {"TOP " + this.props.index}>
+            <div>
+                <Card className="stats-card" onClick={this.showModal} title = {"TOP " + this.props.index}>
 
                     {/*{this.renderKeywordCircle}*/}
                     {/*<div className="WrapperDefined" >*/}
@@ -236,10 +236,10 @@ class CreatorCard extends React.Component{
                     {/*</div>*/}
                     {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
                     {/*<CircleOnPanel index = {this.props.index} name = {this.props.creatorEntry._id} />*/}
-                    {this.props.creatorEntry._id}
+                    <div className="card-main-text"> {this.props.creatorEntry._id} </div>
                     <br/>
-                    <Tag > <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
-                    {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods
+                    <Tag className="percentage-tag"> <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
+                    <div className="textUnderCircle"> {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods </div>
 
 
                     {/*<KeywordCircleOnPanel items = {this.state.item}/>*/}

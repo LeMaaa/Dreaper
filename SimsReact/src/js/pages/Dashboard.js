@@ -149,13 +149,10 @@ class Dashboard extends React.Component{
             'endTime' : dateString[1],
         });
 
-        // if (this.state.currentView === "topMods") {
-            console.log("change time range for top mods");
-            this.queryTopMods(dateString[0], dateString[1]);
-        // } else if (this.state.currentView === "Keywords") {
-            console.log("change time range for keywords");
-            this.queryKeyWords(dateString[0], dateString[1]);
-        // }
+
+
+        this.queryTopMods(dateString[0], dateString[1]);
+        this.queryKeyWords(dateString[0], dateString[1]);
     }
 
     searchKeyword(value) {
@@ -239,20 +236,16 @@ class Dashboard extends React.Component{
         return (
             <div className="container">
                     <Row>
-                        <Col span={12} className="PanelTitle">
+                        <Col span={12} className="panel-title">
                              Top  {" "}
-                            <Select defaultValue="Keywords" style={{ width: 120 }} size = "large" onChange={this.onHandleChange}>
+                            <Select defaultValue="Keywords" style={{ width: 120 }} size="large" onChange={this.onHandleChange}>
                                 <Option value="Keywords">Keywords</Option>
                                 <Option value="Creators">Creators</Option>
                                 <Option value="topMods">Mods</Option>
                             </Select>
                             {" "}{currentTitle}
                         </Col>
-                        <Col span={6} className="PanelTitle">
-                            { this.state.currentView !== "Creators" ?
-                                "Total  " + numeral(this.state.totalModsNum).format("0,0") + " Mods"
-                                : null }
-                        </Col>
+
                         <Col span={6}>
                             {
                                 this.state.currentView !== "Creators" ?
@@ -266,15 +259,23 @@ class Dashboard extends React.Component{
                             }
 
                         </Col>
+                        <Col span={2} />
+                        <Col span={4} className="mods-stat-text">
+                            { this.state.currentView !== "Creators" ?
+                                "Total  " + numeral(this.state.totalModsNum).format("0,0") + " Mods"
+                                : null }
+                        </Col>
                     </Row>
                 <br/>
                     <Row>
                         <Col span={18}>
+                            <div className="main-panel">
                             {currentPanel}
+                            </div>
                         </Col>
                         <Col span = {1}></Col>
                         <Col span = {5}>
-                            <Card className="search-card"  >
+                            <Card className="search-card">
                                 {this.state.currentView === "Keywords" ?
                                     <Search
                                     placeholder="Search Keyword"

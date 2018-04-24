@@ -218,9 +218,9 @@ export default class SearchBarRowCreator extends React.Component {
                 {/*/!*<Tag  color="geekblue" onClick = {this.addCreator}> {this.props.entry._id} </Tag>*!/*/}
                 {/*<List.Item onClick = {(e) => this.show(this.props.index)}> {this.props.index} </List.Item>*/}
 
-                <List.Item onClick = {(e) => this.showModal(e,this.props.index)}>
+                <List.Item className="custom-list-item" onClick = {(e) => this.showModal(e,this.props.index)}>
                     <List.Item.Meta
-                        avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={this.props.creatorEntry.rank}/>}
+                        avatar={ <Badge className="custom-item-badge" count={this.props.creatorEntry.rank}/>}
                         title={this.props.creatorEntry['_id']}
                         // description= {"Downloads: " + numeral(this.props.creatorEntry.value.downloads).format('0,0')}
                     />

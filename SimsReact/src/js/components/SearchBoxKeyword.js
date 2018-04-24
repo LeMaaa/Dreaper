@@ -57,20 +57,7 @@ export default class SearchBoxKeyword extends React.Component {
             <SearchBarRowKeyword key = {entry._id} index = {entry.rank} entry = {entry}
                                  totalModsNum = {this.props.totalModsNum}
                                  startTime = {this.props.startTime} endTime = {this.props.endTime}/> )
-        //
-        // return (<List
-        //     itemLayout="horizontal"
-        //     dataSource={entries}
-        //     renderItem={item => (
-        //       <List.Item>
-        //         <List.Item.Meta
-        //           avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={item.rank}/>}
-        //           title={item['_id']}
-        //           description={"Mods: " + item['value']}
-        //         />
-        //       </List.Item>
-        //     )}
-        //   />)
+
     }
 
 

@@ -67,7 +67,7 @@ export default class SearchBarRowTopMod extends React.Component {
                 {/*<Button type="dashed" onClick = {this.addCreator}>{this.props.entry._id}</Button>*/}
                 <List.Item onClick = {(e) => this.show(e,this.props.index)}>
                              <List.Item.Meta
-                           avatar={ <Badge style={{ backgroundColor: '#1890ff' }} count={this.props.entry.rank}/>}
+                           avatar={ <Badge className="custom-item-badge" count={this.props.entry.rank}/>}
                            title={this.props.entry['title']}
                            description= {"Downloads: " + numeral(this.props.entry['downloads']).format('0,0')}
                          />

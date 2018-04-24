@@ -1,6 +1,10 @@
-
 a {
     text-decoration: none !important;
+}
+
+/* apply font to every element */
+* {
+    font-family: Avenir-Heavy;
 }
 
 .root {
@@ -40,22 +44,29 @@ a {
 }
 
 .ant-spin-container {
-    overflow:scroll;
-    height:540px;
+    overflow: scroll;
+    height: 540px;
 }
 
 .scroll-text {
-    overflow:scroll;
-    height:100px;
+    overflow: scroll;
+    height: 100px;
 }
 
 .stats-card {
-    max-width: 230px;
-    width: 20%;
+    height: 250px;
+    overflow: hidden;
+
+    margin: 10px !important;
+
 }
 
 .search-card {
+    margin-top: 10px !important;
+    min-width: 100%;
     width: 100%;
+    height: 520px;
+    min-height: 520px;
 }
 
 
@@ -104,8 +115,12 @@ a {
 
 
 .textUnderCircle {
-    font-size: 20px;
     text-align: center;
+    font-family: Avenir-Book;
+    font-size: 14px;
+    color: #9B9B9B;
+
+    display: block;
 }
 
 .filter-list {
@@ -128,7 +143,8 @@ a {
 
 .scrollSearch {
     overflow: auto;
-    max-height: 320px;
+    height: 100%;
+    max-height: 460px;
 }
 
 .panelTitle  {
@@ -136,7 +152,75 @@ a {
     vertical-align: middle;
 }
 
-/*.ant-card-head {*/
-    /*background-color: #5cbfff !important;*/
-/*}*/
+/* overwrite ant-card styles */
 
+.stats-card > .ant-card-head {
+    background-color: #50E3C2 !important;
+
+    .ant-card-head-title {
+        color: white !important;
+        text-align: center;
+    }
+}
+
+.card-main-text {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.mod-card-text {
+    text-align: center;
+    font-weight: 600;
+}
+
+
+.percentage-tag {
+    opacity: 0.63 !important;
+    border: 1px solid #50E3C2 !important;
+    border-radius: 100px !important;
+    display: block !important;
+
+    margin: 0 30% !important;
+    text-align: center;
+}
+
+.panel-title {
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.mods-stat-text {
+    font-size: 16px;
+    font-weight: 300 !important;
+    line-height: 40px;
+}
+
+.main-panel {
+    min-height: 500px;
+}
+
+/* custom list styles */
+
+.custom-list-item {
+    /* Rectangle 9 Copy 50: */
+    border-radius: 100px;
+    border: 1px solid #C5C5C5 !important;
+    margin: 3px 4px !important;
+    padding: 2px 0px !important;
+
+    .custom-item-badge {
+        sup {
+            background: #50E3CD;
+            margin-top: 3px !important;
+            margin-left: 1px !important;
+        }
+    }
+}
+
+.custom-item-badge {
+    min-width: 30.5px;
+    sup {
+        background: #50E3CD;
+    }
+}
