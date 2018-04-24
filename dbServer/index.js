@@ -557,8 +557,18 @@ app.post('/getKeyWordWithThreshold', (req, res, next) => {
             })
 
             // assign ranking
-            ret = ret.slice(0, 50).map((entry, i) => {
-                entry.set('rank', i+1, {strict: false});
+            let last_value = -1;
+            let rank = 0;
+
+            ret = ret.slice(0, 50).map((entry) => {
+                if (last_value === -1) {
+                    last_value = entry.value;
+                } else if (entry.value < last_value) {
+                    rank++;
+                    last_value = entry.value;
+                }
+
+                entry.set('rank', rank+1, {strict: false});
                 return entry;
             })
 
