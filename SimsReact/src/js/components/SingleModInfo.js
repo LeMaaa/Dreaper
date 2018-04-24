@@ -112,12 +112,20 @@ class SingleModInfo extends React.Component {
                                     <div className="scroll-text">
                                         <span style={{fontWeight : "bold"}}>Type :</span>
                                         {currentMod.types === null || currentMod.types === undefined ? "No Data Available :(" :
-                                            currentMod.types.map(type => {
-                                                return type + ", "
+                                            currentMod.types.map((type, index) => {
+                                            if(index < currentMod.types.length - 1) {
+                                                return type + ", ";
+                                            }else {
+                                                return type;
+                                            }
                                             })} <br/>
                                         <span style={{fontWeight : "bold"}}>Tags :</span>
-                                        {currentMod.tags === null || currentMod.tags === undefined  ? "No Data Available :(" :currentMod.tags.map(tag => {
-                                            return tag + ", "
+                                        {currentMod.tags === null || currentMod.tags === undefined  ? "No Data Available :(" :currentMod.tags.map((tag, index) => {
+                                            if(index < currentMod.tags.length - 1) {
+                                                return tag + ", "
+                                            }else {
+                                                return tag
+                                            }
                                         })}
                                     </div>
                                 </TabPane>
