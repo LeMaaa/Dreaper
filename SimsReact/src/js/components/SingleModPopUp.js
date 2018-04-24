@@ -106,42 +106,41 @@ class SingleModPopUp extends React.Component {
                     currentMod === null ? <div> Sorry :( Mod is unavailable</div> :
                     <Card title={currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}
                           style={{width: '100%'}} bordered={false}>
-                        <Row>  <span style={{fontWeight : "bold"}}>Link: </span><a href={currentMod.url}> {currentMod.url} </a></Row>
+                        <Row>  <span className="mod-field">Link: </span><a href={currentMod.url}> {currentMod.url} </a></Row>
                         <Row>
                             <Col span={8} >
-                                <span style={{fontWeight : "bold"}}>Download:</span> {numeral(currentMod.downloads).format('0,0')}
+                                <span className="mod-field">Download:</span> <span className="mod-value"> {numeral(currentMod.downloads).format('0,0')} </span>
                             </Col>
 
                             <Col span={8} >
-                                <span style={{fontWeight : "bold"}}> Favorite:</span> {numeral(currentMod.favourited).format('0,0')}
+                                <span className="mod-field"> Favorite:</span> <span className="mod-value"> {numeral(currentMod.favourited).format('0,0')} </span>
                             </Col>
                             <Col span={8}>
-                                <span style={{fontWeight : "bold"}}>Game Version :</span> {currentMod.game_version}
+                                <span className="mod-field">Game Version :</span> <span className="mod-value"> {currentMod.game_version} </span>
                             </Col>
 
                         </Row>
                         <Row>
                             <Col span={8} >
-                                <span style={{fontWeight : "bold"}}>View: </span> {numeral(currentMod.views).format('0,0')}
+                                <span className="mod-field">View: </span> <span className="mod-value"> {numeral(currentMod.views).format('0,0')} </span>
                             </Col>
                             <Col span={8} >
-                                <span style={{fontWeight : "bold"}}>Thanks: </span> {numeral(currentMod.thanks).format('0,0')} </Col>
+                                <span className="mod-field">Thanks: </span> <span className="mod-value"> {numeral(currentMod.thanks).format('0,0')} </span> </Col>
                             <Col span={8}>
-                                <span style={{fontWeight : "bold"}}>Creator : </span> <a href={"http://modthesims.info" + currentMod.artist_url}>  {currentMod.artist}
-                            </a>
+                                <span className="mod-field">Creator : </span> <a href={"http://modthesims.info" + currentMod.artist_url}>  <span className="mod-value"> {currentMod.artist} </span>
+                                </a>
                             </Col>
                         </Row>
                         <Row>
-                            <span style={{fontWeight : "bold"}}>Keywords :</span> {currentMod.keywords === null ? "None" :
-                            Object.keys(currentMod.keywords).map((key, index) => {
-                                if(index <= 9) return key + ", "
-                            })
-                        }
+                            <span className="mod-field">Keywords :</span> {currentMod.keywords === null || currentMod.keywords === undefined  ? "None" :
+                                Object.keys(currentMod.keywords).map((key, index) => {
+                                    if(index <= 9) return index === 9 || index === Object.keys(currentMod.keywords).length-1 ? (<span className="mod-value"> {key} </span>) : (<span className="mod-value"> {key + ", "} </span>);
+                                })
+                            }
                         </Row>
-                        <Row>  <span style={{fontWeight : "bold"}}>Pack Required :</span> {currentMod.pack_requirement.length === 0 ? "None" : currentMod.pack_requirement.map(pack => {
-                            return pack + ", "
+                        <Row>  <span className="mod-field">Pack Required :</span> {currentMod.pack_requirement === undefined || currentMod.pack_requirement === null ? "None" : currentMod.pack_requirement.map((pack, idx) => {
+                            return idx === currentMod.pack_requirement.length-1 ? (<span className="mod-value"> {pack} </span>) : (<span className="mod-value"> {pack + ", "} </span>);
                         })} </Row>
-
                         <Row>
                             <Col span = {4}>
                                 <span style={{fontWeight : "bold"}}>Life Cycle</span>
@@ -153,10 +152,10 @@ class SingleModPopUp extends React.Component {
                         <Row>
                             <Tabs className="custom-mod-tab-group" onChange={this.changeTab} type="card" defaultActiveKey="Description">
                                 <TabPane tab="Description" key="Description">
-                                    <div className="scroll-text"> {currentMod.description}</div>
+                                    <div className="scroll-text mod-value"> {currentMod.description}</div>
                                 </TabPane>
                                 <TabPane tab="Comments" key="Comments">
-                                    <div className="scroll-text">
+                                    <div className="scroll-text mod-value">
                                         {currentMod.comments === null || currentMod.comments.length === 0 ? "No Data Available :(" :currentMod.comments.map(comment => {
                                             return <div> comment
                                                 <Divider />
@@ -165,7 +164,7 @@ class SingleModPopUp extends React.Component {
                                     </div>
                                 </TabPane>
                                 <TabPane tab="Tag & Type" key="Tag&Type">
-                                    <div className="scroll-text">
+                                    <div className="scroll-text mod-value">
                                         <span style={{fontWeight : "bold"}}>Type :</span>
                                         {currentMod.types === null || currentMod.types.length === 0 ? "No Data Available :(" :
                                             currentMod.types.map((type, index) => {

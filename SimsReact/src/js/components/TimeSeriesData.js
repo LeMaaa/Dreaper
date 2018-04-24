@@ -89,7 +89,7 @@ class TimeSeriesData extends React.Component{
                 //<Bar dataKey="thanks" stackId="a" fill="#ff6666" />
                 //<Bar dataKey="views" stackId="a" fill="#FFBB28" />
             //</BarChart>
-            <LineChart width={400} height={230} data={this.props.itemForTimeSeriesData}
+            <LineChart width={500} height={140} data={this.props.itemForTimeSeriesData}
                        margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <XAxis dataKey="date"/>
                 <YAxis/>

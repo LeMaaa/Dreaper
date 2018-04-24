@@ -54,8 +54,6 @@ class SingleModInfo extends React.Component {
 
         time_data = time_data.slice(0, j);
 
-        console.log("checking time data");
-        console.log(time_data);
         // interpolate dates in between
         for (let i = 0; i < time_data.length-1; i++) {
             final_time_data.push(time_data[i]);
@@ -89,11 +87,8 @@ class SingleModInfo extends React.Component {
             }
         }
 
-        console.log(final_time_data);
 
         return <TimeSeriesData itemForTimeSeriesData = {final_time_data} />;
-
-
     }
 
     changeTab(key) {
@@ -112,42 +107,42 @@ class SingleModInfo extends React.Component {
                     <Card bordered={false} style={{width: '100%'}} title = {null}>
 
                         <Row>
-                            <h2> {currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}</h2>
+                            <h3> {currentMod.title + " (" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}</h3>
                         </Row>
                         <Row>  <span className="mod-field">Link: </span><a href={currentMod.url}> {currentMod.url} </a></Row>
                         <Row>
                             <Col span={8} >
-                                <span className="mod-field">Download:</span> {numeral(currentMod.downloads).format('0,0')}
+                                <span className="mod-field">Download:</span> <span className="mod-value"> {numeral(currentMod.downloads).format('0,0')} </span>
                             </Col>
 
                             <Col span={8} >
-                                <span className="mod-field"> Favorite:</span> {numeral(currentMod.favourited).format('0,0')}
+                                <span className="mod-field"> Favorite:</span> <span className="mod-value"> {numeral(currentMod.favourited).format('0,0')} </span>
                             </Col>
                             <Col span={8}>
-                                <span className="mod-field">Game Version :</span> {currentMod.game_version}
+                                <span className="mod-field">Game Version :</span> <span className="mod-value"> {currentMod.game_version} </span>
                             </Col>
 
                         </Row>
                         <Row>
                             <Col span={8} >
-                                <span className="mod-field">View: </span> {numeral(currentMod.views).format('0,0')}
+                                <span className="mod-field">View: </span> <span className="mod-value"> {numeral(currentMod.views).format('0,0')} </span>
                             </Col>
                             <Col span={8} >
-                                <span className="mod-field">Thanks: </span> {numeral(currentMod.thanks).format('0,0')} </Col>
+                                <span className="mod-field">Thanks: </span> <span className="mod-value"> {numeral(currentMod.thanks).format('0,0')} </span> </Col>
                             <Col span={8}>
-                                <span className="mod-field">Creator : </span> <a href={"http://modthesims.info" + currentMod.artist_url}>  {currentMod.artist}
+                                <span className="mod-field">Creator : </span> <a href={"http://modthesims.info" + currentMod.artist_url}>  <span className="mod-value"> {currentMod.artist} </span>
                                 </a>
                             </Col>
                         </Row>
                         <Row>
                             <span className="mod-field">Keywords :</span> {currentMod.keywords === null || currentMod.keywords === undefined  ? "None" :
                                 Object.keys(currentMod.keywords).map((key, index) => {
-                                    if(index <= 9) return key + ", "
+                                    if(index <= 9) return index === 9 || index === Object.keys(currentMod.keywords).length-1 ? (<span className="mod-value"> {key} </span>) : (<span className="mod-value"> {key + ", "} </span>);
                                 })
                             }
                         </Row>
-                        <Row>  <span className="mod-field">Pack Required :</span> {currentMod.pack_requirement === undefined || currentMod.pack_requirement === null ? "None" : currentMod.pack_requirement.map(pack => {
-                            return pack + ", "
+                        <Row>  <span className="mod-field">Pack Required :</span> {currentMod.pack_requirement === undefined || currentMod.pack_requirement === null ? "None" : currentMod.pack_requirement.map((pack, idx) => {
+                            return idx === currentMod.pack_requirement.length-1 ? (<span className="mod-value"> {pack} </span>) : (<span className="mod-value"> {pack + ", "} </span>);
                         })} </Row>
                         <Row> <span className="mod-field">Life Cycle : </span></Row>
                         <Row>
@@ -158,10 +153,10 @@ class SingleModInfo extends React.Component {
                         <Row>
                             <Tabs className="custom-mod-tab-group" onChange={this.changeTab} type="card" defaultActiveKey="Description">
                                 <TabPane tab="Description" key="Description">
-                                    <div className="scroll-text"> {currentMod.description}</div>
+                                    <div className="scroll-text mod-value"> {currentMod.description}</div>
                                 </TabPane>
                                 <TabPane tab="Comments" key="Comments">
-                                    <div className="scroll-text">
+                                    <div className="scroll-text mod-value">
                                         {currentMod.comments === null || currentMod.comments === undefined ? "No Data Available :(" :currentMod.comments.map(comment => {
                                             return <div> comment
                                                 <Divider />
@@ -170,7 +165,7 @@ class SingleModInfo extends React.Component {
                                     </div>
                                 </TabPane>
                                 <TabPane tab="Tag & Type" key="Tag&Type">
-                                    <div className="scroll-text">
+                                    <div className="scroll-text mod-value">
                                         <span style={{fontWeight : "bold"}}>Type :</span>
                                         {currentMod.types === null || currentMod.types === undefined ? "No Data Available :(" :
                                             currentMod.types.map((type, index) => {

@@ -49,13 +49,13 @@ a {
 }
 
 .ant-spin-container {
-    overflow: scroll;
+    overflow: auto;
     height: 540px;
 }
 
 .scroll-text {
-    overflow: scroll;
-    height: 100px;
+    overflow: auto;
+    height: 200px;
 }
 
 .stats-card {
@@ -328,5 +328,6 @@ a {
 }
 
 .mod-value {
+    font-family: Avenir-Book;
     font-weight: 300;
 }
