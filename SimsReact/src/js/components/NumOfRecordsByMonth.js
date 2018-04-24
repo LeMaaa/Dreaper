@@ -6,7 +6,7 @@ import React from 'react';
 import eventProxy from 'react-eventproxy'
 import axios from 'axios';
 
-import {LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line} from 'Recharts';
+import {LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line} from 'recharts';
 
 
 class NumOfRecordsByMonth extends React.Component{
