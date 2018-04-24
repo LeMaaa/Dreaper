@@ -97,7 +97,7 @@ class SingleModPopUp extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Tabs onChange={this.changeTab} type="card" defaultActiveKey="Description">
+                            <Tabs className="custom-mod-tab-group" onChange={this.changeTab} type="card" defaultActiveKey="Description">
                                 <TabPane tab="Description" key="Description">
                                     <div className="scroll-text"> {currentMod.description}</div>
                                 </TabPane>

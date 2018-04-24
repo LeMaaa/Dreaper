@@ -8,7 +8,7 @@ import axios from 'axios';
 import eventProxy from 'react-eventproxy'
 import numeral from 'numeral'
 
-import {Badge, Button,Tag, Modal, Row, Col, Card, List} from "antd";
+import {Radio, Icon, Badge, Button, Tag, Modal, Row, Col, Card, List} from "antd";
 const CheckableTag = Tag.CheckableTag;
 const Item = List.Item;
 
@@ -54,7 +54,7 @@ export default class SearchBarRowKeyword extends React.Component {
         this.showModal = this.showModal.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handleOk = this.handleOk.bind(this);
-        this.onTabChange = this.onTabChange.bind(this);
+        this.handleTabChange = this.handleTabChange.bind(this);
     }
 
     componentDidMount() {
@@ -136,13 +136,15 @@ export default class SearchBarRowKeyword extends React.Component {
         });
     }
 
-
-    onTabChange(key, type) {
-        console.log(key, type);
-        this.setState({ [type]: key });
+    handleTabChange(e) {
+        const newView = e.target.value;
+        this.setState({ 'noTitleKey': newView });
     }
 
     render() {
+
+        const currentView = this.state.noTitleKey;
+
         return (
             <div>
                 <List.Item className="custom-list-item" onClick = {(e) => this.showModal(e, this.props.entry._id)}>
@@ -163,19 +165,23 @@ export default class SearchBarRowKeyword extends React.Component {
                 >
                     <Row type="flex" justify="space-around">
                         <Col span = {5}>
-                            <CircleOnPanel index = {this.props.entry.rank} name = {this.props.entry._id}
-                                           percentage = { numeral(this.props.entry.value / this.props.totalModsNum).format('0.0%')}/>
-                            {this.props.entry.value} Mods
+                            <Card className="stats-card" title = {"TOP " + this.props.entry.rank}>
+                                <CircleOnPanel index = {this.props.index} name = {this.props.entry._id}
+                                               percentage = { numeral(this.props.entry.value/this.state.totalModsNum).format('0.0%')}/>
+                                <br />
+                                <div className="textUnderCircle"> {numeral(this.props.entry.value).format('0,0')} mods </div>
+                            </Card>
                         </Col>
 
                         <Col span={8}>
                             <Card
                                 bordered = {false}
                                 style={{ width: '100%' }}
-                                tabList={this.state.tabListNoTitle}
-                                activeTabKey={this.state.noTitleKey}
-                                onTabChange={(key) => { this.onTabChange(key, 'noTitleKey'); }}
                             >
+                                <Radio.Group className="custom-tab-group" value={currentView} onChange={this.handleTabChange}>
+                                  <Radio.Button className="custom-tab" value="Downloads">Downloads</Radio.Button>
+                                  <Radio.Button className="custom-tab" value="Views">Views</Radio.Button>
+                                </Radio.Group>
                                 {this.state.contentListNoTitle[this.state.noTitleKey]}
                             </Card>
                         </Col>

@@ -9,7 +9,7 @@ import moment from 'moment'
 
 import TimeSeriesData from '../components/TimeSeriesData'
 
-import {Radio, Card, Row, Col, Collapse, Divider, Tabs, Icon, Button} from 'antd'
+import {Card, Row, Col, Collapse, Divider, Tabs, Icon, Button} from 'antd'
 const Panel = Collapse.Panel;
 const TabPane = Tabs.TabPane;
 
@@ -19,12 +19,6 @@ class SingleModInfo extends React.Component {
         super(props);
         this.renderTimeSeriesData = this.renderTimeSeriesData.bind(this);
         this.changeTab = this.changeTab.bind(this);
-        this.renderModDetailsView = this.renderModDetailsView.bind(this);
-        this.handleTabChange = this.handleTabChange.bind(this);
-
-        this.state = {
-            currentView: 'Description'
-        };
     }
 
     renderTimeSeriesData(mod) {
@@ -46,22 +40,9 @@ class SingleModInfo extends React.Component {
         console.log(key);
     }
 
-    handleTabChange(e) {
-        console.log(e.target.value);
-        console.log("tab changing");
-        const newView = e.target.value;
-        console.log(this.state.currentView);
-        this.setState({ 'currentView': newView });
-    }
-
-    renderModDetailsView() {
-
-    }
-
     render() {
 
         const { currentMod } = this.props;
-        const { currentView } = this.state.currentView;
 
         return (
             <div>
@@ -114,10 +95,6 @@ class SingleModInfo extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-
-
-                            {this.renderModDetailsView()}
-
                             <Tabs className="custom-mod-tab-group" onChange={this.changeTab} type="card" defaultActiveKey="Description">
                                 <TabPane tab="Description" key="Description">
                                     <div className="scroll-text"> {currentMod.description}</div>

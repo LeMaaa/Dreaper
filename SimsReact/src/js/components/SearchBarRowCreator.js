@@ -12,7 +12,7 @@ import eventProxy from 'react-eventproxy';
 import numeral from 'numeral';
 
 
-import {Badge, Button,Tag, List, Modal, Row, Col, Card, Avatar, Icon} from "antd";
+import {Radio, Badge, Button, Tag, List, Modal, Row, Col, Card, Avatar, Icon} from "antd";
 import {Pie, PieChart, Tooltip, Cell, } from 'recharts'
 
 import SingleModPopUp from '../components/SingleModPopUp'
@@ -65,6 +65,7 @@ export default class SearchBarRowCreator extends React.Component {
         this.handleOk = this.handleOk.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleTabChange = this.handleTabChange.bind(this);
         this.filterKeyword = this.filterKeyword.bind(this);
     }
 
@@ -207,10 +208,16 @@ export default class SearchBarRowCreator extends React.Component {
         this.setState({ [type]: key });
     }
 
+    handleTabChange(e) {
+        const newView = e.target.value;
+        this.setState({ 'noTitleKey': newView });
+    }
 
 
     render() {
         let that = this;
+        const currentView = this.state.noTitleKey;
+
         return (
             <div>
                 {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
@@ -237,17 +244,16 @@ export default class SearchBarRowCreator extends React.Component {
                     <Row type="flex" justify="space-around">
                         <Col span = {6}>
                             <Row>
-                                <Card  title = {"TOP " + this.props.index}>
-                                    {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
-                                    {this.props.creatorEntry._id}
+                                <Card className="stats-card" title = {"TOP " + this.props.index}>
+                                    <div className="card-main-text"> {this.props.creatorEntry._id} </div>
                                     <br/>
-                                    <Tag > <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
-                                    {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods
+                                    <Tag className="percentage-tag"> <Icon type="download" /> {numeral(this.props.creatorEntry.value.downloads).format('0,0')} </Tag> <br/>
+                                    <div className="textUnderCircle"> {numeral(this.props.creatorEntry.value.mods.length).format('0,0')} Mods </div>
                                 </Card>
                             </Row>
                             <br/>
                             <Row>
-                                <Card title = {"Creator's Top Keywords"}>
+                                <Card className="stats-card" title = {"Creator's Top Keywords"}>
                                     <Row>
                                         <Col span = {8}>
                                             <PieChart width={80} height={80}>
@@ -286,10 +292,11 @@ export default class SearchBarRowCreator extends React.Component {
                             <Card
                                 bordered = {false}
                                 style={{ width: '100%' }}
-                                tabList={this.state.tabListNoTitle}
-                                activeTabKey={this.state.noTitleKey}
-                                onTabChange={(key) => { this.onTabChange(key, 'noTitleKey'); }}
                             >
+                                <Radio.Group className="custom-tab-group" value={currentView} onChange={this.handleTabChange}>
+                                  <Radio.Button className="custom-tab" value="Downloads">Downloads</Radio.Button>
+                                  <Radio.Button className="custom-tab" value="Views">Views</Radio.Button>
+                                </Radio.Group>
                                 {this.state.contentListNoTitle[this.state.noTitleKey]}
                             </Card>
                         </Col>
