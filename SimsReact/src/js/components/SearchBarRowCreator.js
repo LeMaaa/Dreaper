@@ -203,22 +203,33 @@ export default class SearchBarRowCreator extends React.Component {
 
         if (checked) {
             if (matchedKeyword) {
-                for (let i = 0; i < keywordPieRanking.length; i++) {
-                    // If matched keyword downloads is larger, place it into the new array
-                    // or if current one is other, place mathced before
-                    if (matchedKeyword.downloads > keywordPieRanking[i].downloads || keywordPieRanking[i].keyword === "other") {
-                        newKeywordColorMap.push(matchedKeyword);
-                        while (i < keywordPieRanking.length) {
-                            newKeywordColorMap.push(keywordPieRanking[i]);
-                            i++;
+                if (matchedKeyword.keyword === "other") {
+                    newKeywordColorMap = [...keywordColorMap, matchedKeyword];
+                } else {
+                    for (let i = 0; i < keywordColorMap.length; i++) {
+                        // If matched keyword downloads is larger, place it into the new array
+                        // or if current one is other, place mathced before
+                        if (matchedKeyword.downloads > keywordColorMap[i].downloads || keywordColorMap[i].keyword === "other") {
+                            newKeywordColorMap.push(matchedKeyword);
+                            while (i < keywordColorMap.length) {
+                                newKeywordColorMap.push(keywordColorMap[i]);
+                                i++;
+                            }
+                            break;
+                        } else {
+                            newKeywordColorMap.push(keywordColorMap[i])
+                            if (i === keywordColorMap.length-1) {
+                                newKeywordColorMap.push(matchedKeyword);
+                            }
                         }
-                        break;
-                    } else {
-                        newKeywordColorMap.push(keywordPieRanking[i])
                     }
+
+                    if (keywordColorMap.length === 0)
+                        newKeywordColorMap.push(matchedKeyword);
                 }
+
             } else {
-                newKeywordColorMap = keywordPieRanking;
+                newKeywordColorMap = keywordColorMap;
             }
         } else {
             newKeywordColorMap = keywordColorMap.filter(t => t.keyword !== tag);
@@ -228,6 +239,7 @@ export default class SearchBarRowCreator extends React.Component {
 
         this.setState({"filteredMods" : arr, "selectedTags": nextSelectedTags, "keywordColorMap" : newKeywordColorMap});
     }
+
 
 
     onTabChange(key, type) {
