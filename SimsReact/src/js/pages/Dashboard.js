@@ -8,7 +8,8 @@ import eventProxy from 'react-eventproxy';
 import moment from 'moment';
 import numeral from 'numeral';
 
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Layout  } from 'antd';
+const { Header } = Layout;
 
 import KeywordCard from '../components/KeywordCard'
 import LineChartWithTimeRange from '../components/LineChartWithTimeRange'

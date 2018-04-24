@@ -76,7 +76,7 @@ export default class LineChartWithTimeRange extends React.Component {
                     <XAxis dataKey="time"/>
                     <Tooltip cursor={false}/>
                     <ReferenceLine y={0} stroke='#000'/>
-                    <Bar dataKey= "number of mods" fill="#8884d8" maxBarSize={30} />
+                    <Bar dataKey= "number of mods" fill="#676979" maxBarSize={30} />
                 </BarChart>
             </div>
         }

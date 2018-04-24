@@ -31,14 +31,29 @@
       <file leaf-file-name="Dashboard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/pages/Dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2074">
-              <caret line="256" column="61" lean-forward="true" selection-start-line="256" selection-start-column="61" selection-end-line="256" selection-end-column="61" />
-              <folding />
+            <state relative-caret-position="120">
+              <caret line="10" column="25" lean-forward="false" selection-start-line="10" selection-start-column="25" selection-end-line="11" selection-end-column="26" />
+              <folding>
+                <element signature="e#308#359#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LineChartWithTimeRange.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HomePage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/js/pages/HomePage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="27" column="34" lean-forward="true" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+              <folding>
+                <element signature="e#41#67#0" expanded="true" />
+                <element signature="e#308#343#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LineChartWithTimeRange.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="400">
@@ -72,10 +87,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomePage.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HomePage.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/styles/HomePage.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
+            <state relative-caret-position="335">
               <caret line="254" column="22" lean-forward="true" selection-start-line="254" selection-start-column="22" selection-end-line="254" selection-end-column="22" />
               <folding />
             </state>
@@ -99,19 +114,6 @@
               <caret line="173" column="9" lean-forward="false" selection-start-line="173" selection-start-column="9" selection-end-line="173" selection-end-column="9" />
               <folding>
                 <element signature="e#83#109#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KeywordCard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/js/components/KeywordCard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="194" column="40" lean-forward="true" selection-start-line="194" selection-start-column="40" selection-end-line="194" selection-end-column="40" />
-              <folding>
-                <element signature="e#40#66#0" expanded="true" />
-                <element signature="e#309#366#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -205,7 +207,6 @@
         <option value="$PROJECT_DIR$/src/js/components/BarChartPopularMods.js" />
         <option value="$PROJECT_DIR$/src/js/components/ModBar.js" />
         <option value="$PROJECT_DIR$/src/js/components/KeywordPieChart.js" />
-        <option value="$PROJECT_DIR$/src/js/pages/HomePage.js" />
         <option value="$PROJECT_DIR$/src/js/components/KeywordCircleOnPanel.js" />
         <option value="$PROJECT_DIR$/src/js/components/CreatorsPanel.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBarRow.js" />
@@ -221,17 +222,18 @@
         <option value="$PROJECT_DIR$/src/js/components/ModCard.js" />
         <option value="$PROJECT_DIR$/src/js/components/SingleModInfo.js" />
         <option value="$PROJECT_DIR$/src/js/components/TimeSeriesData.js" />
-        <option value="$PROJECT_DIR$/src/styles/HomePage.css" />
         <option value="$PROJECT_DIR$/src/js/components/KeywordCardPanel.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBoxKeyword.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBarRowKeyword.js" />
-        <option value="$PROJECT_DIR$/src/js/pages/Dashboard.js" />
         <option value="$PROJECT_DIR$/src/js/components/CreatorCard.js" />
         <option value="$PROJECT_DIR$/src/js/components/KeywordCard.js" />
         <option value="$PROJECT_DIR$/src/js/components/SearchBarRowCreator.js" />
         <option value="$PROJECT_DIR$/src/js/components/ViewsModBar.js" />
         <option value="$PROJECT_DIR$/src/js/components/DownloadModBar.js" />
         <option value="$PROJECT_DIR$/src/js/components/LineChartWithTimeRange.js" />
+        <option value="$PROJECT_DIR$/src/js/pages/Dashboard.js" />
+        <option value="$PROJECT_DIR$/src/js/pages/HomePage.js" />
+        <option value="$PROJECT_DIR$/src/styles/HomePage.css" />
       </list>
     </option>
   </component>
@@ -571,12 +573,12 @@
       <workItem from="1524287665111" duration="3969000" />
       <workItem from="1524341851362" duration="21822000" />
       <workItem from="1524421326308" duration="10833000" />
-      <workItem from="1524515815616" duration="13066000" />
+      <workItem from="1524515815616" duration="14085000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="286308000" />
+    <option name="totallyTimeSpent" value="287327000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -769,13 +771,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/pages/HomePage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dist/bundle.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -911,22 +906,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/pages/Dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2074">
-          <caret line="256" column="61" lean-forward="true" selection-start-line="256" selection-start-column="61" selection-end-line="256" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/styles/HomePage.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="254" column="22" lean-forward="true" selection-start-line="254" selection-start-column="22" selection-end-line="254" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/components/KeywordCard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -999,6 +978,35 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
           <caret line="81" column="9" lean-forward="true" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/pages/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="25" lean-forward="false" selection-start-line="10" selection-start-column="25" selection-end-line="11" selection-end-column="26" />
+          <folding>
+            <element signature="e#308#359#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/pages/HomePage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="27" column="34" lean-forward="true" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+          <folding>
+            <element signature="e#41#67#0" expanded="true" />
+            <element signature="e#308#343#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/styles/HomePage.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="254" column="22" lean-forward="true" selection-start-line="254" selection-start-column="22" selection-end-line="254" selection-end-column="22" />
           <folding />
         </state>
       </provider>
