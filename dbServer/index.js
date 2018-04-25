@@ -532,7 +532,6 @@ app.post('/getKeyWordWithThreshold', (req, res, next) => {
     Keyword.find(query).sort({ 'value.count' : -1}).limit(50).exec((err, docs) => {
 
         let ret = [];
-        console.log(docs.length);
         async.each(docs, (keyword, cb) => {
             // find mods count within time range
             let cnt_query = {};

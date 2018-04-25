@@ -214,6 +214,15 @@ a {
     min-height: 500px;
 }
 
+.custom-dot-badge {
+    margin-right: 2px !important;
+}
+
+.ant-list-item-meta-title {
+    a {
+        color: rgba(0, 0, 0, 0.65);
+    }
+}
 /* custom list styles */
 
 .custom-list-item {
@@ -348,3 +357,5 @@ a {
     font-family: Avenir-Book;
     font-weight: 300;
 }
+
+

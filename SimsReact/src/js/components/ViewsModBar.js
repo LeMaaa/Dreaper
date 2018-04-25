@@ -18,6 +18,7 @@ class ViewsModBar extends React.Component{
         this.state = {
         }
         this.showModDetail = this.showModDetail.bind(this);
+        this.renderTitleWithBadges = this.renderTitleWithBadges.bind(this);
     }
 
     showModDetail(item){
@@ -25,6 +26,26 @@ class ViewsModBar extends React.Component{
         console.log(item);
         eventProxy.trigger("ChangeMod", item)
 
+    }
+
+    renderTitleWithBadges(item, keywordPieRanking) {
+
+        const badges = (keywordPieRanking !== null && keywordPieRanking !== undefined) ? keywordPieRanking.map((entry, i) => { if (item.keywords.hasOwnProperty(entry.keyword)) {
+                                return (<span className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper"> 
+                                    <span className="ant-badge-status-dot ant-badge-status-default" style={{backgroundColor: entry.color}}> </span>
+                                    </span>)
+                                } else {
+                                    if (i === keywordPieRanking.length-1) {
+                                        return (<span className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper"> 
+                                            <span className="ant-badge-status-dot ant-badge-status-default" style={{backgroundColor: entry.color}}> </span>
+                                            </span>)
+                                    }
+                                }
+                            }) : null;
+        return (<div>
+                 <a> {item.title} </a>
+                {badges}
+            </div>)
     }
 
     assignColor(item) {
@@ -51,7 +72,7 @@ class ViewsModBar extends React.Component{
                     <List.Item actions={[<p></p>]} onClick={(e) => this.showModDetail(item)}>
                         <List.Item.Meta
                             avatar={<Avatar style={{ backgroundColor: that.assignColor(item) }}> {index + 1}  </Avatar>}
-                            title={<a>{item.title}</a>}
+                            title={this.renderTitleWithBadges(item, this.props.keywordPieRanking)}
                             description = {<Progress percent={item.views / this.props.totalViews * 100} format={() => numeral(item.views).format('0,0')} />}
                         />
                     </List.Item>
