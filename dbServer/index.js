@@ -409,7 +409,6 @@ app.post('/getModByName', (req, res, next) => {
 
 // only used to search 50+ keyword in a timerange
 app.get('/getMatchingKeyword', (req, res, next) => {
-    console.log("getKeyWordWithThreshold _ called");
 
     let startTime = "";
     let endTime = "";
@@ -567,11 +566,11 @@ app.post('/getKeyWordWithThreshold', (req, res, next) => {
             let last_value = -1;
             let rank = 0;
 
-            ret = ret.slice(0, 50).map((entry) => {
+            ret = ret.slice(0, 50).map((entry, index) => {
                 if (last_value === -1) {
                     last_value = entry.value;
                 } else if (entry.value < last_value) {
-                    rank++;
+                    rank = index;
                     last_value = entry.value;
                 }
 
@@ -579,9 +578,7 @@ app.post('/getKeyWordWithThreshold', (req, res, next) => {
                 return entry;
             })
 
-            // console.log(done);
-            // console.log(ret);
-            console.log("returning keywords with range");
+            console.log("returning keywords within range");
             res.json(ret);
 
         });

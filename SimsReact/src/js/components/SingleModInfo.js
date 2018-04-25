@@ -101,7 +101,7 @@ class SingleModInfo extends React.Component {
         return (
             <div>
                 {
-                    currentMod === null ?  <div> Sorry :( Mod is unavailable</div> :
+                    (currentMod === null || currentMod === undefined) ?  <div> Sorry :( Mod is unavailable</div> :
                     <Card bordered={false} style={{width: '100%'}} title = {null}>
 
                         <Row>
