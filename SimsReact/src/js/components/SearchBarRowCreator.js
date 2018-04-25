@@ -326,7 +326,7 @@ export default class SearchBarRowCreator extends React.Component {
                                             {this.state.keywordPieRanking.map((tag, index) => (
                                                 <Row  key={tag.keyword}>
                                                     <Avatar style={{color : COLORS[index % COLORS.length], backgroundColor : "#fff"}}>
-                                                        {numeral(tag.downloads / that.state.pieChartDownloads).format('0.00%')}  </Avatar>
+                                                        {numeral(tag.count /  that.state.totalModsCount).format('0.00%')}  </Avatar>
                                                     <CheckableTag
                                                         style = {{backgroundColor :
                                                             this.state.selectedTags.indexOf(tag.keyword) > -1 ? COLORS[index % COLORS.length] :  "#fff"}}

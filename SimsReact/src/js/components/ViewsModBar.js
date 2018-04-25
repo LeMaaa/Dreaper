@@ -35,7 +35,7 @@ class ViewsModBar extends React.Component{
                                     <span className="ant-badge-status-dot ant-badge-status-default" style={{backgroundColor: entry.color}}> </span>
                                     </span>)
                                 } else {
-                                    if (i === keywordPieRanking.length-1) {
+                                    if (i === keywordPieRanking.length - 1 && keywordPieRanking[i].keyword === "other") {
                                         return (<span className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper"> 
                                             <span className="ant-badge-status-dot ant-badge-status-default" style={{backgroundColor: entry.color}}> </span>
                                             </span>)
