@@ -101,7 +101,7 @@ class SingleModPopUp extends React.Component {
         return (
             <div>
                 {
-                    currentMod === null ? <div> Sorry :( Mod is unavailable</div> :
+                    (currentMod === null || currentMod === undefined) ? <div> Sorry :( Mod is unavailable</div> :
                     <Card title={currentMod.title + "(" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}
                           style={{width: '100%'}} bordered={false}>
                         <Row>  <span className="mod-field">Link: </span><a href={currentMod.url}> {currentMod.url} </a></Row>
