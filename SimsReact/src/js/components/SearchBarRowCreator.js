@@ -167,7 +167,7 @@ export default class SearchBarRowCreator extends React.Component {
                 keyword: "other",
                 downloads: otherDownloads,
                 views: otherViews,
-                count: total_mod_count - Object.keys(matched_mods).length,
+                count: total_mod_count,
                 color : COLORS[cont % COLORS.length]
             });
             selectedTags.push("other");
