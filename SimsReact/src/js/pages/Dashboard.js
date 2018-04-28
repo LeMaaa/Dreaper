@@ -8,6 +8,7 @@ import eventProxy from 'react-eventproxy';
 import moment from 'moment';
 import numeral from 'numeral';
 
+
 import { Row, Col, Card, Layout  } from 'antd';
 const { Header } = Layout;
 
@@ -30,6 +31,9 @@ const Option = Select.Option;
 
 const dateFormat = 'MM/DD/YYYY';
 const monthFormat = 'YYYY/MM';
+
+const today = moment().format(dateFormat);
+const todayString = today.toString();
 
 
 class Dashboard extends React.Component{
@@ -200,7 +204,6 @@ class Dashboard extends React.Component{
         var currentPanel;
         var currentTitle;
         var currentSearchBox;
-        var today = moment().format(dateFormat);
         if(this.state.currentView === "Keywords") {
             if(this.state.keywords === null || this.state.length === 0) {
                 currentPanel = <div>Sorry :( No Data Available.</div>
@@ -252,6 +255,7 @@ class Dashboard extends React.Component{
                                 this.state.currentView !== "Creators" ?
                                     <RangePicker
                                         defaultValue={[moment('01/01/2014', dateFormat), moment(today)]}
+                                        placeholder={['01/01/2014', todayString]}
                                         disabledDate={this.disabledDate}
                                         size = "large"
                                         onChange = {this.onChange}

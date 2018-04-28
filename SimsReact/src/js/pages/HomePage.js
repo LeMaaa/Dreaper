@@ -27,7 +27,7 @@ export default class HomePage extends React.Component {
             <Router>
             <div className='root'>
                 <Layout>
-                    <Header className="header">Dreaper the Sims4 Magic Tool</Header>
+                    <Header className="header">Dreaper: Data Visualization of Game Mods on MTS</Header>
                     <div className="content-container">
                         <Dashboard/>
                     </div>
