@@ -107,7 +107,7 @@ class SingleModInfo extends React.Component {
                         <Row>
                             <h3> {currentMod.title + " (" + moment(currentMod.publish_date).format("MMM Do YY") + ")"}</h3>
                         </Row>
-                        <Row>  <span className="mod-field">Link: </span><a href={currentMod.url}> {currentMod.url} </a></Row>
+                        <Row>  <span className="mod-field">Link: </span><a href={currentMod.url} target="_blank"> {currentMod.url} </a></Row>
                         <Row>
                             <Col span={8} >
                                 <span className="mod-field">Download:</span> <span className="mod-value"> {numeral(currentMod.downloads).format('0,0')} </span>
@@ -128,7 +128,7 @@ class SingleModInfo extends React.Component {
                             <Col span={8} >
                                 <span className="mod-field">Thanks: </span> <span className="mod-value"> {numeral(currentMod.thanks).format('0,0')} </span> </Col>
                             <Col span={8}>
-                                <span className="mod-field">Creator : </span> <a href={"http://modthesims.info" + currentMod.artist_url}>  <span className="mod-value"> {currentMod.artist} </span>
+                                <span className="mod-field">Creator : </span> <a href={"http://modthesims.info" + currentMod.artist_url} target="_blank">  <span className="mod-value"> {currentMod.artist} </span>
                                 </a>
                             </Col>
                         </Row>
