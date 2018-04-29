@@ -120,10 +120,19 @@ class Dashboard extends React.Component{
                 console.log("received top mods");
                 console.log(res.data);
                 this.setState({ 'topMods' : res.data.slice(0,8)});
-                this.setState({'topModsSearchBox' : res.data.slice(8,50)});
+                // this.setState({'topModsSearchBox' : res.data.slice(8,50)});
             });
     }
 
+    queryHotestMods() {
+        console.log("Query Hottest Mods");
+        axios.get('http://localhost:3000/trendingModsOfLastWeek')
+            .then(res => {
+                console.log("received hottest mods");
+                console.log(res.data);
+                this.setState({ 'topModsSearchBox' : res.data});
+            });
+    }
 
     onHandleChange(value) {
         if(value === "Creators") {
@@ -143,6 +152,7 @@ class Dashboard extends React.Component{
         this.queryKeyWords(this.state.startTime, this.state.endTime);
         this.queryCreators();
         this.queryTopMods(this.state.startTime, this.state.endTime);
+        this.queryHotestMods();
     }
 
     onChange(date, dateString){
@@ -280,7 +290,7 @@ class Dashboard extends React.Component{
                         </Col>
                         <Col span = {1}></Col>
                         <Col span = {5}>
-                            <Card className="search-card">
+                            <Card className="search-card" title = {this.state.currentView === "topMods" ? "What're Hot in Last 7 Days" : null}>
                                 {this.state.currentView === "Keywords" ?
                                     <Search
                                     placeholder="Search Keyword"

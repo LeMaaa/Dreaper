@@ -33,10 +33,10 @@ class SingleModPopUp extends React.Component {
             return timestamp1 - timestamp2;
         }
 
-        let time_data = mod.time_series_data.sort(sort_by_date);
-
-        if (time_data === null || time_data === undefined || time_data.length <= 0)
+        if (mod.time_series_data === null || mod.time_series_data === undefined || mod.time_series_data <= 0)
             return (<p> Sorry, this mod does not contain time series data </p>);
+
+        let time_data = mod.time_series_data.sort(sort_by_date);
 
         let final_time_data = [];
 
@@ -132,12 +132,12 @@ class SingleModPopUp extends React.Component {
                         <Row>
                             <span className="mod-field">Keywords :</span> {currentMod.keywords === null || currentMod.keywords === undefined  ? "None" :
                                 Object.keys(currentMod.keywords).map((key, index) => {
-                                    if(index <= 9) return index === 9 || index === Object.keys(currentMod.keywords).length-1 ? (<span className="mod-value"> {key} </span>) : (<span className="mod-value"> {key + ", "} </span>);
+                                    if(index <= 9) return index === 9 || index === Object.keys(currentMod.keywords).length-1 ? (<span className="mod-value" key = {key}> {key} </span>) : (<span className="mod-value" key = {key}> {key + ", "} </span>);
                                 })
                             }
                         </Row>
                         <Row>  <span className="mod-field">Pack Required :</span> {currentMod.pack_requirement === undefined || currentMod.pack_requirement === null ? "None" : currentMod.pack_requirement.map((pack, idx) => {
-                            return idx === currentMod.pack_requirement.length-1 ? (<span className="mod-value"> {pack} </span>) : (<span className="mod-value"> {pack + ", "} </span>);
+                            return idx === currentMod.pack_requirement.length-1 ? (<span className="mod-value" key = {pack}> {pack} </span>) : (<span className="mod-value" key = {pack}> {pack + ", "} </span>);
                         })} </Row>
                         <Row>
                             <Col span = {4}>
@@ -154,8 +154,8 @@ class SingleModPopUp extends React.Component {
                                 </TabPane>
                                 <TabPane tab="Comments" key="Comments">
                                     <div className="scroll-text mod-value">
-                                        {currentMod.comments === null || currentMod.comments.length === 0 ? "No Data Available :(" :currentMod.comments.map(comment => {
-                                            return <div> comment
+                                        {currentMod.comments === null || currentMod.comments === undefined || currentMod.comments.length === 0 ? "No Data Available :(" :currentMod.comments.map((comment, index) => {
+                                            return <div key = {index + "comment"}> comment
                                                 <Divider />
                                             </div>
                                         })}
@@ -164,7 +164,7 @@ class SingleModPopUp extends React.Component {
                                 <TabPane tab="Tag & Type" key="Tag&Type">
                                     <div className="scroll-text mod-value">
                                         <span style={{fontWeight : "bold"}}>Type :</span>
-                                        {currentMod.types === null || currentMod.types.length === 0 ? "No Data Available :(" :
+                                        {currentMod.types === null || currentMod.types === undefined || currentMod.types.length === 0 ? "No Data Available :(" :
                                             currentMod.types.map((type, index) => {
                                             if(index < currentMod.types.length - 1) {
                                                 return type + ", ";
@@ -173,7 +173,7 @@ class SingleModPopUp extends React.Component {
                                             }
                                     })} <br/>
                                         <span style={{fontWeight : "bold"}}>Tags :</span>
-                                            {currentMod.tags === null || currentMod.tags.length === 0  ? "No Data Available :(" :currentMod.tags.map((tag, index) => {
+                                            {currentMod.tags === null || currentMod.tags === undefined || currentMod.tags.length === 0  ? "No Data Available :(" :currentMod.tags.map((tag, index) => {
                                                 if(index < currentMod.tags.length - 1) {
                                                     return tag + ", ";
                                                 }else {

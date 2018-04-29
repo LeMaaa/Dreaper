@@ -30,6 +30,7 @@ export default class SearchBarRowTopMod extends React.Component {
         super(props)
         this.state = {
             visible : false,
+            modEntry : {}
         }
         this.show = this.show.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -55,6 +56,17 @@ export default class SearchBarRowTopMod extends React.Component {
         console.log("add creator")
         console.log(val);
         e.preventDefault();
+
+        axios.post('http://localhost:3000/getHotModByName', {
+            modName:  this.props.entry._id,
+        })
+            .then(res => {
+                console.log("received data for hot mod");
+                // console.log(res.data);
+                this.setState({ 'modEntry' : res.data})
+            });
+
+
         this.setState({
             'visible': true,
         });
@@ -65,11 +77,11 @@ export default class SearchBarRowTopMod extends React.Component {
         return (
             <div>
                 {/*<Button type="dashed" onClick = {this.addCreator}>{this.props.entry._id}</Button>*/}
-                <List.Item className="custom-list-item mod-list-item" onClick = {(e) => this.show(e,this.props.index)}>
+                <List.Item className="custom-list-item mod-list-item" onClick = {(e) => this.show(e, this.props.index)}>
                              <List.Item.Meta
-                           avatar={ <Avatar className="custom-avatar" > {this.props.entry.rank} </Avatar> }
-                           title={this.props.entry['title']}
-                           description= {"Downloads: " + numeral(this.props.entry['downloads']).format('0,0')}
+                           avatar={ <Avatar className="custom-avatar" > {this.props.index} </Avatar> }
+                           title={this.props.entry['_id']}
+                           // description= {"Downloads: " + numeral(this.props.entry['total']).format('0,0')}
                          />
                 </List.Item>
                 <Modal
@@ -80,7 +92,7 @@ export default class SearchBarRowTopMod extends React.Component {
                     onCancel={this.handleCancel}
                 >
                     <Row>
-                        <SingleModPopUp currentMod = {this.props.entry}/>
+                        <SingleModPopUp currentMod = {this.state.modEntry}/>
                     </Row>
 
                 </Modal>

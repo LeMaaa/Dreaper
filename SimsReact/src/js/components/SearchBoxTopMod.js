@@ -58,8 +58,8 @@ export default class SearchBoxTopMod extends React.Component {
     }
 
     renderTopModsList(entries) {
-        return entries.map( entry =>
-             <SearchBarRowTopMod key = {entry.title} index = {entry.rank} entry = {entry}/>
+        return entries.map( (entry, index) =>
+             <SearchBarRowTopMod key = {entry._id} index = {index + 1} entry = {entry}/>
         );
 
         // return (<List
