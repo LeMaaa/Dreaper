@@ -119,7 +119,7 @@ class Dashboard extends React.Component{
             .then(res => {
                 console.log("received top mods");
                 console.log(res.data);
-                this.setState({ 'topMods' : res.data.slice(0,8)});
+                this.setState({ 'topMods' : res.data.slice(0,32)});
                 // this.setState({'topModsSearchBox' : res.data.slice(8,50)});
             });
     }

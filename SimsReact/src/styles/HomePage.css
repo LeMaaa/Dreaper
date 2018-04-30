@@ -357,8 +357,13 @@ a {
 }
 
 .mod-value {
-    font-family: Avenir-Book;
-    font-weight: 300;
+     font-family: Avenir-Book;
+     font-weight: 300;
+ }
+
+.scroll-mod-panel {
+    overflow: auto;
+    height: 540px;
 }
 
 
