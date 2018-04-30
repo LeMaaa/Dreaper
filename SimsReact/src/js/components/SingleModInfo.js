@@ -135,12 +135,12 @@ class SingleModInfo extends React.Component {
                         <Row>
                             <span className="mod-field">Keywords :</span> {currentMod.keywords === null || currentMod.keywords === undefined  ? "None" :
                                 Object.keys(currentMod.keywords).map((key, index) => {
-                                    if(index <= 9) return index === 9 || index === Object.keys(currentMod.keywords).length-1 ? (<span className="mod-value"> {key} </span>) : (<span className="mod-value"> {key + ", "} </span>);
+                                    if(index <= 9) return index === 9 || index === Object.keys(currentMod.keywords).length-1 ? (<span key = {"keywordsInSingleModInfo" + index} className="mod-value"> {key} </span>) : (<span key = {"keywordsInSingleModInfo" + index} className="mod-value"> {key + ", "} </span>);
                                 })
                             }
                         </Row>
                         <Row>  <span className="mod-field">Pack Required :</span> {currentMod.pack_requirement === undefined || currentMod.pack_requirement === null ? "None" : currentMod.pack_requirement.map((pack, idx) => {
-                            return idx === currentMod.pack_requirement.length-1 ? (<span className="mod-value"> {pack} </span>) : (<span className="mod-value"> {pack + ", "} </span>);
+                            return idx === currentMod.pack_requirement.length-1 ? (<span key = {"keyModValue" + idx} className="mod-value"> {pack} </span>) : (<span key = {"keyModValue" + idx} className="mod-value"> {pack + ", "} </span>);
                         })} </Row>
                         <Row> <span className="mod-field">Life Cycle : </span></Row>
                         <Row>
@@ -155,8 +155,8 @@ class SingleModInfo extends React.Component {
                                 </TabPane>
                                 <TabPane tab="Comments" key="Comments">
                                     <div className="scroll-text mod-value">
-                                        {currentMod.comments === null || currentMod.comments === undefined ? "No Data Available :(" :currentMod.comments.map(comment => {
-                                            return <div> comment
+                                        {currentMod.comments === null || currentMod.comments === undefined ? "No Data Available :(" :currentMod.comments.map((comment, index) => {
+                                            return <div key = {"comments" + index}> {comment}
                                                 <Divider />
                                             </div>
                                         })}

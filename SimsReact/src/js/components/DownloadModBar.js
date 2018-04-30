@@ -32,14 +32,14 @@ class DownloadModBar extends React.Component{
     renderTitleWithBadges(item, keywordPieRanking) {
 
         const badges = (keywordPieRanking !== null && keywordPieRanking !== undefined) ? keywordPieRanking.map((entry, i) => { if (item.keywords.hasOwnProperty(entry.keyword)) {
-                                return (<span className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper"> 
+                                return (<span key = {"keyword" + i} className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper">
                                     <span className="ant-badge-status-dot ant-badge-status-default" style={{backgroundColor: entry.color}}> </span>
                                     </span>)
                                 } else {
                                     // doesn't have matching keyword
                                     // and the last one is other
                                     if (i === keywordPieRanking.length - 1 && keywordPieRanking[i].keyword === "other") {
-                                        return (<span className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper"> 
+                                        return (<span key = {"keywordOther" + i} className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper">
                                             <span className="ant-badge-status-dot ant-badge-status-default" style={{backgroundColor: entry.color}}> </span>
                                             </span>)
                                     }
