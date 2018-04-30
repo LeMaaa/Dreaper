@@ -71,7 +71,8 @@ class ViewsModBar extends React.Component{
                 renderItem = {(item, index) => (
                     <List.Item actions={[<p></p>]} onClick={(e) => this.showModDetail(item)}>
                         <List.Item.Meta
-                            //avatar={<Avatar style={{ backgroundColor: that.assignColor(item) }}> {index + 1}  </Avatar>}
+                           // avatar={<Avatar style={{ backgroundColor: that.assignColor(item) }}> {index + 1}  </Avatar>}
+                            avatar={<Avatar> {index + 1}  </Avatar>}
                             title={this.renderTitleWithBadges(item, this.props.keywordPieRanking)}
                             description = {<Progress percent={item.views / this.props.totalViews * 100} format={() => numeral(item.views).format('0,0')} />}
                         />
