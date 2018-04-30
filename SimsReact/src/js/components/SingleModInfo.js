@@ -90,8 +90,7 @@ class SingleModInfo extends React.Component {
     }
 
     changeTab(key) {
-        console.log("change key!");
-        console.log(key);
+
     }
 
     render() {

@@ -51,7 +51,6 @@ export default class KeywordDatePicker extends React.Component {
     }
 
     changeKeyWordMod(entry){
-        console.log(entry);
         eventProxy.trigger('changeKeyWordMod', entry);
     }
 
@@ -65,7 +64,6 @@ export default class KeywordDatePicker extends React.Component {
 
         })
             .then((result) => {
-                console.log(result);
                 this.changeKeyWordMod(result.data);
             });
     }
