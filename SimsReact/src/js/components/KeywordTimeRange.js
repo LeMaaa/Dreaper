@@ -43,7 +43,6 @@ export default class KeywordTimeRange extends React.Component {
     }
 
     changeKeyWordMod(entry){
-        console.log(entry);
         eventProxy.trigger('changeKeyWordMod', entry);
     }
 
@@ -57,7 +56,6 @@ export default class KeywordTimeRange extends React.Component {
 
         })
             .then((result) => {
-                console.log(result);
                 this.changeKeyWordMod(result.data);
             });
     }

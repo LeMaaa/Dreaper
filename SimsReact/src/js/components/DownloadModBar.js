@@ -24,8 +24,6 @@ class DownloadModBar extends React.Component{
     }
 
     showModDetail(item){
-        console.log("mod detail for Downloads");
-        console.log(item);
         eventProxy.trigger("ChangeMod", item);
     }
 

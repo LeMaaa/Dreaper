@@ -79,13 +79,8 @@ export default class SearchBarRowKeyword extends React.Component {
             keyword : this.props.entry._id,
         })
             .then(res => {
-                console.log("received data from search bar");
-                // console.log(res.data);
-                console.log(res.data)
 
                 this.setState({"currentMod" : res.data.mods.sort(function(a, b){return b.downloads - a.downloads})[0]});
-
-
                 this.setState({"mods" : res.data.mods, "totalViews" : res.data.totalViews,
                     "totalDownloads" : res.data.totalDownloads, 'totalNumOfCurrentKeyword': res.data.totalNumOfCurrentKeyword,
                     'item' : [{
@@ -98,13 +93,11 @@ export default class SearchBarRowKeyword extends React.Component {
     }
 
     renderDownloadModList() {
-        console.log("downlodas")
         this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {this.state.mods} totalDownloads = {this.state.totalDownloads}/>
     }
 
 
     renderViewsModList() {
-        console.log("views");
         this.state.contentListNoTitle["Views"] = <ViewsModBar mods = {this.state.mods} totalViews = {this.state.totalViews}/>
     }
 

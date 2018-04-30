@@ -77,16 +77,13 @@ export default class SearchBarRowCreator extends React.Component {
             modName : this.props.creatorEntry.value.mods
         })
             .then(res => {
-                console.log("received data for by name");
-                // console.log(res.data);
-                console.log(res.data)
+
                 this.setState({
                     'currentMod' : res.data.sort(function(a, b){return b.downloads - a.downloads})[0],
                     'mods' : res.data,
                     'filteredMods': res.data,
                     'totalModForCurrentCreator': res.data.length
                 })
-                console.log("query mods with time range")
             });
     }
 
@@ -110,14 +107,12 @@ export default class SearchBarRowCreator extends React.Component {
     }
 
     handleOk(e) {
-        console.log(e);
         this.setState({
             visible: false,
         });
     }
 
     handleCancel(e) {
-        console.log(e);
         this.setState({
             visible: false,
             totalDownloads : 0,
@@ -185,21 +180,16 @@ export default class SearchBarRowCreator extends React.Component {
     }
 
 
-
-
     filterKeyword(item, nextSelectedTags) {
-        console.log("item", item, nextSelectedTags)
         if(nextSelectedTags === null || nextSelectedTags === 0) return false;
         let isOther = false;
         for(let i = 0; i < nextSelectedTags.length; i++) {
-            console.log("tag", i, nextSelectedTags[i]);
             if(item.keywords === undefined || item.keywords === null) return false;
             if(nextSelectedTags[i] === "other") {
                 isOther = true;
                 continue;
             }
             if(nextSelectedTags[i] in item.keywords) {
-                console.log("ssss[i])", item.keywords.hasOwnProperty(nextSelectedTags[i]))
                 return true;
             }
         }
@@ -210,9 +200,7 @@ export default class SearchBarRowCreator extends React.Component {
     handleChange(tag, checked) {
         const { selectedTags, keywordColorMap, keywordPieRanking } = this.state;
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
-        console.log('You are interested in: ', nextSelectedTags);
         const matchedKeyword = keywordPieRanking.find((entry) => { return entry.keyword === tag });
-        console.log(matchedKeyword);
 
         // need to maintain the ordering for the former four based on downloads
         let newKeywordColorMap = [];

@@ -64,14 +64,10 @@ class Dashboard extends React.Component{
     componentDidMount() {
 
         eventProxy.on("addKeyword", (entry) => {
-            console.log("I am the added keyword");
-            console.log(entry);
             this.setState({"keywords" : this.state.keywords.concat(entry)});
         });
 
         eventProxy.on("addCreator", (entry) => {
-            console.log("I am the added creator");
-            console.log(entry);
             this.setState({"creators" : this.state.creators.concat(entry)});
         });
 
@@ -87,8 +83,6 @@ class Dashboard extends React.Component{
             endTime: (endTime === null || endTime.length === 0) ? "2020/12/30" : endTime,
         })
             .then(res => {
-                console.log("received data for query keywords");
-                console.log(res.data);
                 this.setState({ 'keywords' : res.data.slice(0,8)});
                 this.setState({'keywordsForSearchBox' : res.data.slice(8,50)});
                 this.setState({"keywordsForSearchBox_Search":res.data.slice(8,50)});
@@ -100,49 +94,38 @@ class Dashboard extends React.Component{
     queryCreators() {
         axios.post('http://localhost:3000/getCreators')
             .then(res => {
-                console.log("received data");
-                console.log(res.data);
                 this.setState({ 'creators' : res.data.slice(0,8)});
                 this.setState({'creatorsForSearchBox' : res.data.slice(8,50)});
-                // this.setState({"currentView" : <KeywordCardPanel keywords = {this.state.keywords}
-                //                                                  startTime = {this.state.startTime} endTime = {this.state.endTime} /> });
             });
     }
 
     queryTopMods(startTime, endTime) {
-        console.log("Top mods panel");
-        console.log(this.props.topMods);
         axios.post('http://localhost:3000/topModsWithDownloads', {
             startTime : (startTime === null || startTime.length === 0) ?  "1994/03/01" : startTime,
             endTime : (endTime === null || endTime.length === 0) ? "2020/12/30" : endTime,
         })
             .then(res => {
-                console.log("received top mods");
-                console.log(res.data);
                 this.setState({ 'topMods' : res.data.slice(0,32)});
                 // this.setState({'topModsSearchBox' : res.data.slice(8,50)});
             });
     }
 
     queryHotestMods() {
-        console.log("Query Hottest Mods");
         axios.get('http://localhost:3000/trendingModsOfLastWeek')
             .then(res => {
-                console.log("received hottest mods");
-                console.log(res.data);
                 this.setState({ 'topModsSearchBox' : res.data});
             });
     }
 
     onHandleChange(value) {
         if(value === "Creators") {
-            console.log("change to creator",value);
+
             this.setState( { "currentView": "Creators"});
         } else if(value === "Keywords") {
-            console.log("chnage to keywords", value);
+
             this.setState({"currentView" : "Keywords" });
         } else if(value === "topMods") {
-            console.log("change to topmods", value);
+
             this.setState( { "currentView": "topMods"});
         }
 
@@ -156,23 +139,16 @@ class Dashboard extends React.Component{
     }
 
     onChange(date, dateString){
-        console.log("Trigger eventProxy to Change TimeRange");
-        console.log(dateString[0]);
-        console.log(dateString[1]);
         this.setState({
             'startTime' : dateString[0],
             'endTime' : dateString[1],
         });
-
-
 
         this.queryTopMods(dateString[0], dateString[1]);
         this.queryKeyWords(dateString[0], dateString[1]);
     }
 
     searchKeyword(value) {
-        console.log("search keyword");
-        console.log(value);
         var initialKeywords = this.state.keywordsForSearchBox;
         if (value === "") {
             this.setState({"searched": false});
@@ -183,8 +159,6 @@ class Dashboard extends React.Component{
         initialKeywords = initialKeywords.filter((keyword) => {
             return keyword._id.search(value) !== -1;
         });
-        console.log("initialKeywords");
-        console.log(initialKeywords);
 
         // cannot find match in current list, ask server
         const endTime = this.state.endTime;

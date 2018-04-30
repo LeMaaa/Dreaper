@@ -22,8 +22,6 @@ class ViewsModBar extends React.Component{
     }
 
     showModDetail(item){
-        console.log("mod detail");
-        console.log(item);
         eventProxy.trigger("ChangeMod", item)
 
     }
@@ -50,7 +48,6 @@ class ViewsModBar extends React.Component{
 
     assignColor(item) {
         if(this.props.keywordPieRanking === null || this.props.keywordPieRanking === undefined) {
-            console.log("color default")
             return "#50E3C2";
         } else {
             for(let i = 0; i < this.props.keywordPieRanking.length - 1; i++) {

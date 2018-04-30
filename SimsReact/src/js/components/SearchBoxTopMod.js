@@ -29,8 +29,7 @@ export default class SearchBoxTopMod extends React.Component {
     }
 
     showDetails(index) {
-        console.log("click show modal  " );
-        console.log(index);
+
         // this.setState({
         //     visible: true,
         // });

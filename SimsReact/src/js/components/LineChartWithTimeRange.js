@@ -24,18 +24,13 @@ export default class LineChartWithTimeRange extends React.Component {
     }
 
     componentDidMount() {
-        console.log("query for mount")
         this.queryTotalModsWithinTimeRange(this.props.startTime, this.props.endTime)
         this.setState({"startTime" : this.props.startTime, "endTime" : this.props.endTime})
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("next props",  nextProps);
         if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime) return;
         this.setState({"startTime" : nextProps.startTime, "endTime" : nextProps.endTime});
-        console.log("nextprops");
-        console.log(nextProps.startTime);
-        console.log(nextProps.endTime);
         this.queryTotalModsWithinTimeRange(nextProps.startTime, nextProps.endTime)
     }
 
@@ -45,7 +40,6 @@ export default class LineChartWithTimeRange extends React.Component {
             endTime : endTime === null ? "Dec 2020" : endTime,
         })
             .then(res => {
-                console.log("received data for linechart");
                 // this.setState({items:[...this.state.items, res.data]});
                 this.setState({ 'itemsWithRange' : res.data.items.reverse(),
                     'totalNum' : res.data.totalNum, 'startTime' : startTime, 'endTime' : endTime});
