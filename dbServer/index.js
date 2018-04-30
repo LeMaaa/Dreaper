@@ -127,6 +127,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
 
     var startTime;
     var endTime;
+    let dateFormatForTimeRange = "MMM YYYY";
 
     if(req.body.startTime === null || req.body.startTime.length === 0) {
         startTime = new Date("2000/01/01");
@@ -159,8 +160,8 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
         } else {
                 docs.forEach((doc) => {
                     // console.log(doc.time_series_data);
-                    const key = moment(doc.publish_date).format("MMM YYYY");
-                    const keyDay = moment(doc.publish_date).format("MMM Do YYYY");
+                    const key = moment(doc.publish_date).format("MM/YYYY");
+                    const keyDay = moment(doc.publish_date).format("MM/DD/YYYY");
                     data[key] = data[key] === undefined ? 1 : data[key]+1;
                     dataDay[keyDay] = dataDay[keyDay] === undefined ? 1 : dataDay[keyDay]+1;
                 });
@@ -169,6 +170,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
                 var totalNum = 0;
 
                 if(Object.keys(data).length > 10) {
+                    dateFormatForTimeRange = "MMM YYYY";
                     Object.keys(data).forEach(key => {
                         // console.log(key);          // the name of the current key.
                         // console.log(myObj[key]);   // the value of the current key.
@@ -181,6 +183,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
                         r.push(item);
                     });
                 }else {
+                    dateFormatForTimeRange = "MMM Do YYYY";
                     Object.keys(dataDay).forEach(key => {
                         // console.log(key);          // the name of the current key.
                         // console.log(myObj[key]);   // the value of the current key.
@@ -196,7 +199,8 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
 
                 var ret = {
                     items :r,
-                    totalNum : totalNum
+                    totalNum : totalNum,
+                    dateFormatForTimeRange : dateFormatForTimeRange,
                 }
 
                 res.json(ret);
