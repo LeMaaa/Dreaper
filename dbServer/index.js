@@ -135,7 +135,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
 
     var startTime;
     var endTime;
-    let dateFormatForTimeRange = "MMM YYYY";
+    let dateFormatForTimeRange = "month";
 
     if(req.body.startTime === null || req.body.startTime.length === 0) {
         startTime = new Date("2000/01/01");
@@ -161,7 +161,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
     };
 
     Item.find(query).sort({'publish_date' : -1}).exec((err, docs) => {
-        if(err) {
+        if (err) {
             console.log(err);
             res.status(504).send("Oh uh, something went wrong");
             // res.end(err);
@@ -177,8 +177,8 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
                 const r = [];
                 var totalNum = 0;
 
-                if(Object.keys(data).length > 10) {
-                    dateFormatForTimeRange = "MMM YYYY";
+                if (Object.keys(data).length > 10) {
+                    dateFormatForTimeRange = "month";
                     Object.keys(data).forEach(key => {
                         // console.log(key);          // the name of the current key.
                         // console.log(myObj[key]);   // the value of the current key.
@@ -190,8 +190,8 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
 
                         r.push(item);
                     });
-                }else {
-                    dateFormatForTimeRange = "MM/DD/YYYY";
+                } else {
+                    dateFormatForTimeRange = "day";
                     Object.keys(dataDay).forEach(key => {
                         // console.log(key);          // the name of the current key.
                         // console.log(myObj[key]);   // the value of the current key.
