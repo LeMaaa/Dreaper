@@ -83,7 +83,7 @@ class ModCard extends React.Component{
     render () {
         return (
             <div>
-                <Card className="stats-card" onClick={this.showModal} title = {"TOP " + this.props.index }>
+                <Card className="mods-card" onClick={this.showModal} title = {"TOP " + this.props.index }>
 
                     {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
                     {/*<CircleOnPanel index = {this.props.index} name = {this.props.mod.title} />*/}

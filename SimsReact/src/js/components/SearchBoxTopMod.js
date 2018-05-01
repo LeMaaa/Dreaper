@@ -85,7 +85,7 @@ export default class SearchBoxTopMod extends React.Component {
     render() {
         const { entries } = this.props;
         return (
-            <div className="scrollSearch">
+            <div className="scroll-search-mods">
                 <List>
                 {this.renderTopModsList(entries)}
                 </List>

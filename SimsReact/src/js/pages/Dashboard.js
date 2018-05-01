@@ -264,7 +264,7 @@ class Dashboard extends React.Component{
                         </Col>
                         <Col span = {1}></Col>
                         <Col span = {5}>
-                            <Card className="search-card" title = {this.state.currentView === "topMods" ? "What're Hot in Last 7 Days" : null}>
+                            <Card className="search-card" title = {this.state.currentView === "topMods" ? "What's Hot in Last 7 Days" : null}>
                                 {this.state.currentView === "Keywords" ?
                                     <Search
                                     placeholder="Search Keyword"
