@@ -85,7 +85,7 @@ class SingleModInfo extends React.Component {
         }
 
 
-        return <TimeSeriesData itemForTimeSeriesData = {final_time_data} />;
+        return final_time_data.length > 0 ? <TimeSeriesData itemForTimeSeriesData = {final_time_data} /> : "No Data Available :(";
     }
 
     changeTab(key) {
