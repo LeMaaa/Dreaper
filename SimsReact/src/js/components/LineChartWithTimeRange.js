@@ -108,7 +108,7 @@ export default class LineChartWithTimeRange extends React.Component {
                         entry['pack release'] = entry['pack release'] + labelFormatMonth[entry['time']] + "; ";
                     }
 
-                    console.log(entry['pack release']);
+                    // console.log(entry['pack release']);
 
                 }
             } else if (format === "day") {
