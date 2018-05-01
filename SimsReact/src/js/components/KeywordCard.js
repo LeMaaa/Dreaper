@@ -140,7 +140,6 @@ class KeywordCard extends React.Component{
     // }
 
     renderDownloadModList() {
-        console.log("downlodas")
         this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {this.state.mods}
                                                                      keywordPieRanking = {null}
                                                                      totalDownloads = {this.state.totalDownloads}/>

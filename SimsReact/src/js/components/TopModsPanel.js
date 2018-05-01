@@ -32,7 +32,7 @@ export default class TopModsPanel extends React.Component{
 
     render() {
         return(
-            <Row type="flex" justify="start" >
+            <Row type="flex" justify="start"  className= "scroll-mod-panel">
 
                 {
                     this.props.topMods.map((entry, index) => {

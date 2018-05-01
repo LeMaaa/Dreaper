@@ -8,6 +8,7 @@ import eventProxy from 'react-eventproxy';
 import moment from 'moment';
 import numeral from 'numeral';
 
+
 import { Row, Col, Card, Layout  } from 'antd';
 const { Header } = Layout;
 
@@ -30,6 +31,9 @@ const Option = Select.Option;
 
 const dateFormat = 'MM/DD/YYYY';
 const monthFormat = 'YYYY/MM';
+
+const today = moment().format(dateFormat);
+const todayString = today.toString();
 
 
 class Dashboard extends React.Component{
@@ -60,14 +64,10 @@ class Dashboard extends React.Component{
     componentDidMount() {
 
         eventProxy.on("addKeyword", (entry) => {
-            console.log("I am the added keyword");
-            console.log(entry);
             this.setState({"keywords" : this.state.keywords.concat(entry)});
         });
 
         eventProxy.on("addCreator", (entry) => {
-            console.log("I am the added creator");
-            console.log(entry);
             this.setState({"creators" : this.state.creators.concat(entry)});
         });
 
@@ -83,8 +83,6 @@ class Dashboard extends React.Component{
             endTime: (endTime === null || endTime.length === 0) ? "2020/12/30" : endTime,
         })
             .then(res => {
-                console.log("received data for query keywords");
-                console.log(res.data);
                 this.setState({ 'keywords' : res.data.slice(0,8)});
                 this.setState({'keywordsForSearchBox' : res.data.slice(8,50)});
                 this.setState({"keywordsForSearchBox_Search":res.data.slice(8,50)});
@@ -96,12 +94,8 @@ class Dashboard extends React.Component{
     queryCreators() {
         axios.post('http://dreaper.etc.cmu.edu:3000/getCreators')
             .then(res => {
-                console.log("received data");
-                console.log(res.data);
                 this.setState({ 'creators' : res.data.slice(0,8)});
                 this.setState({'creatorsForSearchBox' : res.data.slice(8,50)});
-                // this.setState({"currentView" : <KeywordCardPanel keywords = {this.state.keywords}
-                //                                                  startTime = {this.state.startTime} endTime = {this.state.endTime} /> });
             });
     }
 
@@ -113,23 +107,27 @@ class Dashboard extends React.Component{
             endTime : (endTime === null || endTime.length === 0) ? "2020/12/30" : endTime,
         })
             .then(res => {
-                console.log("received top mods");
-                console.log(res.data);
-                this.setState({ 'topMods' : res.data.slice(0,8)});
-                this.setState({'topModsSearchBox' : res.data.slice(8,50)});
+                this.setState({ 'topMods' : res.data.slice(0,32)});
+                // this.setState({'topModsSearchBox' : res.data.slice(8,50)});
             });
     }
 
+    queryHotestMods() {
+        axios.get('http://localhost:3000/trendingModsOfLastWeek')
+            .then(res => {
+                this.setState({ 'topModsSearchBox' : res.data});
+            });
+    }
 
     onHandleChange(value) {
         if(value === "Creators") {
-            console.log("change to creator",value);
+
             this.setState( { "currentView": "Creators"});
         } else if(value === "Keywords") {
-            console.log("chnage to keywords", value);
+
             this.setState({"currentView" : "Keywords" });
         } else if(value === "topMods") {
-            console.log("change to topmods", value);
+
             this.setState( { "currentView": "topMods"});
         }
 
@@ -139,26 +137,20 @@ class Dashboard extends React.Component{
         this.queryKeyWords(this.state.startTime, this.state.endTime);
         this.queryCreators();
         this.queryTopMods(this.state.startTime, this.state.endTime);
+        this.queryHotestMods();
     }
 
     onChange(date, dateString){
-        console.log("Trigger eventProxy to Change TimeRange");
-        console.log(dateString[0]);
-        console.log(dateString[1]);
         this.setState({
             'startTime' : dateString[0],
             'endTime' : dateString[1],
         });
-
-
 
         this.queryTopMods(dateString[0], dateString[1]);
         this.queryKeyWords(dateString[0], dateString[1]);
     }
 
     searchKeyword(value) {
-        console.log("search keyword");
-        console.log(value);
         var initialKeywords = this.state.keywordsForSearchBox;
         if (value === "") {
             this.setState({"searched": false});
@@ -169,8 +161,6 @@ class Dashboard extends React.Component{
         initialKeywords = initialKeywords.filter((keyword) => {
             return keyword._id.search(value) !== -1;
         });
-        console.log("initialKeywords");
-        console.log(initialKeywords);
 
         // cannot find match in current list, ask server
         const endTime = this.state.endTime;
@@ -200,7 +190,6 @@ class Dashboard extends React.Component{
         var currentPanel;
         var currentTitle;
         var currentSearchBox;
-        var today = moment().format(dateFormat);
         if(this.state.currentView === "Keywords") {
             if(this.state.keywords === null || this.state.length === 0) {
                 currentPanel = <div>Sorry :( No Data Available.</div>
@@ -252,6 +241,7 @@ class Dashboard extends React.Component{
                                 this.state.currentView !== "Creators" ?
                                     <RangePicker
                                         defaultValue={[moment('01/01/2014', dateFormat), moment(today)]}
+                                        placeholder={['01/01/2014', todayString]}
                                         disabledDate={this.disabledDate}
                                         size = "large"
                                         onChange = {this.onChange}
@@ -276,7 +266,7 @@ class Dashboard extends React.Component{
                         </Col>
                         <Col span = {1}></Col>
                         <Col span = {5}>
-                            <Card className="search-card">
+                            <Card className="search-card" title = {this.state.currentView === "topMods" ? "What's Hot in Last 7 Days" : null}>
                                 {this.state.currentView === "Keywords" ?
                                     <Search
                                     placeholder="Search Keyword"

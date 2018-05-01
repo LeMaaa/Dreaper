@@ -35,7 +35,6 @@ class ModDetailPage extends React.Component{
                 modName:  "Reduced Random Townies Generation (UPDATED 03.13.2018)" ,
         })
             .then(res => {
-                console.log("received data");
                 // console.log(res.data);
                 this.setState({ 'modEntry' : res.data})
             });

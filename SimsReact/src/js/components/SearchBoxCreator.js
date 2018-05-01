@@ -35,8 +35,6 @@ export default class SearchBoxCreator extends React.Component {
     filterList(event) {
         var updatedList = this.props.entries;
         updatedList = updatedList.filter(function(item){
-            console.log("event.target.value");
-            console.log(event.target.value);
             // return item.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
         });
         this.setState({"items": updatedList});

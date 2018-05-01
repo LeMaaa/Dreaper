@@ -30,9 +30,7 @@ export default class BarChartPopularMods extends React.Component {
         console.log(url);
         return axios.get(url)
             .then(res => {
-                console.log("received data");
                 // this.setState({items:[...this.state.items, res.data]});
-                console.log(res.data);
                 this.setState({ 'topMods' : res.data });
                 // this.setState({'itemForTimeSeriesData' : res.data});
             });
@@ -89,13 +87,9 @@ export default class BarChartPopularMods extends React.Component {
         const sort_by_date = (a, b) => {
             const timestamp1 = Date.parse(a['date'])/1000;
             const timestamp2 = Date.parse(b['date'])/1000;
-
-            console.log(timestamp1);
-            console.log(timestamp2);
             return timestamp1 - timestamp2;
         }
         return this.state.itemForTimeSeriesData.map((entry, index) => {
-            console.log(entry.time_series_data.sort(sort_by_date));
             return <TimeSeriesData itemForTimeSeriesData = {entry.time_series_data.sort(sort_by_date)} key = {index}/>;
         });
     }

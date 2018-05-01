@@ -13,8 +13,6 @@ export default class CreatorsPanel extends React.Component{
     }
 
     componentDidMount(){
-        console.log("crreators");
-        console.log(this.props.creators);
     }
 
     render() {

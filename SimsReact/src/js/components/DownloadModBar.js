@@ -24,30 +24,28 @@ class DownloadModBar extends React.Component{
     }
 
     showModDetail(item){
-        console.log("mod detail for Downloads");
-        console.log(item);
         eventProxy.trigger("ChangeMod", item);
     }
 
     renderTitleWithBadges(item, keywordPieRanking) {
 
         const badges = (keywordPieRanking !== null && keywordPieRanking !== undefined) ? keywordPieRanking.map((entry, i) => { if (item.keywords.hasOwnProperty(entry.keyword)) {
-                                return (<span className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper"> 
+                                return (<span key = {"keyword" + i} className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper">
                                     <span className="ant-badge-status-dot ant-badge-status-default" style={{backgroundColor: entry.color}}> </span>
                                     </span>)
                                 } else {
                                     // doesn't have matching keyword
                                     // and the last one is other
                                     if (i === keywordPieRanking.length - 1 && keywordPieRanking[i].keyword === "other") {
-                                        return (<span className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper"> 
+                                        return (<span key = {"keywordOther" + i} className="custom-dot-badge ant-badge ant-badge-status ant-badge-not-a-wrapper">
                                             <span className="ant-badge-status-dot ant-badge-status-default" style={{backgroundColor: entry.color}}> </span>
                                             </span>)
                                     }
                                 }
                             }) : null;
         return (<div>
+                 {badges}
                  <a> {item.title} </a>
-                {badges}
             </div>)
     }
     /*
@@ -77,7 +75,8 @@ class DownloadModBar extends React.Component{
                 renderItem = {(item, index) => (
                     <List.Item actions={[<p></p>]} onClick={(e) => this.showModDetail(item)}>
                         <List.Item.Meta
-                            avatar={<Avatar style={{ backgroundColor: this.assignColor(item) }} > {index + 1} </Avatar>}
+                            //avatar={<Avatar style={{ backgroundColor: this.assignColor(item) }} > {index + 1} </Avatar>}
+                            avatar={<Avatar  > {index + 1} </Avatar>}
                             title={this.renderTitleWithBadges(item, this.props.keywordPieRanking)}
                             description = { <Progress percent={item.downloads / this.props.totalDownloads * 100} format={() => numeral(item.downloads).format('0,0')} />}
                         />

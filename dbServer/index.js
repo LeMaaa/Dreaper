@@ -14,7 +14,7 @@ const Keyword = require('./mongoose_db').Keyword;
 const Creator = require('./mongoose_db').Creator;
 const async = require('async');
 
-
+const dateFormat = 'MM/DD/YYYY';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -135,6 +135,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
 
     var startTime;
     var endTime;
+    let dateFormatForTimeRange = "MMM YYYY";
 
     if(req.body.startTime === null || req.body.startTime.length === 0) {
         startTime = new Date("2000/01/01");
@@ -168,7 +169,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
                 docs.forEach((doc) => {
                     // console.log(doc.time_series_data);
                     const key = moment(doc.publish_date).format("MMM YYYY");
-                    const keyDay = moment(doc.publish_date).format("MMM Do YYYY");
+                    const keyDay = moment(doc.publish_date).format("MM/DD/YYYY");
                     data[key] = data[key] === undefined ? 1 : data[key]+1;
                     dataDay[keyDay] = dataDay[keyDay] === undefined ? 1 : dataDay[keyDay]+1;
                 });
@@ -177,6 +178,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
                 var totalNum = 0;
 
                 if(Object.keys(data).length > 10) {
+                    dateFormatForTimeRange = "MMM YYYY";
                     Object.keys(data).forEach(key => {
                         // console.log(key);          // the name of the current key.
                         // console.log(myObj[key]);   // the value of the current key.
@@ -189,6 +191,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
                         r.push(item);
                     });
                 }else {
+                    dateFormatForTimeRange = "MM/DD/YYYY";
                     Object.keys(dataDay).forEach(key => {
                         // console.log(key);          // the name of the current key.
                         // console.log(myObj[key]);   // the value of the current key.
@@ -204,7 +207,8 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
 
                 var ret = {
                     items :r,
-                    totalNum : totalNum
+                    totalNum : totalNum,
+                    dateFormatForTimeRange : dateFormatForTimeRange,
                 }
 
                 res.json(ret);
@@ -212,6 +216,87 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
     });
 });
 
+
+
+app.get('/trendingModsOfLastWeek', (req, res, next) => {
+    console.log("trendingModsOfLastWeek _ called");
+    const data = {};
+    let today = moment().format("YYYY-MM-DD").toString();
+    let oneWeekBefore  = moment().subtract(7,'d').format("YYYY-MM-DD").toString();
+
+    console.log("today", today, "oneWeekBefore", oneWeekBefore);
+
+    let pipeline = [
+        {
+            "$match": {
+                "time_series_data.date": { $gte: oneWeekBefore, $lt: today}
+            }
+        },
+        { "$unwind": "$time_series_data" },
+        {
+            "$match": {
+                "time_series_data.date": { $gte: oneWeekBefore, $lt: today}
+            }
+        },
+        { "$group": {
+            "_id": "$title",
+            "total": { "$sum": "$time_series_data.downloads" }
+        }},
+        {
+            "$sort" : {
+                "total" : -1
+            }
+        }
+    ];
+
+    Item.aggregate(pipeline, function (err, docs) {
+        if(err) {
+            console.log("err");
+        }else {
+            console.log("res hh ", docs);
+            res.json(docs.slice(0,50));
+        }
+    });
+
+
+
+    // Item.aggregate(pipeline).exec((err, docs) => {
+    //     if(err) {
+    //         console.log(err);
+    //         res.status(504).send("Oh uh, something went wrong");
+    //         // res.end(err);
+    //     } else {
+    //         console.log("docs", docs);
+            // docs.forEach((doc) => {
+            //     console.log(doc.time_series_data);
+            //     const key = moment(doc.publish_date).format("MMM YYYY");
+            //     data[key] = data[key] === undefined ? 1 : data[key]+1;
+            // })
+            //
+            // const r = [];
+            // var totalNum = 0;
+            //
+            // Object.keys(data).forEach(key => {
+            //     // console.log(key);          // the name of the current key.
+            //     // console.log(myObj[key]);   // the value of the current key.
+            //     const item = {
+            //         "time": key,
+            //         "number of mods": data[key]
+            //     };
+            //     totalNum += data[key];
+            //
+            //     r.push(item);
+            // });
+            //
+            // ret = {
+            //     items :r,
+            //     totalNum : totalNum
+            // }
+            //
+            // res.json(ret);
+    //     }
+    // });
+});
 // return number of created records per month
 
 app.get('/numberOfRecordsByMonth', (req, res, next) => {
@@ -404,6 +489,23 @@ app.post('/getModByName', (req, res, next) => {
         console.log('all dropped');
     });
 
+});
+
+app.post('/getHotModByName', (req, res, next) => {
+    console.log("getModByName _ called");
+
+    console.log("ModName :" + req.body.modName);
+    let hotModName = req.body.modName;
+
+    Item.findOne({'title': hotModName}).exec((err, doc) => {
+                if(err) {
+                    res.status(504).send("Oh uh, something went wrong");
+                }else {
+                    console.log(doc);
+                    res.json(doc);
+                }
+            }
+        );
 });
 
 

@@ -18,7 +18,6 @@ class TimeSlider extends React.Component {
     }
 
     onChange(date, dateString){
-        console.log("Trigger eventProxy to Change TimeRange")
         eventProxy.trigger("ChangeTimeRange", dateString);
     }
 

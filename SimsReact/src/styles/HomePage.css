@@ -64,9 +64,18 @@ a {
 .stats-card {
     height: 250px;
     overflow: hidden;
+    cursor: pointer !important;
 
     margin: 10px !important;
 
+}
+
+.mods-card {
+    height: 200px;
+    overflow: hidden;
+    cursor: pointer !important;
+
+    margin: 10px !important;
 }
 
 .search-card {
@@ -95,8 +104,6 @@ a {
     justify-content: center;
     align-content: center;
     flex-direction: column;
-/*    padding: 20%;
-*/
     text-overflow: ellipsis ellipsis;
     overflow: hidden;
     overflow-wrap: break-word;
@@ -157,6 +164,13 @@ a {
     max-height: 460px;
 }
 
+.scroll-search-mods {
+    overflow: auto;
+    height: 100%;
+    max-height: 420px;
+}
+
+
 .panelTitle  {
     text-align: center;
     vertical-align: middle;
@@ -165,6 +179,15 @@ a {
 /* overwrite ant-card styles */
 
 .stats-card > .ant-card-head {
+    background-color: #50E3C2 !important;
+
+    .ant-card-head-title {
+        color: white !important;
+        text-align: center;
+    }
+}
+
+.mods-card > .ant-card-head {
     background-color: #50E3C2 !important;
 
     .ant-card-head-title {
@@ -357,8 +380,13 @@ a {
 }
 
 .mod-value {
-    font-family: Avenir-Book;
-    font-weight: 300;
+     font-family: Avenir-Book;
+     font-weight: 300;
+ }
+
+.scroll-mod-panel {
+    overflow: auto;
+    height: 540px;
 }
 
 

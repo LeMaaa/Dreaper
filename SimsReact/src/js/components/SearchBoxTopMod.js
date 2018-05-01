@@ -29,8 +29,7 @@ export default class SearchBoxTopMod extends React.Component {
     }
 
     showDetails(index) {
-        console.log("click show modal  " );
-        console.log(index);
+
         // this.setState({
         //     visible: true,
         // });
@@ -58,8 +57,8 @@ export default class SearchBoxTopMod extends React.Component {
     }
 
     renderTopModsList(entries) {
-        return entries.map( entry =>
-             <SearchBarRowTopMod key = {entry.title} index = {entry.rank} entry = {entry}/>
+        return entries.map( (entry, index) =>
+             <SearchBarRowTopMod key = {entry._id} index = {index + 1} entry = {entry}/>
         );
 
         // return (<List
@@ -86,7 +85,7 @@ export default class SearchBoxTopMod extends React.Component {
     render() {
         const { entries } = this.props;
         return (
-            <div className="scrollSearch">
+            <div className="scroll-search-mods">
                 <List>
                 {this.renderTopModsList(entries)}
                 </List>
