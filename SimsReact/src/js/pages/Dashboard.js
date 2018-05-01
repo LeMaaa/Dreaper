@@ -113,7 +113,7 @@ class Dashboard extends React.Component{
     }
 
     queryHotestMods() {
-        axios.get('http://localhost:3000/trendingModsOfLastWeek')
+        axios.get('http://dreaper.etc.cmu.edu:3000/trendingModsOfLastWeek')
             .then(res => {
                 this.setState({ 'topModsSearchBox' : res.data});
             });

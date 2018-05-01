@@ -54,7 +54,7 @@ export default class SearchBarRowTopMod extends React.Component {
 
     show(e,val) {
         e.preventDefault();
-        axios.post('http://localhost:3000/getHotModByName', {
+        axios.post('http://dreaper.etc.cmu.edu:3000/getHotModByName', {
             modName:  this.props.entry._id,
         })
             .then(res => {
