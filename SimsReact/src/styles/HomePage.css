@@ -64,6 +64,7 @@ a {
 .stats-card {
     height: 250px;
     overflow: hidden;
+    cursor: pointer !important;
 
     margin: 10px !important;
 
