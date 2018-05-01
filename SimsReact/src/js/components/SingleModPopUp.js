@@ -62,11 +62,6 @@ class SingleModPopUp extends React.Component {
         for (let i = 0; i < time_data.length-1; i++) {
             final_time_data.push(time_data[i]);
 
-            if (i === time_data.length-2) {
-                final_time_data.push(time_data[i+1]);
-                break;
-            }
-
             let curDate = new Date(time_data[i].date);
             let nextDate = new Date(time_data[i+1].date)
 
@@ -86,6 +81,10 @@ class SingleModPopUp extends React.Component {
                     }
                     final_time_data.push(new_time_data);
                 }
+            }
+
+            if (i === time_data.length-2) {
+                final_time_data.push(time_data[i+1]);
             }
         }
 
