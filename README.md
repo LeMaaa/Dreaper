@@ -5,17 +5,17 @@ Project for CMU-ETC-SV 18S
 Clone down the repo, run ```npm install``` to install dependencies, and then use ```npm start``` to run the webpack server. The server will run at ```localhost:8080```.
 
 ### Frontend Directory and Files
-  - ./SimsReact
+  - `./SimsReact`
     Frontend app folder
-    - package.json
+    - `/package.json`
       records npm dependency package info
-    - webpack.config.js
+    - `/webpack.config.js`
       configuration file for the webpack server
-    - ./js/components/
+    - `/js/components/`
       this folder stores components used across different pages
-    - ./js/pages/
+    - `/js/pages/`
       this folder stores code to render the dashboard
-    - ./styles/
+    - `/styles/`
       stores css style
 
 ### How to update pack release info?
@@ -26,11 +26,11 @@ Clone down the repo, run ```npm install``` to install dependencies, and then use
 run ```npm install``` to install dependencies, and then run ```node index.js``` in ```dbServer```, node express server will be running at ```localhost:3000```
 
 ### Backend Directory and Files
-  - ./dbServer
+  - `./dbServer`
     Backend API server folder
-    - /index.js
+    - `/index.js`
     backend server code, with RESTful APIs
-    - /mongoose_db.js
+    - `/mongoose_db.js`
     mongoose schema file, used as ORM for MongoDB documents.
 
 ### Which database to use?
