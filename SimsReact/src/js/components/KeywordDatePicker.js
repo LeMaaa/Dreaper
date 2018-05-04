@@ -15,7 +15,6 @@ export default class KeywordDatePicker extends React.Component {
     constructor() {
         super();
         this.onDatesChange = this.onDatesChange.bind(this);
-        // this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             startDate: null,
@@ -24,26 +23,9 @@ export default class KeywordDatePicker extends React.Component {
         };
     }
 
-
-    // componentDidMount() {
-    //     axios.get('http://dreaper.etc.cmu.edu:3000/getTimeRangeThreshold')
-    //         .then(res => {
-    //             console.log("received data - getTimeRangeThreshold");
-    //             console.log(res.data);
-    //             this.setState({ 'TimeRangeThreshold' : this.state.TimeRangeThreshold.concat(res.data)})
-    //         });
-    // }
-
-    componentWillUpdate(nextState) {
-
-
-    }
-
-
-    onDatesChange(e) {
+   onDatesChange(e) {
         // Because we named the inputs to match their corresponding values in state, it's
         // super easy to update the state
-        // var that = this;
         const state = this.state;
         state[e.target.name] = e.target.value;
         this.setState(state);
@@ -56,16 +38,13 @@ export default class KeywordDatePicker extends React.Component {
 
     updateModForInputTimeRange(e)  {
         e.preventDefault();
-
+        
         axios.post('http://dreaper.etc.cmu.edu:3000/getKeyWordWithThreshold', {
-
-            startTime : this.state.startDate,
+           startTime : this.state.startDate,
             endTime : this.state.endDate
-
-        })
-            .then((result) => {
+        }).then((result) => {
                 this.changeKeyWordMod(result.data);
-            });
+        });
     }
 
     isOutsideRange() {

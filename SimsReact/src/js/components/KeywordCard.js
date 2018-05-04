@@ -16,12 +16,6 @@ import ViewsModBar from "./ViewsModBar";
 import KeywordPieChart from "./KeywordPieChart";
 import CircleOnPanel from "./CircleOnPanel";
 
-
-
-
-
-
-
 class KeywordCard extends React.Component{
     constructor(props) {
         super(props)
@@ -132,13 +126,6 @@ class KeywordCard extends React.Component{
     }
 
 
-    // try remove this
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.startTime === this.state.startTime && nextProps.endTime === this.state.endTime
-    //         && nextProps.keyword === this.state.keyword) return;
-    //     this.queryModsWithinTimeRange(nextProps.startTime, nextProps.endTime, nextProps.keyword )
-    // }
-
     renderDownloadModList() {
         this.state.contentListNoTitle["Downloads"] = <DownloadModBar mods = {this.state.mods}
                                                                      keywordPieRanking = {null}
@@ -154,15 +141,10 @@ class KeywordCard extends React.Component{
     }
 
     renderKeywordCircle() {
-        // let item = [{
-        //     name: this.props.keyword,
-        //     value: this.props.value,
-        // }];
         return <KeywordPieChart items = {this.state.item}/>
     }
 
 
-    // refactor
     componentDidMount() {
             eventProxy.on('ChangeMod', (item) => {
                 this.setState({
@@ -185,7 +167,6 @@ class KeywordCard extends React.Component{
 
 
     render () {
-
         const currentView = this.state.noTitleKey;
         return (
             <div>

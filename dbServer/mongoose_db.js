@@ -13,8 +13,6 @@ const artists_collection = "artists";
 const uri = 'mongodb://35.230.97.158:27017/sims_test_db';
 const options = user_info.options;
 
-// mongoose.connect(uri, options);
-
 mongoose.connect(uri, options);
 
 var db = mongoose.connection;
@@ -26,7 +24,6 @@ db.once('open', function() {
 });
 
 var Item_Schema = new Schema({
-
     title: String,
     artist: String,
     artist_url: String,
@@ -46,6 +43,7 @@ var Item_Schema = new Schema({
     tags: [String],
     types: [String],
     files: [{}],
+    comments: [{}],
     time_series_data: [{}]
 
 }, { collection : local_collection});

@@ -94,6 +94,7 @@ class SingleModPopUp extends React.Component {
     render() {
 
         const { currentMod } = this.props;
+        console.log(currentMod.comments);
         var  keywordsToShow;
 
         return (
@@ -152,16 +153,17 @@ class SingleModPopUp extends React.Component {
                                 </TabPane>
                                 <TabPane tab="Comments" key="Comments">
                                     <div className="scroll-text mod-value">
-                                        {currentMod.comments === null || currentMod.comments === undefined || currentMod.comments.length === 0 ? "No Data Available :(" :currentMod.comments.map((comment, index) => {
-                                            return <div key = {index + "comment"}> comment
+                                        {currentMod.comments === null || currentMod.comments === undefined || currentMod.comments.length === 0 ? "No Data Available :(" :currentMod.comments[0].map((comment, index) => {
+                                            return <div className="mod-value comment-section" key = {index + "comment"}> 
                                                 <Divider />
-                                            </div>
+                                                <span className="mod-field"> {comment.author} </span> <span className="mod-value"> {moment(comment.date).format("MMM Do YY")} </span>
+                                                <div className="mod-value"> {comment.content.trim().replace(/\n+/g, '\n')} </div>                                            </div>
                                         })}
                                     </div>
                                 </TabPane>
                                 <TabPane tab="Tag & Type" key="Tag&Type">
                                     <div className="scroll-text mod-value">
-                                        <span style={{fontWeight : "bold"}}>Type :</span>
+                                        <span style={{fontWeight : "bold"}}>Types: </span>
                                         {currentMod.types === null || currentMod.types === undefined || currentMod.types.length === 0 ? "No Data Available :(" :
                                             currentMod.types.map((type, index) => {
                                             if(index < currentMod.types.length - 1) {
@@ -170,7 +172,7 @@ class SingleModPopUp extends React.Component {
                                                 return type;
                                             }
                                     })} <br/>
-                                        <span style={{fontWeight : "bold"}}>Tags :</span>
+                                        <span style={{fontWeight : "bold"}}>Tags: </span>
                                             {currentMod.tags === null || currentMod.tags === undefined || currentMod.tags.length === 0  ? "No Data Available :(" :currentMod.tags.map((tag, index) => {
                                                 if(index < currentMod.tags.length - 1) {
                                                     return tag + ", ";

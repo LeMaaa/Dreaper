@@ -209,6 +209,12 @@ a {
 .mod-card-text {
     text-align: center;
     font-weight: 600;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    white-space: nowrap;
+
+    max-height: 40px;
 }
 
 
@@ -237,7 +243,7 @@ a {
 }
 
 .main-panel {
-    min-height: 500px;
+    min-height: 60vh;
 }
 
 .custom-dot-badge {
@@ -389,4 +395,7 @@ a {
     height: 540px;
 }
 
-
+.comment-section {
+    padding: 10px 10px;
+    white-space: pre-wrap;
+}

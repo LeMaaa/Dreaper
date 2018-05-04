@@ -52,7 +52,7 @@ export default class SearchBarRowTopMod extends React.Component {
         });
     }
 
-    show(e,val) {
+    show(e, val) {
         e.preventDefault();
         axios.post('http://dreaper.etc.cmu.edu:3000/getHotModByName', {
             modName:  this.props.entry._id,
@@ -69,12 +69,10 @@ export default class SearchBarRowTopMod extends React.Component {
     render() {
         return (
             <div>
-                {/*<Button type="dashed" onClick = {this.addCreator}>{this.props.entry._id}</Button>*/}
                 <List.Item className="custom-list-item mod-list-item" onClick = {(e) => this.show(e, this.props.index)}>
                              <List.Item.Meta
                            avatar={ <Avatar className="custom-avatar" > {this.props.index} </Avatar> }
                            title={this.props.entry['_id']}
-                           // description= {"Downloads: " + numeral(this.props.entry['total']).format('0,0')}
                          />
                 </List.Item>
                 <Modal

@@ -11,7 +11,7 @@ import { Badge } from 'antd';
 
 import TimeSeriesData from '../components/TimeSeriesData'
 
-
+// pack release info, mapped to date
 const labelInfoDay = {"03/31/2015": "EP01 Get to work (NA)",
     "04/02/2015": "EP01 Get to work (EU)",
     "12/08/2015": "EP02 Get together (NA)",
@@ -44,6 +44,7 @@ const labelInfoDay = {"03/31/2015": "EP01 Get to work (NA)",
     "12/16/2014": "FP01 Holiday Celebration Pack",
     "08/17/2016": "Grim’s Ghoulish Guitar"};
 
+// pack release info, mapped to month
 const labelFormatMonth =  {
     "Mar 2015": "EP01 Get to work (NA)",
     "Apr 2015": "EP01 Get to work (EU)",
@@ -96,10 +97,8 @@ export default class LineChartWithTimeRange extends React.Component {
         const format = this.state.dateFormatForTimeRange;
 
         itemsWithinRange.forEach((entry, index) => {
-            // console.log(entry);
             if (format === "month") {
-                // console.log(entry['time']);
-                // console.log(labelFormatMonth[entry['time']]);
+
                 if (labelFormatMonth.hasOwnProperty(entry['time'])) {
                     // console.log(entry.time);
                     if (entry['pack release'] === undefined) {
@@ -107,13 +106,9 @@ export default class LineChartWithTimeRange extends React.Component {
                     } else {
                         entry['pack release'] = entry['pack release'] + labelFormatMonth[entry['time']] + "; ";
                     }
-
-                    // console.log(entry['pack release']);
-
                 }
             } else if (format === "day") {
                 if (labelInfoDay.hasOwnProperty(entry['time'])) {
-                    // console.log(entry.time);
                     if (entry['pack release'] === undefined) {
                         entry['pack release'] = labelInfoDay[entry['time']] + "; ";
                     } else {
@@ -123,7 +118,6 @@ export default class LineChartWithTimeRange extends React.Component {
             }
         });
 
-        // console.log(itemsWithinRange);
 
         this.setState({"dateFormatForTimeRange": itemsWithinRange});
     }
@@ -145,14 +139,12 @@ export default class LineChartWithTimeRange extends React.Component {
             endTime : endTime === null ? "Dec 2020" : endTime,
         })
             .then(res => {
-                // this.setState({items:[...this.state.items, res.data]});
                 this.setState({ 'itemsWithRange' : res.data.items.reverse(),
                     'totalNum' : res.data.totalNum, 'startTime' : startTime, 'endTime' : endTime,
                     "dateFormatForTimeRange" : res.data.dateFormatForTimeRange });
                 this.mergePackReleaseWithItems();
                 eventProxy.trigger("totalModsNum", res.data.totalNum);
             });
-        // console.log("dateFormatForTimeRange", this.state.dateFormatForTimeRange);
     }
 
     renderCustomizedLabel(props) {

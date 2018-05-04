@@ -2,9 +2,6 @@
  * Created by lema on 2018/2/23.
  */
 import React from 'react';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
 
 import Dashboard from './Dashboard';
 import { Layout } from 'antd';
@@ -29,7 +26,7 @@ export default class HomePage extends React.Component {
                 <Layout>
                     <Header className="header">Dreaper: Data Visualization of Game Mods on MTS</Header>
                     <div className="content-container">
-                        <Dashboard/>
+                        <Dashboard />
                     </div>
                 </Layout>
             </div>

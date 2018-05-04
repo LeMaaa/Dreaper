@@ -25,11 +25,6 @@ export default class TopModsPanel extends React.Component{
         }
     }
 
-    componentDidMount(){
-
-
-    }
-
     render() {
         return(
             <Row type="flex" justify="start"  className= "scroll-mod-panel">

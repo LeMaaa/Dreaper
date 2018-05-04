@@ -18,7 +18,6 @@ export default class CreatorsPanel extends React.Component{
     render() {
         return(
             <Row type="flex" justify="start" >
-
                 {
                     this.props.creators.map((entry, index) => {
                         return <Col span={6} key = {index} >

@@ -25,25 +25,12 @@ export default class SearchBoxKeyword extends React.Component {
             items : [],
         }
 
-        this.filterList = this.filterList.bind(this);
         this.renderKeywordList = this.renderKeywordList.bind(this)
     }
 
     componentWillRe() {
         console.log("logs")
         console.log(this.props.entries)
-    }
-
-    componentWillReceiveProps() {
-
-    }
-
-    filterList(event) {
-        var updatedList = this.props.entries;
-        updatedList = updatedList.filter(function(item){
-            // return item.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
-        });
-        this.setState({"items": updatedList});
     }
 
     renderKeywordList(entries) {

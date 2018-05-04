@@ -2,12 +2,6 @@
  * Created by lema on 2018/4/9.
  */
 
-
-
-/**
- * Created by lema on 2018/2/19.
- */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
