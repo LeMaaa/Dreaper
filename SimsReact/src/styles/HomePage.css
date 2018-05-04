@@ -237,7 +237,7 @@ a {
 }
 
 .main-panel {
-    min-height: 500px;
+    min-height: 60vh;
 }
 
 .custom-dot-badge {

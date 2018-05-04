@@ -296,14 +296,6 @@ class CreatorCard extends React.Component{
                             <Row>
                                 <Card className="stats-card" title = {"Creator's Top Keywords"} >
                                     <Row>
-{/*                                        <Col span = {8}>
-                                            <PieChart width={80} height={80}>
-                                                <Pie isAnimationActive={false} data={this.state.keywordPieRanking} dataKey="downloads" nameKey="keyword"
-                                                     cx={30} cy={30} outerRadius={30} fill="#8884d8" labelLine={false}>
-                                                    {this.state.keywordPieRanking.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
-                                                </Pie>
-                                            </PieChart>
-                                        </Col>*/}
                                         <Col span = {24}>
                                             {this.state.keywordPieRanking.map((tag, index) => (
                                                 <Row  key={tag.keyword}>
@@ -319,7 +311,6 @@ class CreatorCard extends React.Component{
                                                     </CheckableTag>
                                                 </Row>
                                             ))}
-
                                         </Col>
                                     </Row>
                                 </Card>

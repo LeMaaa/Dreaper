@@ -23,16 +23,6 @@ export default class KeywordTimeRange extends React.Component {
     }
 
 
-    // componentDidMount() {
-    //     axios.get('http://localhost:3000/getTimeRangeThreshold')
-    //         .then(res => {
-    //             console.log("received data - getTimeRangeThreshold");
-    //             console.log(res.data);
-    //             this.setState({ 'TimeRangeThreshold' : this.state.TimeRangeThreshold.concat(res.data)})
-    //         });
-    // }
-
-
     onChange(e) {
         // Because we named the inputs to match their corresponding values in state, it's
         // super easy to update the state
@@ -50,14 +40,11 @@ export default class KeywordTimeRange extends React.Component {
         e.preventDefault();
 
         axios.post('http://localhost:3000/getKeyWordWithThreshold', {
-
                 startTime : this.state.startTime,
                 endTime : this.state.endTime
-
-        })
-            .then((result) => {
+        }).then((result) => {
                 this.changeKeyWordMod(result.data);
-            });
+        });
     }
 
     render() {

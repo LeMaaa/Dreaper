@@ -58,21 +58,18 @@ class ModCard extends React.Component{
     }
 
     showModal(e){
-        // e.preventDefault();
         this.setState({
             visible: true,
         });
     }
 
     handleOk(e) {
-
         this.setState({
             visible: false,
         });
     }
 
     handleCancel(e) {
-
         this.setState({
             visible: false,
         });
@@ -84,11 +81,7 @@ class ModCard extends React.Component{
         return (
             <div>
                 <Card className="mods-card" onClick={this.showModal} title = {"TOP " + this.props.index }>
-
-                    {/*<Badge style={{ backgroundColor: '#1890ff' }} count = {this.props.index}/>*/}
-                    {/*<CircleOnPanel index = {this.props.index} name = {this.props.mod.title} />*/}
                     <div className="mod-card-text"> {this.props.mod.title} </div>
-
                     <br />
                     <span className="textUnderCircle"> {numeral(this.props.mod.downloads).format('0,0')} downloads </span>
 
@@ -102,7 +95,7 @@ class ModCard extends React.Component{
                     width = {720}
                 >
 
-                    <SingleModPopUp currentMod = {this.props.mod}/>
+                <SingleModPopUp currentMod = {this.props.mod}/>
 
 
                 </Modal>

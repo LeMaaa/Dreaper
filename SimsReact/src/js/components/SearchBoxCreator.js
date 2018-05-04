@@ -32,17 +32,7 @@ export default class SearchBoxCreator extends React.Component {
     }
 
 
-    filterList(event) {
-        var updatedList = this.props.entries;
-        updatedList = updatedList.filter(function(item){
-            // return item.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
-        });
-        this.setState({"items": updatedList});
-    }
-
     renderCreatorList(entries) {
-
-
         return entries.map( entry =>
             <SearchBarRowCreator key = {entry._id} index = {entry.rank} creatorEntry = {entry}
                                  startTime = {this.props.startTime} endTime = {this.props.endTime}/> )

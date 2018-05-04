@@ -144,7 +144,6 @@ export default class SearchBarRowKeyword extends React.Component {
                     <List.Item.Meta
                         avatar={<Avatar className="custom-avatar" > {this.props.entry.rank} </Avatar> }
                         title={this.props.entry['_id']}
-                        // description= {"Mods " + numeral(this.props.entry['value']).format('0,0')}
                     />
                 </List.Item>
 

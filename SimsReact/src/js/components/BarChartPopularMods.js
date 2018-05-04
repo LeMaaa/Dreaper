@@ -15,7 +15,6 @@ export default class BarChartPopularMods extends React.Component {
             topMods:[],
             entry: null,
             open: false
-            // itemForTimeSeriesData :[]
         }
 
         this.fetchData = this.fetchData.bind(this);
@@ -30,9 +29,7 @@ export default class BarChartPopularMods extends React.Component {
         console.log(url);
         return axios.get(url)
             .then(res => {
-                // this.setState({items:[...this.state.items, res.data]});
                 this.setState({ 'topMods' : res.data });
-                // this.setState({'itemForTimeSeriesData' : res.data});
             });
     }
 
@@ -95,7 +92,6 @@ export default class BarChartPopularMods extends React.Component {
     }
 
     renderModList() {
-
         return this.state.topMods.map((entry, index) => {
             const stats = "Downloads: " + entry.downloads + " Views: " + entry.views;
             return  <ListItem button onClick={() => this.handleDialogOpening(entry)} key={index}> <ListItemText primary={entry.title} secondary={stats}/> </ListItem>;

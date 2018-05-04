@@ -12,8 +12,8 @@ import {Badge, Button, Tag} from "antd";
 
 export default class CircleOnPanel extends React.Component {
     /*
-
-        props :
+        props:
+        name : keyword
         percentage : percentage of current keyword
      */
     constructor(props) {
