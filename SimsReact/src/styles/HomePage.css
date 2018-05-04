@@ -209,6 +209,12 @@ a {
 .mod-card-text {
     text-align: center;
     font-weight: 600;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    white-space: nowrap;
+
+    max-height: 40px;
 }
 
 
@@ -390,6 +396,6 @@ a {
 }
 
 .comment-section {
-    height: 100%;
+    padding: 10px 10px;
     white-space: pre-wrap;
 }
