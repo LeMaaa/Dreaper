@@ -11,7 +11,7 @@ import { Badge } from 'antd';
 
 import TimeSeriesData from '../components/TimeSeriesData'
 
-
+// pack release info, mapped to date
 const labelInfoDay = {"03/31/2015": "EP01 Get to work (NA)",
     "04/02/2015": "EP01 Get to work (EU)",
     "12/08/2015": "EP02 Get together (NA)",
@@ -44,6 +44,7 @@ const labelInfoDay = {"03/31/2015": "EP01 Get to work (NA)",
     "12/16/2014": "FP01 Holiday Celebration Pack",
     "08/17/2016": "Grim’s Ghoulish Guitar"};
 
+// pack release info, mapped to month
 const labelFormatMonth =  {
     "Mar 2015": "EP01 Get to work (NA)",
     "Apr 2015": "EP01 Get to work (EU)",
