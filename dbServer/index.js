@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+// get all mods mapped to their publish_date, and corresponding stats
 app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
     
     const data = {};
@@ -101,7 +102,7 @@ app.post('/numberOfRecordsByMonthWithTimeRange', (req, res, next) => {
 });
 
 
-
+// get trending mods of last week
 app.get('/trendingModsOfLastWeek', (req, res, next) => {
     
     const data = {};
@@ -135,164 +136,10 @@ app.get('/trendingModsOfLastWeek', (req, res, next) => {
         if(err) {
             res.status(500).send("Something went wrong");
         } else {
-            
             res.json(docs.slice(0,50));
         }
     });
 });
-
-// return number of created records per month
-app.get('/numberOfRecordsByMonth', (req, res, next) => {
-    
-    const data = {};
-
-    Item.find({}).sort({'publish_date' : -1}).exec((err, docs) => {
-        if(err) {
-            
-            res.status(504).send("Oh uh, something went wrong");
-            // res.end(err);
-        } else {
-            docs.forEach((doc) => {
-                
-                const key = moment(doc.publish_date).format("MMM YYYY");
-                data[key] = data[key] === undefined ? 1 : data[key]+1;
-            })
-
-            const r = [];
-            var totalNum = 0;
-
-            Object.keys(data).forEach(key => {
-                const item = {
-                    "time": key,
-                    "number of mods": data[key]
-                };
-                totalNum += data[key];
-
-                r.push(item);
-            });
-
-            ret = {
-                items :r,
-                totalNum : totalNum
-            }
-
-            res.json(ret);
-        }
-    });
-});
-
-app.get('/downloadsOfKey', (req, res, next) => {
-
-    var data = [];
-
-    Keyword.find({}).sort({ 'value' : -1}).limit(10).exec((err, docs) => {
-        if(err) {
-            
-            res.status(504).send("Oh uh, something went wrong");
-        }else {
-            docs.forEach(doc => {
-                var cur = {
-                    keyword : doc._id,
-                    mods : []
-                }
-                Item.find({'doc.keywords' : doc._id}).exec((err, mod) => {
-                    if(err) {
-                        
-                    }else if(mod) {
-                        cur.mods.push(mod);
-                    }
-                    data.push(cur);
-                });
-            });
-            res.json(data);
-        }
-
-    });
-
-    // probably can just query for tags
-    Item.find({}).exec((err, docs) => {
-        if(err) {
-            
-            res.status(504).send("Oh uh, something went wrong");
-        } else {
-            docs.forEach(doc => {
-                if (doc.tags !== null && doc.tags.length !== 0) {
-                    doc.tags.forEach(tag => {
-                        const key = tag.toLowerCase();
-                        data[key] = data[key] === undefined ? 1 : data[key]+1;
-                    })
-                }
-            })
-
-            const r = [];
-            Object.keys(data).forEach(key => {
-                if (data[key] < 20)
-                    return;
-
-                const item = {
-                    "name": key,
-                    "value": data[key]
-                };
-
-                r.push(item);
-            });
-            res.json(r);
-        }
-    });
-});
-
-// returns top mods with certain tag between certain time
-app.get('/topmodswithtag', (req, res, next) => {
-
-    const startTime = req.query.startTime;
-    const endTime = req.query.endTime;
-    const keywords = req.query.keywords
-
-    const startDate = new Date(startTime*1000);
-    const endDate = new Date(endTime*1000);
-
-    const data = {};
-
-    Item.find({ 
-            tags: keywords,
-            publish_date: {
-                $gte: startDate,
-                $lte: endDate
-            } 
-        }).sort({'downloads': -1}).exec((err, docs) => {
-        if(err) {
-            
-            res.status(504).send("Oh uh, something went wrong");
-        } else {
-            res.json(docs);
-        }
-    });
-});
-
-app.get('/getTimeRangeThreshold', (req, res, next) => {
-    
-    var data = [];
-
-    Item.find({}).sort({'publish_date' : -1}).exec((err, docs) => {
-        if(err) {
-            
-            res.status(504).send("Oh uh, something went wrong -- geTimeRangeThreshold");
-        }else {
-            docs.forEach((doc) => {
-                var key = (1900 + doc.publish_date.getYear()) * 100  + doc.publish_date.getMonth() + 1;
-
-                if(!data.includes(key)) {
-                    data.push(key);
-                    
-                }
-            });
-        }
-        res.json(data.reverse());
-    });
-    
-    
-});
-
 
 // get mods by mod titles
 app.post('/getModByName', (req, res, next) => {
@@ -502,9 +349,7 @@ app.post('/getKeyWordWithThreshold', (req, res, next) => {
                 return entry;
             })
 
-            
             res.json(ret);
-
         });
     });
 });
@@ -567,12 +412,11 @@ app.post('/getModsWithKeyword', (req, res, next) => {
     });
 });
 
-
+// get top 50 mods ranked by downloads
 app.post('/topModsWithDownloads', (req, res, next) => {
     var startTime = new Date(req.body.startTime);
     var endTime =  new Date(req.body.endTime);
     
-
     var val = req.body.keyword;
     var query = {};
     query["publish_date"] = {
