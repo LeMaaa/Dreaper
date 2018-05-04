@@ -2,7 +2,9 @@
 Project for CMU-ETC-SV 18S
 
 ## Getting Started with Frontend
-Clone down the repo, run ```npm install``` to install dependencies, and then use ```npm start``` to run the webpack server. The server will run at ```localhost:8080```.
+
+Go inside directory `SimsReact` by running `cd SimsReact`
+run ```npm install``` to install dependencies, and then use ```npm start``` to run the webpack server. The server will run at ```localhost:8080```.
 
 ### Frontend Directory and Files
   - `./SimsReact`
@@ -11,11 +13,11 @@ Clone down the repo, run ```npm install``` to install dependencies, and then use
       records npm dependency package info
     - `/webpack.config.js`
       configuration file for the webpack server
-    - `/js/components/`
+    - `/src/js/components/`
       this folder stores components used across different pages
-    - `/js/pages/`
+    - `/src/js/pages/`
       this folder stores code to render the dashboard
-    - `/styles/`
+    - `/src/styles/`
       stores css style
 
 ### How to update pack release info?
@@ -23,6 +25,9 @@ Clone down the repo, run ```npm install``` to install dependencies, and then use
 
 
 ## Getting Started with Backend
+
+Go inside directory `dbServer` by running `cd ./dbServer`
+
 run ```npm install``` to install dependencies, and then run ```node index.js``` in ```dbServer```, node express server will be running at ```localhost:3000```
 
 ### Backend Directory and Files

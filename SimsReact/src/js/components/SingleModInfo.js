@@ -154,7 +154,7 @@ class SingleModInfo extends React.Component {
                                 <TabPane tab="Comments" key="Comments">
                                     <div className="scroll-text mod-value">
                                         {currentMod.comments === null || currentMod.comments === undefined ? "No Data Available :(" :currentMod.comments.map((comment, index) => {
-                                            return <div key = {"comments" + index}> {comment}
+                                            return <div className="comment-section" key = {"comments" + index}> {comment.content}
                                                 <Divider />
                                             </div>
                                         })}

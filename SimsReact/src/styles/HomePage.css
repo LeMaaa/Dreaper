@@ -389,4 +389,7 @@ a {
     height: 540px;
 }
 
-
+.comment-section {
+    height: 100%;
+    white-space: pre-wrap;
+}
