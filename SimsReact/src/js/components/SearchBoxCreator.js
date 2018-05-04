@@ -27,7 +27,6 @@ export default class SearchBoxCreator extends React.Component {
             items : [],
         }
 
-        this.filterList = this.filterList.bind(this);
         this.renderCreatorList = this.renderCreatorList.bind(this);
     }
 
