@@ -13,7 +13,9 @@ const artists_collection = "artists";
 const uri = 'mongodb://35.230.97.158:27017/sims_test_db';
 const options = user_info.options;
 
-mongoose.connect(uri, options);
+// mongoose.connect(uri, options);
+
+mongoose.connect(local_url);
 
 var db = mongoose.connection;
 var Schema = mongoose.Schema;
